@@ -1,0 +1,188 @@
+
+  
+  <!DOCTYPE html>
+ <html>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+
+    <head>  
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Jonathan Gruber Imperva">
+
+
+           <title>Origin Servers Report</title>  
+    <!-- Bootstrap Core CSS -->
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+
+    <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet">
+    <link href="css/lib/owl.carousel.min.css" rel="stylesheet" />
+    <link href="css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+     <script type='text/javascript' src='js\lib\datatables\dataTables.min.js'></script>
+    <script type='text/javascript' src='js\lib\datatables\cdn.datatables.net\buttons\1.2.2\js\datatables.buttons.min.js'></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.js"></script>
+        <script src="js/lib/calendar-2/moment.latest.min.js"></script>
+        <script> 
+    $(function(){
+      $("#sidebar").load("sidebar.html"); 
+    });
+    </script>
+      </head>  
+
+
+    <body class="fix-header fix-sidebar"> 
+  
+<!-- page wrapper -->
+   
+
+
+    <div class="main-wrapper">
+        <!-- HEADER BAR  -->
+        <div class="header">
+                <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                    <!-- Logo -->
+                    <div class="navbar-header>
+                        <a class="navbar-brand"  href="dashboard.php">
+                            <!-- Dashboard logo icon  -->
+                        <b style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage" class="dark-logo" style=" height:auto;margin-right: 2.5em"/> </b>
+                        </a>
+                    </div>
+                    <div class="navbar-collapse">
+                        <!-- toggle and nav items -->
+                        <ul class="navbar-nav mr-auto mt-md-0">
+                            <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
+                            <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
+                        </ul>
+                    </div>
+                    <div >
+                        <a class="navbar-header" >
+                            <!-- Dashboard logo icon  -->
+                        <h1 style="font-size:30;color:#37347F"> Origin Server Protection Check <span style="color=red"> (work in progress)</span> </h1>
+    
+                        </a>
+                    </div>
+                                   <!-- End Logo -->
+                </nav>
+        </div>
+        <!-- End header header -->
+        <!-- Left Sidebar  -->
+        <div id="sidebar" class="left-sidebar">
+   
+
+        </div>
+        <!-- End Left Sidebar  -->
+
+
+
+           <!-- Container fluid pour page centrale  -->
+       <div class="page-wrapper">
+            <div class="container-fluid">
+
+                 
+                    <!-- ROW for Security Settings table summary <div class="col-lg-4" >-->
+            <div class="row">
+                        <div class="card">
+                            <div class="card-title">
+                            <h4>Origin Server Security Assessment</h4> 
+                            </div>
+                <br />
+                <div>
+                    <table id="Origin_table" class="display nowrap table table-hover table-striped table-bordered" >           
+                    <thead>
+                    <tr>
+                        <th>Site Name</th>
+                        <th>Origin Server IP</th>
+                        <th>Protocol</th>
+                        <th>Is Protected</th>                   
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Site Name</th>
+                        <th>Origin Server IP</th>
+                        <th>Protocol</th>
+                        <th>Is Protected</th>                   
+                    </tr>
+                    </tfoot>                    
+                    <tbody>
+                    </tbody>
+                    </table>
+            </div>
+       </div>
+       </div>
+            <!-- END ROW for security Settings table summary -->
+
+            <div class='button'>
+                <a href="#" id ="export_origin" role='button'>Export to CSV </a>
+            </div>
+
+<hr/>
+
+            <!-- END ROW for Performance Settings table summary -->
+
+    </div> <!-- end page wrapper--> 
+    </body>
+
+ 
+ </html>  
+
+
+       <!-- print table Origin Check --> 
+    <script>
+$(document).ready(function() {
+
+        $.ajax({
+        url: 'sitesStats.json',
+        datatype: 'json',
+        type: 'get',
+        cache: false,
+        success: function(data) {
+            console.log("EXPORT SITE STATS");
+            console.log(data);
+        }
+    });
+
+        var list_sites = '';
+        $.ajax({
+        url: 'originServers.json',
+        datatype: 'json',
+        type: 'get',
+        cache: false,
+        success: function(data) {
+            console.log("EXPORT ORIGIN CHECK");
+            console.log(data);
+
+            $(data.originServers).each(function(index, value) {
+                for (var i=0; i < value.originServers.length; i++){
+                list_sites += '<tr>';
+                list_sites += '<td>'+value.domain+'</td>';
+                list_sites += '<td>'+value.originServers[i].serverName.substring(0, 1) + "XX.XXX.XXX."+value.originServers[i].serverName.substring(value.originServers[i].serverName.length -2)+'</td>';
+                list_sites += '<td>'+value.originServers[i].protocol+'</td>';
+                list_sites += '<td>'+value.originServers[i].isProtected+'</td>';
+                list_sites += '</tr>';
+            }
+            });
+
+            $("#Origin_table tbody").append(list_sites); 
+
+
+        $('#Origin_table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+             'csv', 'excel', 'pdf'
+        ]
+    });
+        $('#Origin_table tr td').each(function(){
+        if($(this).text() == "false")$(this).css('color','red');
+    });
+
+     }
+ });
+});
+ </script>  

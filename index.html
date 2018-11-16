@@ -1,0 +1,197 @@
+
+<html>  
+
+<head>  
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Jonathan Gruber Imperva">
+
+
+    <title>Account Incapsula Dashboard</title>  
+    <!-- CSS LIBRARIES -->  
+    <!-- Bootstrap Core CSS -->
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+ <!--   <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
+    <link href="css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet" type="text/css">
+    <link href="css/helper.css" rel="stylesheet" type="text/css"> -->
+    <link href="css/style.css" rel="stylesheet" type="text/css">	
+
+ <!--JS LIBRARIES --> 
+    <!-- All Jquery -->
+    <script src="js/lib/jquery/jquery.min.js"></script>
+<!--    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script> -->
+       <!-- CHECK THIS ONE--> 
+    <script src="js/jquery.slimscroll.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="js/lib/bootstrap/js/popper.min.js"></script>
+    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--Charts and scripts JavaScript -->
+    <script src="js/lib/calendar-2/moment.latest.min.js"></script>
+    <script src="js/Chart.js"></script>
+    <script src="js/scripts.js"></script>  
+
+
+
+    <script> 
+        $(function(){
+        $("#sidebar").load("sidebar.html"); 
+        });
+    </script>
+</head>  
+
+
+      <body class="fix-header fix-sidebar"> 
+      <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        </div>
+
+
+<!-- page wrapper -->
+<div class="main-wrapper">
+           
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" >
+                        <!-- Add Incapsula Logo -->
+                        <h1 style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage" class="dark-logo" style="max-width: 190px; height:auto;margin-right: 2.5em"/> ACCOUNT LEVEL DASHBOARD LOGIN </h1>
+
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+
+
+         <!-- Left Sidebar  -->
+        <div  id="sidebar" class="left-sidebar">
+        </div>
+        <!-- End Left Sidebar  -->
+
+
+	   <!-- Container fluid for central page  -->
+        <div class="page-wrapper">
+        <div class="container-fluid">
+
+    	<!-- Input Form -->
+		<div clas="row">
+            <div class="card"  style="max-width: 600px; background-color:#D6EAF8">
+                <div class="card-title">
+			     <h4 >Site Configuration Assessment: Enter Account Credentials </h4> <br>
+                 <span style="font-size: 12px">auto-pagination; account admin API keys required</span>
+			     </div>
+	        <form method="post" action="dashboard.php" style="width: 90%" onsubmit="return submitForm(this);">  
+        
+            <div class="row p-t-20">  
+                <div class="col-sm-4">
+                <label>Account ID</label>  
+                <input type="text" id="account_nb" name="account_nb" placeholder="Account Number" class="form-control" />
+                </div> 
+                <div class="col-sm-4"> 
+                <div class="form-group">
+                    <label>Select Period</label> 
+                    <select class = "form-control" name="period" id="period">
+                    <option value="last_7_days">last 7 days</option>
+                    <option value="last_30_days">last 30 days</option>
+                    <option value="last_90_days">last 90 days</option>
+                    </select>
+                </div>
+                </div>
+
+                <div class="col-sm-4"> 
+                <div class="form-group">
+                    <label>Add per-site Statistics</label> 
+                    <input class="ui large checkbox" type="checkbox" name="sites_checkbox" value="yes" onclick="return alert_api(this);">
+                </div>
+                </div>
+
+            </div>  
+            
+            <div class="row p-t-20">
+                <div class="col-md-4">
+                <label class="control-label">API ID</label>  
+                <input type="text" id="api_id" name="api_id" placeholder="API ID" class="form-control">
+                 </div>
+                 <div class="col-md-8">
+                <label class="control-label">API Keys</label>  
+                 <input type="text" id="api_key" name="api_key" placeholder="API Key" class="form-control" />
+                </div> 
+            </div>
+            <br>
+            <input type="submit" name="submit" value="submit" class="btn btn-info" /><br />                      
+			<br> 
+            </form> 
+			</div>
+		</div>
+		<!-- END ROW of Inputs form -->
+
+
+<script>
+
+function submitForm(oFormElement)
+{
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function(){ alert ("success"); } // success case
+  xhr.onerror = function(){ alert ("failed API call"); } // failure case
+  xhr.open (oFormElement.method, oFormElement.action, true);
+  xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send (new FormData (oFormElement));
+  return false;
+}
+</script>
+
+
+
+
+<script>
+ function alert_api(obj) {
+                         if (obj.checked) {
+                            alert('Warning: Site statistics APIs might take several minutes to be generated');
+                        }
+                        return true;
+                   }   
+</script>
+
+
+</div>
+</div> <!-- end page wrapper--> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
