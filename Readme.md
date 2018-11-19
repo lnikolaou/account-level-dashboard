@@ -32,10 +32,4 @@ AFTER INSTALL
 Enter the Account Admin APIs (stats could be missing with other API permissions)
 
 CARE:
-if you get an error after running the dashboard on an account with many sites (>50), try to select 7-days timeframe when checking the per-site box.
-Also, if you get a php timeout, due to large account, you can increase the value of max_execution_time in php.ini file
-
-
-
-
-
+if you get an error after running the dashboard on an account with many sites (>50), try to select 7-days timeframe when checking the per-site box. Also, if you get a php timeout, due to large account, you can increase the value of max_execution_time in php.ini file

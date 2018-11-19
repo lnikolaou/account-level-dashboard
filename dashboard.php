@@ -280,8 +280,9 @@ if (isset($_POST['sites_checkbox'])  )
                     </div>
                     <div class="card-body" style="background-color: #F5F7FF">
                     <br/>
-                    <p style="font-size: 18px; Color: black">Account Plan: <span id="plan_name" class="text-info">tbd</span></p>
-                    <p style="font-size: 16px; Color: black">Websites Utilization <span id="nb_websites" class="text-info">tbd</span></p>
+                    <p style="font-size: 16px; Color: black">Account Base Plan: <span id="plan_name" class="text-info">tbd</span></p>
+                    <p style="font-size: 16px; Color: black">Bandwidth Utilization: <span id="purchased_bandwidth" class="text-info">tbd</span></p>
+                    <p style="font-size: 16px; Color: black">Websites Utilization: <span id="nb_websites" class="text-info">tbd</span></p>
                     <p style="font-size: 16px; Color: black">Purchased Add On: <span id="add_on" class="text-info"></span></p>
                     <p  style="font-size: 16px; Color: black">Onboarding Date (end of trial): <span id="trial_end" class="text-info">tbd</span></p>
                     <p  style="font-size: 16px; Color: black"># registered users: <span id="nb_users" class="text-info">tbd</span></p>
@@ -1671,6 +1672,32 @@ $(document).ready(function() {
 });
  </script> 
 
+
+  <!-- print Account Plan -->
+  <script>
+$(document).ready(function() {
+		$.ajax({
+		url: 'export_account_plan.json',
+		datatype: 'json',
+		type: 'get',
+		cache: false,
+		success: function(data) {
+			console.log("JSON of account plan");
+            console.log(data);
+
+ 			document.getElementById("account_name").textContent = data.account_name;
+            document.getElementById("account_id").textContent = data.account_id;
+			document.getElementById("plan_name").textContent = data.plan_name;
+			document.getElementById("trial_end").textContent = data.account.trial_end_date;
+            document.getElementById("nb_users").textContent = data.account.logins.length;
+            document.getElementById("support_level").textContent = data.account.support_level;
+	
+            }
+			});
+		});	  
+ </script>   
+
+
  <!-- print Account Subscriptions -->
     <script>
 $(document).ready(function() {
@@ -1695,7 +1722,8 @@ document.getElementById("add_on").textContent += " + Attack Analytics";
             if (data.planStatus.additionalServices.planSectionRows.find(x => x.name === 'DDoS Protection').purchased !="None"){
 document.getElementById("add_on").textContent += "+ DDoS " + data.planStatus.additionalServices.planSectionRows.find(x => x.name === 'DDoS Protection').purchased;
             }
-
+document.getElementById("plan_name").textContent += " - Purchased Always On Bw:" + data.planStatus.additionalServices.planSectionRows[0].purchased;
+document.getElementById("purchased_bandwidth").textContent = data.planStatus.additionalServices.planSectionRows[0].used +" used / " + data.planStatus.additionalServices.planSectionRows[0].purchased +" purchased";
 document.getElementById("nb_websites").textContent = data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').used + " Sites Used / " + data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').purchased + " Sites Purchased";
 
  //           document.getElementById("configured_sites").style.width = count_block/(count_alert+count_block)*100 + "%";
@@ -1716,29 +1744,7 @@ document.getElementById("configured_sites").style.width = Math.round(100*parseFl
 </script>
 
 
-  <!-- print Account Plan -->
-    <script>
-$(document).ready(function() {
-		$.ajax({
-		url: 'export_account_plan.json',
-		datatype: 'json',
-		type: 'get',
-		cache: false,
-		success: function(data) {
-			console.log("JSON of account plan");
-            console.log(data);
 
- 			document.getElementById("account_name").textContent = data.account_name;
-            document.getElementById("account_id").textContent = data.account_id;
-			document.getElementById("plan_name").textContent = data.plan_name;
-			document.getElementById("trial_end").textContent = data.account.trial_end_date;
-            document.getElementById("nb_users").textContent = data.account.logins.length;
-            document.getElementById("support_level").textContent = data.account.support_level;
-	
-            }
-			});
-		});	  
- </script>   
 
 
 
