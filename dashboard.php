@@ -393,7 +393,7 @@ if (isset($_POST['sites_checkbox'])  )
                         </div>
                         <div class="media-body media-text-right">
                         <h2 id="nb_ddos" class="text-warning">tbd</h2>
-                        <p class="m-b-0">DDoS thresholds configured</p>
+                        <p class="m-b-0">DDoS thresholds <> Default</p>
                         </div>
                     </div>
                 </div>
@@ -1180,13 +1180,13 @@ var dataCached = {
                 backgroundColor: '#26dad2',
                 borderColor: '#28a745',
                 data: [1,6,3],
-                label: 'Cached Bw (Mbytes)', 
+                label: 'Cached Bw (Gbytes)', 
                 fill: true      },
                 {
                 backgroundColor: '#36A2EB',
                 borderColor: '#36A2EB',
                 data: [2,7,8],
-                label: 'Total Bw (Mbytes)', 
+                label: 'Total Bw (Gbytes)', 
                 fill: true
                     }],
     labels: ["01","02","03"]};
@@ -1237,10 +1237,10 @@ $.ajax({
     cache: false,
     success: function(result){
         var BwArray_cached = [];
-        $(result.caching_timeseries[5].data).each(function(index, value) {   
+        $(result.caching_timeseries[1].data).each(function(index, value) {   
                 BwArray_cached.push([value[0],value[1],0]) ;
                 });
-        $(result.bandwidth_timeseries[0].data).each(function(index, value) {
+        $(result.caching_timeseries[5].data).each(function(index, value) {
                 BwArray_cached[index][2]=value[1];
                 });
 
@@ -1253,8 +1253,8 @@ for (var i=0; i<BwArray_cached.length;i++){
     varbwGraph.data.labels[i]=moment(BwArray_cached[i][0]).format('DD MMM');
 
         if (i===0){
-    varbwGraph.data.datasets[0].data[0] = Math.round(BwArray_cached[0][1]/1000000);
-    varbwGraph.data.datasets[1].data[0] = Math.round(BwArray_cached[0][2]/1000000);
+    varbwGraph.data.datasets[0].data[0] = Math.round(BwArray_cached[0][1]/1000000000);
+    varbwGraph.data.datasets[1].data[0] = Math.round(BwArray_cached[0][2]/1000000000);
         }else{    
         varbwGraph.data.datasets[0].data[i] = Math.round((BwArray_cached[i][1]+BwArray_cached[i-1][1])/1000000);
         varbwGraph.data.datasets[1].data[i] = Math.round((BwArray_cached[i][2]+BwArray_cached[i-1][2])/1000000);  
