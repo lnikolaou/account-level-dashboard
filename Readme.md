@@ -28,6 +28,21 @@ Using CentOS (commands may vary slightly on other distributions):
 4	chown +r apache:apache ./account-level-dashboard  (use the user and group from your web server config file)
 
 
+HOW TO: INSTALL THIS WITH DOCKER
+Build it:
+•	Create a new directory and place the Dockerfile inside the directory that you just created
+•	Run the following command from the directory that hold the Dockerfile
+#docker build .
+You can add tag value to the image with the following command
+#docker build –t <tag>:<value>
+
+Run it:
+- In order to run and use the dashboard you need to perform port mapping between your external available port to the expose port inside the dockerfile (which is 80 in our dockerfile case)
+# docker run –dti -p 80:80 tag:value
+Use it:
+Browse to 127.0.0.1
+
+
 AFTER INSTALL
 Enter the Account Admin APIs (stats could be missing with other API permissions)
 
