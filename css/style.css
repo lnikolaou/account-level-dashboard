@@ -4243,64 +4243,34 @@ footer p {
  */
 @media print {
   .header,
-  .sidebar,
-  .chat-sidebar,
+  .sidebar{
+    display: none !important;
+  }
+  .pagebreak { page-break-before: always; } /* page-break-after works, as well */
+
+  .card{
+    box-shadow: 0 5px 20px 0 rgba(0,0,0,0.15);
+
+  }
+
+  .left-sidebar{
+    display: none !important;
+  }
+  .text-primary{
+    font-size: 28px;
+  }
+
   .control,
   .control-bar {
     display: none !important;
   }
+
   [contenteditable]:hover,
   [contenteditable]:focus {
     outline: none;
   }
 }
-#invoice {
-  position: relative;
-  /*  top: -290px;*/
-  margin-bottom: 120px;
-  /*  width: 700px;*/
-  background: #ffffff;
-  padding: 30px;
-}
-#invoice-table {
-  /* Targets all id with 'col-' */
-  border-bottom: 1px solid #e7e7e7;
-  padding: 30px 0px;
-}
-#invoice-top {
-  min-height: 120px;
-}
-#invoice-mid {
-  min-height: 120px;
-}
-#invoice-bot {
-  min-height: 250px;
-}
-.invoice-logo {
-  float: left;
-  height: 60px;
-  width: 60px;
-  background-size: 60px 60px;
-}
-.clientlogo {
-  float: left;
-  height: 60px;
-  width: 60px;
-  background-size: 60px 60px;
-  border-radius: 50px;
-}
-.invoice-info {
-  display: block;
-  float: left;
-  margin-left: 20px;
-}
-.invoice-info h2 {
-  color: #455a64;
-  font-size: 14px;
-}
-.invoice-info p {
-  font-size: 12px;
-}
+
 .title {
   float: right;
 }
@@ -4311,15 +4281,6 @@ footer p {
 .title p {
   text-align: right;
   font-size: 12px;
-}
-#project {
-  margin-left: 52%;
-}
-#project p {
-  font-size: 12px;
-}
-#invoice-table h2 {
-  font-size: 18px;
 }
 .tabletitle {
   padding: 5px;
@@ -4334,12 +4295,7 @@ footer p {
 .itemtext {
   font-size: .9em;
 }
-#legalcopy {
-  margin-top: 30px;
-}
-#legalcopy p {
-  font-size: 12px;
-}
+
 .effect2 {
   position: relative;
 }

@@ -208,11 +208,13 @@ if (isset($_POST['sites_checkbox'])  )
     <title>Account Imperva Incapsula Dashboard</title>  
     <!-- CSS LIBRARIES -->  
     <!-- Bootstrap Core CSS -->
-    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
-    
+    <link href="css/style.css" rel="stylesheet" type="text/css">	
     <!-- Custom CSS -->
     <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
-    <link href="css/style.css" rel="stylesheet" type="text/css">		
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    
+
+	
  
  <!-- OLD JS LIBRARIES WERE --> 
 
@@ -236,7 +238,7 @@ if (isset($_POST['sites_checkbox'])  )
                     <!-- toggle and nav items -->
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
-                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
+                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  " href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
                     </ul>
                 </div>
 
@@ -280,13 +282,13 @@ if (isset($_POST['sites_checkbox'])  )
                     </div>
                     <div class="card-body" style="background-color: #F5F7FF">
                     <br/>
-                    <p style="font-size: 16px; Color: black">Account Base Plan: <span id="plan_name" class="text-info">tbd</span></p>
-                    <p style="font-size: 16px; Color: black">Bandwidth Utilization: <span id="purchased_bandwidth" class="text-info">tbd</span></p>
-                    <p style="font-size: 16px; Color: black">Websites Utilization: <span id="nb_websites" class="text-info">tbd</span></p>
-                    <p style="font-size: 16px; Color: black">Purchased Add On: <span id="add_on" class="text-info"></span></p>
-                    <p  style="font-size: 16px; Color: black">Onboarding Date (end of trial): <span id="trial_end" class="text-info">tbd</span></p>
-                    <p  style="font-size: 16px; Color: black"># registered users: <span id="nb_users" class="text-info">tbd</span></p>
-                    <p  style="font-size: 16px; Color: black">Support Level: <span id="support_level" class="text-info">tbd</span></p>
+                    <p style="font-size: 16px; Color: black">Account Base Plan: <span id="plan_name" style="Color: blue">tbd</span></p>
+                    <p style="font-size: 16px; Color: black">Bandwidth Utilization: <span id="purchased_bandwidth" style="Color: blue">tbd</span></p>
+                    <p style="font-size: 16px; Color: black">Websites Utilization: <span id="nb_websites" style="Color: blue">tbd</span></p>
+                    <p style="font-size: 16px; Color: black">Purchased Add On: <span id="add_on" style="Color: blue"></span></p>
+                    <p  style="font-size: 16px; Color: black">Onboarding Date (end of trial): <span id="trial_end" style="Color: blue">tbd</span></p>
+                    <p  style="font-size: 16px; Color: black"># registered users: <span id="nb_users" style="Color: blue">tbd</span></p>
+                    <p  style="font-size: 16px; Color: black">Support Level: <span id="support_level" style="Color: blue">tbd</span></p>
                     </div>
                 </div>
             </div>
@@ -346,6 +348,7 @@ if (isset($_POST['sites_checkbox'])  )
         </div>
 
 <!-- ROW for line Security Assessment -->
+        <div class="pagebreak"> </div>
         <div class="row">
             <div class="col-12" >
                 <div class="card" style="background-color: #e6f7ff">
@@ -471,6 +474,7 @@ if (isset($_POST['sites_checkbox'])  )
 
 
 <!-- ROW for line Performance Assessment TITLE-->
+        <div class="pagebreak"> </div>
         <div class="row">
             <div class="col-12">
                 <div class="card" style="background-color: #e6fff2">
@@ -563,6 +567,8 @@ if (isset($_POST['sites_checkbox'])  )
 <!--  END ROW for Traffic Graphs -->
 
 <!-- ROW for serving Data Centers vs visitors -->
+<div class="pagebreak"> </div>
+
 <!-- Map of Visitors per country row -->
         <div class="row">
                 <div class="col-md-12">
@@ -602,7 +608,7 @@ if (isset($_POST['sites_checkbox'])  )
 
 
 
-<button  class="btn btn-info" id="cmd">Generate PDF (beta)</button>
+<button  class="btn btn-info" onclick="printPage()">Generate PDF </button>
 
 
             <!-- footer -->
@@ -2037,4 +2043,10 @@ $(document).ready(function() {
     });
 </script>
 
+<script>
+function printPage() {
+    alert("IMPORTANT: enable the option Background graphics in printer option");
+  window.print();
+}
+</script>
  
