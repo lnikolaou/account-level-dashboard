@@ -1,57 +1,21 @@
 HOW TO: INSTALL THIS WITH DOCKER
-Build it:
+
+1- Build it:
 •	Create a new directory and place the Dockerfile inside the directory that you just created
 •	Run the following command from the directory that hold the Dockerfile
-#docker build .
-You can add tag value to the image with the following command
-#docker build –t <tag>:<value>
+•	you can replace dashboard:latest to another tag and value(version)
+#docker build –t dashboard:latest .
 
-Run it:
+2- Run it:
 - In order to run and use the dashboard you need to perform port mapping between your external available port to the expose port inside the dockerfile (which is 80 in our dockerfile case)
-# docker run –dti -p 80:80 tag:value
-Use it:
-Browse to 127.0.0.1
+# docker run –dti -p 8080:80 dashboard:latest
 
+3- Use it:
+Browse to 127.0.0.1:8080
 
-OTHER USEFUL DOCKER COMMANDS
-C:\Users\user\Documents\Containers\dashboard>docker build -t dashboard:latest .
-Sending build context to Docker daemon  4.165MB
-Step 1/10 : FROM alpine:latest
- ---> 196d12cf6ab1
-Step 2/10 : RUN apk update
- ---> Using cache
- ---> 4d5638631e9e
-Step 3/10 : RUN apk add         apache2         php5-apache2 php5-curl php5-json        git
- ---> Using cache
- ---> 4fbedeb00f24
-Step 4/10 : RUN mkdir -p /run/apache2   && chmod -R 755 /run/apache2
- ---> Using cache
- ---> b54330996873
-Step 5/10 : RUN sed -i '/need net/d' /etc/init.d/apache2
- ---> Using cache
- ---> 42ef333b22f2
-Step 6/10 : WORKDIR /var/www/localhost/htdocs
- ---> Using cache
- ---> 1ef7b5d1dfc9
-Step 7/10 : RUN git clone https://github.com/imperva/account-level-dashboard.git        && chmod -R 777 /var/www/localhost/htdocs     && sed -i 's/localhost\/htdocs/localhost\/htdocs\/account-level-dashboard/g' /etc/apache2/httpd.conf
- ---> Using cache
- ---> de2352523511
-Step 8/10 : EXPOSE 80
- ---> Using cache
- ---> 68073ae3458c
-Step 9/10 : STOPSIGNAL SIGTERM
- ---> Using cache
- ---> 1e4c5b07618d
-Step 10/10 : CMD ["httpd", "-D",  "FOREGROUND"]
- ---> Using cache
- ---> c9db1a2002d7
-Successfully built c9db1a2002d7
-Successfully tagged dashboard:latest
-SECURITY WARNING: You are building a Docker image from Windows against a non-Windows Docker host. All files and directories added to build context will have '-rwxr-xr-x' permissions. It is recommended to double check and reset permissions for sensitive files and directories.
+That's all !
 
 
 
-C:\Users\danny.milshtein\Documents\Containers\dashboard>docker run -dti -p 8080:80 dashboard:latest
-e3c64abc9019ee4997952b874ab555fa4dd8185533a13267d36c332fef4b5167
 
 
