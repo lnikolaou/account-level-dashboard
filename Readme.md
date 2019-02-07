@@ -42,7 +42,7 @@ Using CentOS (commands may vary slightly on other distributions):
 Enter the Account Admin APIs (stats could be missing with other API permissions)
 CARE:
 if you get an error after running the dashboard on an account with many sites (>50), try to select 7-days
-
+![alt text](https://raw.githubusercontent.com/imperva/account-level-dashboard/master/images/screenshots/login.png)
 
 CONTRIBUTIONS
 - reach out to me for suggestion or if you want to contribute: jonathan.gruber@imperva.com
