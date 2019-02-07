@@ -42,8 +42,13 @@ Using CentOS (commands may vary slightly on other distributions):
 Enter the Account Admin APIs (stats could be missing with other API permissions)
 CARE:
 if you get an error after running the dashboard on an account with many sites (>50), try to select 7-days
+Login Page with API keys
 ![alt text](https://raw.githubusercontent.com/imperva/account-level-dashboard/master/images/screenshots/login.png)
+
+Main Dashboard Page
 ![alt text](https://github.com/imperva/account-level-dashboard/raw/master/images/screenshots/main%20screen.png)
+
+Security Settings table, per site, exportable in pdf and excel
 ![alt text](https://github.com/imperva/account-level-dashboard/raw/master/images/screenshots/security%20assessment%20table.png)
 
 CONTRIBUTIONS
