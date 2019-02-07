@@ -43,8 +43,8 @@ Enter the Account Admin APIs (stats could be missing with other API permissions)
 CARE:
 if you get an error after running the dashboard on an account with many sites (>50), try to select 7-days
 ![alt text](https://raw.githubusercontent.com/imperva/account-level-dashboard/master/images/screenshots/login.png)
-![alt text](https://raw.githubusercontent.com/imperva/account-level-dashboard/master/images/screenshots/main screen.png)
-![alt text](https://raw.githubusercontent.com/imperva/account-level-dashboard/master/images/screenshots/security assessment table.png)
+![alt text](https://github.com/imperva/account-level-dashboard/raw/master/images/screenshots/main%20screen.png)
+![alt text](https://github.com/imperva/account-level-dashboard/raw/master/images/screenshots/security%20assessment%20table.png)
 
 CONTRIBUTIONS
 - reach out to me for suggestion or if you want to contribute: jonathan.gruber@imperva.com
