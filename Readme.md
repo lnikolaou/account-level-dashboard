@@ -8,10 +8,10 @@ The Account level dashboard includes:
 
 
 # HOW TO: INSTALL LOCALLY ON A PC
-1- download Xampp tool and check that Apache is started on it
-2- copy this code in C:\xampp\htdocs folder on another htdocs subfolder
-3- Browse to localhost\subdomainNameYouGave
-You should see the dashboard !
+1- download Xampp tool and check that Apache is started on it  
+2- copy this code in C:\xampp\htdocs folder on another htdocs subfolder  
+3- Browse to localhost\subdomainNameYouGave  
+You should see the dashboard !  
 
 
 # HOW TO: INSTALL THIS ON A MAC (USING DOCKER)
