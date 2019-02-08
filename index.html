@@ -15,12 +15,9 @@
     <title>Account Incapsula Dashboard</title>  
     <!-- CSS LIBRARIES -->  
     <!-- Bootstrap Core CSS -->
-    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <!-- Custom CSS -->
- <!--   <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
-    <link href="css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet" type="text/css">
-    <link href="css/helper.css" rel="stylesheet" type="text/css"> -->
     <link href="css/style.css" rel="stylesheet" type="text/css">	
+    <!-- Custom CSS -->
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
 
  <!--JS LIBRARIES --> 
     <!-- All Jquery -->
@@ -63,21 +60,21 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" >
-                        <!-- Add Incapsula Logo -->
-                        <h1 style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage" class="dark-logo" style="max-width: 190px; height:auto;margin-right: 2.5em"/> ACCOUNT LEVEL DASHBOARD LOGIN </h1>
-
+                    <a class="navbar-brand"   href="dashboard.php">
+                        <!-- Dashboard logo icon  -->
+                        <ul>
+                            <li style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage" class="dark-logo" style="max-width: 190px; height:auto;margin-right: 2.5em"/> </li>
+                        </ul>  
                     </a>
                 </div>
                 <!-- End Logo -->
                 <div class="navbar-collapse">
                     <!-- toggle and nav items -->
                     <ul class="navbar-nav mr-auto mt-md-0">
-                        <!-- This is  -->
-                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
-                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
+                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  " href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
+                        <li> <h3 class="text-primary"> Account Level Dashboard Login </h3> </li>
                     </ul>
-
                 </div>
             </nav>
         </div>
@@ -97,8 +94,7 @@
 		<div clas="row">
             <div class="card"  style="max-width: 600px; background-color:#D6EAF8">
                 <div class="card-title">
-			     <h4 >Site Configuration Assessment: Enter Account Credentials </h4> <br>
-                 <span style="font-size: 12px">auto-pagination; account admin API keys required</span>
+			     <h4 >Enter Account Credentials </h4> <br>
 			     </div>
 	        <form method="post" action="dashboard.php" style="width: 90%" onsubmit="return submitForm(this);">  
         
@@ -134,7 +130,7 @@
                  </div>
                  <div class="col-md-8">
                 <label class="control-label">API Keys</label>  
-                 <input type="text" id="api_key" name="api_key" placeholder="API Key" class="form-control" />
+                 <input type="password" id="api_key" name="api_key" placeholder="API Key" class="form-control" />
                 </div> 
             </div>
             <br>

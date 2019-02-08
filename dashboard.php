@@ -239,33 +239,21 @@ if (isset($_POST['sites_checkbox'])  )
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
                         <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  " href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
+                        <li> <h3 class="text-primary"> Account Level Dashboard </h3> </li>
+
                     </ul>
                 </div>
-
                 <!-- End Logo -->
-
-
             </nav>
         </div>
-
 
          <!-- Left Sidebar  -->
         <div  id="sidebar" class="left-sidebar">
         </div>
         <!-- End Left Sidebar  -->
 
-
 	   <!-- Container fluid for central page  -->
         <div id="export-pdf" class="page-wrapper">
-
-            <!-- Bread crumb -->
-            <div class="row page-titles">
-                <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Account Level Dashboard</h3> </div>
-                <div class="col-md-7 align-self-center">
-                </div>
-            </div>
-            <!-- End Bread crumb -->
 
 
         <div class="container-fluid">
