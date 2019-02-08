@@ -514,7 +514,7 @@ if (isset($_POST['sites_checkbox'])  )
                         <h2>Human versus Bot Visits</h2> 
                         </div>
 
-                  <!--  <canvas id="humanGraph"></canvas> --> 
+                    <canvas id="humanGraph"></canvas> 
                     </div>
             </div>
             <div class="col-md-6">
