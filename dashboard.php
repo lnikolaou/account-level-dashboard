@@ -358,7 +358,7 @@ if (isset($_POST['sites_checkbox'])  )
 
 
 
-
+<!--
  
             <div class="col-lg-6">
                 <div class="card">
@@ -375,7 +375,7 @@ if (isset($_POST['sites_checkbox'])  )
                     <p>Sub Account 3: name rfd <span id="nhkklhjkrs" class="text-success">6 sites</span></p> 
                 </div>
             </div>
-
+-->
         </div>
 
         <div class="row">
