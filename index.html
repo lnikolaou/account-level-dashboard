@@ -22,14 +22,8 @@
  <!--JS LIBRARIES --> 
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
-<!--    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script> -->
-       <!-- CHECK THIS ONE--> 
-    <script src="js/jquery.slimscroll.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="js/lib/bootstrap/js/popper.min.js"></script>
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
-    <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
     <!--Charts and scripts JavaScript -->
     <script src="js/lib/calendar-2/moment.latest.min.js"></script>
     <script src="js/Chart.js"></script>
@@ -134,7 +128,7 @@
                 </div> 
             </div>
             <br>
-            <input type="submit" name="submit" value="submit" class="btn btn-info" /><br />                      
+            <button type="submit" class="btn btn-info" id="spinner" >Submit</button> <br />                      
 			<br> 
             </form> 
 			</div>
@@ -143,6 +137,7 @@
 
 
 <script>
+
 
 function submitForm(oFormElement)
 {
@@ -154,6 +149,16 @@ function submitForm(oFormElement)
   xhr.send (new FormData (oFormElement));
   return false;
 }
+
+$('#spinner').click(function(){
+this.form.submit();
+this.disabled=true;
+this.innerHTML='<i class="fa fa-spinner fa-spin"></i> Loading APIs and Dashboard';
+});
+
+
+</script>
+
 </script>
 
 

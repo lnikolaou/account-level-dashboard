@@ -51,8 +51,9 @@ function requestList($pageNb) {
 
 	$json_object = json_decode($json);
 	$json_object_2 = json_decode($json,true);
-	$array_sites = [];
-	$array_sites = $json_object_2['sites'];
+    $array_sites = [];
+    
+	$array_sites = $json_object_2['sites'] or die("<div>Issue with the API Key or Account Permission</div>");
 
 	if (count ($json_object-> sites) == "100") {
 		$number_sites = 100;
@@ -433,7 +434,8 @@ if (isset($_POST['sites_checkbox'])  )
                         <div class="card-title">
                         <h2>Human versus Bot Visits</h2> 
                         </div>
-                    <canvas id="humanGraph"></canvas>
+
+                  <!--  <canvas id="humanGraph"></canvas> --> 
                     </div>
             </div>
             <div class="col-md-6">
