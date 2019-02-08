@@ -209,11 +209,11 @@ if (isset($_POST['sites_checkbox'])  )
     <title>Account Imperva Incapsula Dashboard</title>  
     <!-- CSS LIBRARIES -->  
     <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">    
     <link href="css/style.css" rel="stylesheet" type="text/css">	
     <!-- Custom CSS -->
     <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
-    
 
 	
  
@@ -221,7 +221,11 @@ if (isset($_POST['sites_checkbox'])  )
  <style>
  td  {
   min-width: 180px;
-  padding: 6px;
+  padding: 7px;
+}
+th  {
+  min-width: 180px;
+  padding: 14px;
 }
 </style>
 
@@ -268,44 +272,56 @@ if (isset($_POST['sites_checkbox'])  )
 
         <!-- ROW for column of Account information -->
         <div class="row">
-            <div class="col-lg-6">
+
+        <!-- account information --> 
+            <div class="col-lg-3">
                 <div class="card card-outline-info">
-                <div class="card-header">
-                        <h2 class="m-b-0 text-white"><span id="account_name" class="m-b-0" style="font-weight: bold;">tbd</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id: <span id="account_id" class="m-b-0">tbd</span></h2>
-                    </div>
+                <h2 class="m-b-0"><span id="account_name" class="m-b-0" style="font-weight: bold;">Account Name</span>
+                <span id="account_id" class="m-b-0" style="float:right">00001</span>
+                <br>
+                <br>
                     <table>
+
                         <tbody>
                         <tr>
-                              <td>Onboarded since: </td>
-                              <td><span id="trial_end" ">tbd</span></td>
-                              <td><span id="nb_users" class="m-b-0 " style="font-weight: bold;"></span> configured Users</td>
+                              <td>Since: <span id="trial_end" ">tbd</span></td>
+                              <td><span id="nb_users" class="m-b-0 " style="font-weight: bold;"></span style="font-weight: bold;"> configured Users</td>
 
                             </tr> 
 
                             <tr>
                               <td>WAF Base Plan: </td>
-                              <td></td>
                               <td>
-                              <span id="plan_name">tbd</span>
+                              <span id="plan_name" style="font-weight: bold;">tbd</span>
                               </td>
                             </tr>   
                             <tr>
                               <td>Bandwidth Utilization:</td>
-                              <td>                              <span id="used_bandwidth">0 Mbps</span></td>
-                              <td>
-                              <span id="purchased_bandwidth">0 Mbps</span>
+                              <td>                              <span id="used_bandwidth" style="font-weight: bold;">0 Mbps</span>
+                              <span id="purchased_bandwidth" style="font-weight: bold;">0 Mbps</span>
                               </td>
                             </tr>  
                             <tr>
                               <td >Websites Configured:</td>
-                              <td></td>
                               <td>
-                              <span id="nb_websites" >tbd</span></p>
+                              <span id="nb_websites" style="font-weight: bold;">tbd</span></p>
                               </td>
                             </tr>  
+              
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- FEATURE LIST -->
+            <div class="col-lg-3">
+                <div class="card card-outline-info">
+                <h2 class="m-b-0"><span class="m-b-0" style="font-weight: bold;">Activated licenses</span>
+                    <table>
+                        <tbody>
+   
                             <tr>
                               <td >SIEM license: </td>
-                              <td> </td>
                               <td>
                                <label class="switch">
                                <input  id="add_on_siem" type="checkbox" disabled>
@@ -315,7 +331,6 @@ if (isset($_POST['sites_checkbox'])  )
                             </tr>     
                             <tr>
                               <td >Attack Analytics: </td>
-                              <td> </td>
                               <td>
                                <label class="switch">
                                <input  id="add_on_aa" type="checkbox" disabled>
@@ -325,7 +340,6 @@ if (isset($_POST['sites_checkbox'])  )
                             </tr>        
                             <tr>
                               <td >Load Balancing: </td>
-                              <td> </td>
                               <td>
                                <label class="switch">
                                <input id="add_on_lb" type="checkbox" disabled>
@@ -335,7 +349,6 @@ if (isset($_POST['sites_checkbox'])  )
                             </tr>    
                             <tr>
                               <td >DDoS: </td>
-                              <td> </td>
                               <td>
                                <label class="switch">
                                <input  id="add_on_ddos"  type="checkbox" disabled>
@@ -345,7 +358,6 @@ if (isset($_POST['sites_checkbox'])  )
                             </tr>    
                             <tr>
                               <td >Support Level: </td>
-                              <td> </td>
                               <td>
                                <label class="label label-primary"> <span id="support_level">support level</span> </label>
                                </label>
@@ -355,8 +367,6 @@ if (isset($_POST['sites_checkbox'])  )
                     </table>
                 </div>
             </div>
-
-
 
 <!--
  
@@ -508,15 +518,38 @@ if (isset($_POST['sites_checkbox'])  )
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                     <div class="card">
                         <div class="card-title">
-                        <h2>Human versus Bot Visits</h2> 
+                        <h2>Human Visitors</h2> 
                         </div>
-
-                    <canvas id="humanGraph"></canvas> 
+                        <div class="media">
+                        <div class="media-left media-middle">
+                        <span><i class="fas fa-child color-success"  style="font-size:78"></i></span>
+                        </div>
+                        <div class="media-body media-text-right">
+                        <h2 id="human_visits" class="text-success">50%</h2>
+                        </div>
+                    </div>
                     </div>
             </div>
+            <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-title">
+                        <h2>Bots Visitors</h2> 
+                        </div>
+                        <div class="media">
+                        <div class="media-left media-middle">
+                        <h2 id="bot_visits" class="text-danger">50%</h2>                                                
+                        </div>
+                        <div class="media-body media-text-right">
+                        <span><i class="fas fa-robot color-danger"  style="font-size:78"></i></span>
+                        </div>
+                    </div>
+</div>
+            </div>
+
+
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-title">
@@ -677,7 +710,7 @@ if (isset($_POST['sites_checkbox'])  )
 
 
 
-<button  class="btn btn-info" onclick="printPage()">Generate PDF </button>
+<button  class="btn btn-info" onclick="printPage()" style="font-size: 24px;">Generate PDF </button>
 
 
             <!-- footer -->
@@ -1018,59 +1051,6 @@ $.ajax({
 
 <!-- Graph for Human / Bot visits --> 
 <script>
-var dataHuman = {
-    datasets: [{
-        data: [
-            2,
-            4
-        ],
-        backgroundColor: [
-            "#36A2EB",
-            '#ffce56'
-        ],
-        label: 'My dataset' // for legend
-    }],
-    labels: [
-        "Human",
-        "Bots"
-    ]
-};
-
-var optionsHuman = {
-        legend:{
-          display:true,
-          position:'right',
-          labels:{
-            fontColor:'#000',
-            fontSize:14
-          }
-        },
-
-    plugins: {
-      datalabels: {
-        display: false
-      }
-  },
-
-        layout:{
-          padding:{
-            left:0,
-            right:0,
-            bottom:0,
-            top:0
-          }
-        },
-        tooltips:{
-          enabled:true
-        }
-      };
-
-var humanGraph2 = document.getElementById("humanGraph").getContext('2d');
-var varHumanChart = new Chart(humanGraph2, {
-  type: 'doughnut',
-  data: dataHuman,
-  options: optionsHuman
-});
 
 $(document).ready(function(){
 $.ajax({
@@ -1088,13 +1068,11 @@ $.ajax({
                 totBots = totBots + value[1];
                 });
 
-    varHumanChart.data.datasets[0].data[0] = totHumans;
-    varHumanChart.data.datasets[0].data[1] = totBots;
-    varHumanChart.data.datasets[0].data[0] = totHumans;
-    varHumanChart.data.datasets[0].data[1] = totBots;
-    varHumanChart.data.labels[0] = Math.round((totHumans/(totHumans+totBots))*100) + "% Humans";
-    varHumanChart.data.labels[1]= Math.round((totBots/(totHumans+totBots))*100)+ "% Bots";
-    varHumanChart.update();
+    document.getElementById("human_visits").textContent = Math.round((totHumans/(totHumans+totBots))*100) + "%";
+    document.getElementById("bot_visits").textContent= Math.round((totBots/(totHumans+totBots))*100)+ "%";
+    document.getElementById("human_visits").style.fontSize = Math.round((totHumans/(totHumans+totBots))*100) +"px" ;
+    document.getElementById("bot_visits").style.fontSize= Math.round((totBots/(totHumans+totBots))*100)+ "px";
+
 }
 });
 });
@@ -1797,7 +1775,6 @@ document.getElementById("add_on_siem").checked = true;
             if (data.planStatus.additionalServices.planSectionRows.find(x => x.name === 'DDoS Protection').purchased !="None"){
                 document.getElementById("add_on_ddos").checked = true;
             }
-document.getElementById("plan_name").textContent += " - Purchased Always On Bw:" + data.planStatus.additionalServices.planSectionRows[0].purchased;
 document.getElementById("used_bandwidth").textContent = data.planStatus.additionalServices.planSectionRows[0].used.slice(0, data.planStatus.additionalServices.planSectionRows[0].used.search("-")) ;
 document.getElementById("purchased_bandwidth").textContent = data.planStatus.additionalServices.planSectionRows[0].purchased +" purchased";
 
