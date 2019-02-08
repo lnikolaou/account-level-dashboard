@@ -285,7 +285,7 @@ th  {
                         <tbody>
                         <tr>
                               <td>Since: <span id="trial_end" ">tbd</span></td>
-                              <td><span id="nb_users" class="m-b-0 " style="font-weight: bold;"></span style="font-weight: bold;"> configured Users</td>
+                              <td><span id="nb_users" class="m-b-0 " style="font-weight: bold;"></span style="font-weight: bold;"> <span class="m-b-0 " style="font-weight: bold;">configured Users </span></td>
 
                             </tr> 
 
@@ -1070,8 +1070,8 @@ $.ajax({
 
     document.getElementById("human_visits").textContent = Math.round((totHumans/(totHumans+totBots))*100) + "%";
     document.getElementById("bot_visits").textContent= Math.round((totBots/(totHumans+totBots))*100)+ "%";
-    document.getElementById("human_visits").style.fontSize = Math.round((totHumans/(totHumans+totBots))*100) +"px" ;
-    document.getElementById("bot_visits").style.fontSize= Math.round((totBots/(totHumans+totBots))*100)+ "px";
+    document.getElementById("human_visits").style.fontSize = Math.max(Math.round((totHumans/(totHumans+totBots))*100),20) +"px" ;
+    document.getElementById("bot_visits").style.fontSize= Math.max(Math.round((totBots/(totHumans+totBots))*100),20)+ "px";
 
 }
 });
