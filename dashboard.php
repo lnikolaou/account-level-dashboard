@@ -218,7 +218,12 @@ if (isset($_POST['sites_checkbox'])  )
 	
  
  <!-- OLD JS LIBRARIES WERE --> 
-
+ <style>
+ td  {
+  min-width: 180px;
+  padding: 6px;
+}
+</style>
 
       <body class="fix-header fix-sidebar"> 
 
@@ -261,27 +266,100 @@ if (isset($_POST['sites_checkbox'])  )
 
 
 
-
         <!-- ROW for column of Account information -->
         <div class="row">
             <div class="col-lg-6">
-                <div class="card card-outline-info" style="background-color: #F5F7FF">
-                    <div class="card-header">
-                        <h2 class="m-b-0 text-white">Account Name:  <span id="account_name" class="m-b-0 text-white" style="font-weight: bold;">tbd</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id: <span id="account_id" class="m-b-0 text-white" style="font-weight: bold;">tbd</span></h2>
+                <div class="card card-outline-info">
+                <div class="card-header">
+                        <h2 class="m-b-0 text-white"><span id="account_name" class="m-b-0" style="font-weight: bold;">tbd</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id: <span id="account_id" class="m-b-0">tbd</span></h2>
                     </div>
-                    <div class="card-body" style="background-color: #F5F7FF">
-                    <br/>
-                    <p style="font-size: 16px; Color: black">Account Base Plan: <span id="plan_name" style="Color: blue">tbd</span></p>
-                    <p style="font-size: 16px; Color: black">Bandwidth Utilization: <span id="purchased_bandwidth" style="Color: blue">tbd</span></p>
-                    <p style="font-size: 16px; Color: black">Websites Utilization: <span id="nb_websites" style="Color: blue">tbd</span></p>
-                    <p style="font-size: 16px; Color: black">Purchased Add On: <span id="add_on" style="Color: blue"></span></p>
-                    <p  style="font-size: 16px; Color: black">Onboarding Date (end of trial): <span id="trial_end" style="Color: blue">tbd</span></p>
-                    <p  style="font-size: 16px; Color: black"># registered users: <span id="nb_users" style="Color: blue">tbd</span></p>
-                    <p  style="font-size: 16px; Color: black">Support Level: <span id="support_level" style="Color: blue">tbd</span></p>
-                    </div>
+                    <table>
+                        <tbody>
+                        <tr>
+                              <td>Onboarded since: </td>
+                              <td><span id="trial_end" ">tbd</span></td>
+                              <td><span id="nb_users" class="m-b-0 " style="font-weight: bold;"></span> configured Users</td>
+
+                            </tr> 
+
+                            <tr>
+                              <td>WAF Base Plan: </td>
+                              <td></td>
+                              <td>
+                              <span id="plan_name">tbd</span>
+                              </td>
+                            </tr>   
+                            <tr>
+                              <td>Bandwidth Utilization:</td>
+                              <td>                              <span id="used_bandwidth">0 Mbps</span></td>
+                              <td>
+                              <span id="purchased_bandwidth">0 Mbps</span>
+                              </td>
+                            </tr>  
+                            <tr>
+                              <td >Websites Configured:</td>
+                              <td></td>
+                              <td>
+                              <span id="nb_websites" >tbd</span></p>
+                              </td>
+                            </tr>  
+                            <tr>
+                              <td >SIEM license: </td>
+                              <td> </td>
+                              <td>
+                               <label class="switch">
+                               <input  id="add_on_siem" type="checkbox" disabled>
+                               <span class="slider"></span>
+                               </label>
+                              </td>
+                            </tr>     
+                            <tr>
+                              <td >Attack Analytics: </td>
+                              <td> </td>
+                              <td>
+                               <label class="switch">
+                               <input  id="add_on_aa" type="checkbox" disabled>
+                               <span class="slider"></span>
+                               </label>
+                              </td>
+                            </tr>        
+                            <tr>
+                              <td >Load Balancing: </td>
+                              <td> </td>
+                              <td>
+                               <label class="switch">
+                               <input id="add_on_lb" type="checkbox" disabled>
+                               <span class="slider"></span>
+                               </label>
+                              </td>
+                            </tr>    
+                            <tr>
+                              <td >DDoS: </td>
+                              <td> </td>
+                              <td>
+                               <label class="switch">
+                               <input  id="add_on_ddos"  type="checkbox" disabled>
+                               <span class="slider"></span>
+                               </label>
+                              </td>
+                            </tr>    
+                            <tr>
+                              <td >Support Level: </td>
+                              <td> </td>
+                              <td>
+                               <label class="label label-primary"> <span id="support_level">support level</span> </label>
+                               </label>
+                              </td>
+                            </tr>                 
+                    </tbody>
+                    </table>
                 </div>
             </div>
-                    
+
+
+
+
+ 
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-title">
@@ -292,11 +370,12 @@ if (isset($_POST['sites_checkbox'])  )
                         <th> Sub Account ID </th>
                         <th> Sub Account Name </th>
                     </table>
- <!--                   <p">Sub Account 1: nameabc <span id="subaccounts" class="text-success">4 sites</span></p>
+                    <p">Sub Account 1: nameabc <span id="subaccounts" class="text-success">4 sites</span></p>
                     <p>Sub Account 2: namecdf <span id="temp2" class="text-success">3 sites</span></p>
-                    <p>Sub Account 3: name rfd <span id="nhkklhjkrs" class="text-success">6 sites</span></p> --> 
+                    <p>Sub Account 3: name rfd <span id="nhkklhjkrs" class="text-success">6 sites</span></p> 
                 </div>
             </div>
+
         </div>
 
         <div class="row">
@@ -1707,20 +1786,22 @@ $(document).ready(function() {
             console.log(data);
             // Load Balancing add on
             if (data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Load Balancing').purchased !=0){
-document.getElementById("add_on").textContent = "Load Balancing";
+document.getElementById("add_on_lb").checked = true;
             }
             if (data.planStatus.additionalServices.planSectionRows.find(x => x.name === 'SIEM Integration').purchased !=0){
-document.getElementById("add_on").textContent += " + SIEM";
+document.getElementById("add_on_siem").checked = true;
             }
             if (data.planStatus.additionalServices.planSectionRows.find(x => x.name === 'Web Attack Analytics').purchased !=0){
-document.getElementById("add_on").textContent += " + Attack Analytics";
+                document.getElementById("add_on_aa").checked = true;
             }
             if (data.planStatus.additionalServices.planSectionRows.find(x => x.name === 'DDoS Protection').purchased !="None"){
-document.getElementById("add_on").textContent += "+ DDoS " + data.planStatus.additionalServices.planSectionRows.find(x => x.name === 'DDoS Protection').purchased;
+                document.getElementById("add_on_ddos").checked = true;
             }
 document.getElementById("plan_name").textContent += " - Purchased Always On Bw:" + data.planStatus.additionalServices.planSectionRows[0].purchased;
-document.getElementById("purchased_bandwidth").textContent = data.planStatus.additionalServices.planSectionRows[0].used +" used / " + data.planStatus.additionalServices.planSectionRows[0].purchased +" purchased";
-document.getElementById("nb_websites").textContent = data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').used + " Sites Used / " + data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').purchased + " Sites Purchased";
+document.getElementById("used_bandwidth").textContent = data.planStatus.additionalServices.planSectionRows[0].used.slice(0, data.planStatus.additionalServices.planSectionRows[0].used.search("-")) ;
+document.getElementById("purchased_bandwidth").textContent = data.planStatus.additionalServices.planSectionRows[0].purchased +" purchased";
+
+document.getElementById("nb_websites").textContent = data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').used + " Used / " + data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').purchased + " Purchased";
 
  //           document.getElementById("configured_sites").style.width = count_block/(count_alert+count_block)*100 + "%";
 
