@@ -2,8 +2,6 @@
 
  if($_SERVER['REQUEST_METHOD'] == 'POST')  {
 
-
-
 $post = [
     'api_id' => $_POST['api_id'],
     'api_key' => $_POST['api_key'],
@@ -53,8 +51,9 @@ function requestList($pageNb) {
 
 	$json_object = json_decode($json);
 	$json_object_2 = json_decode($json,true);
-	$array_sites = [];
-	$array_sites = $json_object_2['sites'];
+    $array_sites = [];
+    
+	$array_sites = $json_object_2['sites'] or die("<div>Issue with the API Key or Account Permission</div>");
 
 	if (count ($json_object-> sites) == "100") {
 		$number_sites = 100;
@@ -91,7 +90,7 @@ function requestList($pageNb) {
 
 
 
-/* Curl to get the account subscription */
+/* Curl to get the account Info */
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, "https://my.incapsula.com/api/prov/v1/account");
 	curl_setopt($ch, CURLOPT_POST, 1);// set post data to true
@@ -101,6 +100,18 @@ function requestList($pageNb) {
 	$json = curl_exec($ch);
 	file_put_contents("export_account_plan.json",$json);
 	curl_close($ch);
+
+
+    /* Curl to get the account subscription */
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://my.incapsula.com/api/prov/v1/accounts/subscription");
+    curl_setopt($ch, CURLOPT_POST, 1);// set post data to true
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post));   // post data
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $json = curl_exec($ch);
+    file_put_contents("export_account_subscriptions.json",$json);
+    curl_close($ch);
 
 /* curl to get the list of sub accounts */
 	$ch = curl_init();
@@ -190,130 +201,232 @@ if (isset($_POST['sites_checkbox'])  )
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="Account Level Dashboard for Imperva Incapsula APIs">
     <meta name="author" content="Jonathan Gruber Imperva">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favico.png">
 
-
-    <title>Account Incapsula Dashboard</title>  
+    <title>Account Imperva Incapsula Dashboard</title>  
     <!-- CSS LIBRARIES -->  
     <!-- Bootstrap Core CSS -->
-    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">    
+    <link href="css/style.css" rel="stylesheet" type="text/css">	
     <!-- Custom CSS -->
     <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
-    <link href="css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet" type="text/css">
-    <link href="css/helper.css" rel="stylesheet" type="text/css">
-    <link href="css/style.css" rel="stylesheet" type="text/css">	
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
 
- <!--JS LIBRARIES --> 
-    <!-- All Jquery -->
-    <script src="js/lib/jquery/jquery.min.js"></script>
-    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
-       <!-- CHECK THIS ONE--> 
-    <script src="js/jquery.slimscroll.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="js/lib/bootstrap/js/popper.min.js"></script>
-    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
-    <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
-    <!--Charts and scripts JavaScript -->
-    <script src="js/lib/calendar-2/moment.latest.min.js"></script>
-    <script src="js/Chart.min.js"></script>
-    <script src="js/scripts.js"></script>  
-
-
-
-    <script> 
-        $(function(){
-        $("#sidebar").load("sidebar.html"); 
-        });
-    </script>
-</head>  
-
+	
+ 
+ <!-- OLD JS LIBRARIES WERE --> 
+ <style>
+ td  {
+  min-width: 180px;
+  padding: 7px;
+}
+th  {
+  min-width: 180px;
+  padding: 14px;
+}
+</style>
 
       <body class="fix-header fix-sidebar"> 
-      <div class="preloader">
-        <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-        </div>
-
 
 <!-- page wrapper -->
 <div class="main-wrapper">
            
-        <!-- header header  -->
+        <!-- HEADER BAR  -->
         <div class="header">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
-                <div class="navbar-header">
-                    <a class="navbar-brand" >
-                        <!-- Add Incapsula Logo -->
-                        <b><img src="incapse.png" alt="homepage" class="dark-logo" style="max-width: 190px; height:auto"/> ACCOUNT LEVEL DASHBOARD </b>
-
+                <div class="navbar-header>
+                    <a class="navbar-brand"  href="dashboard.php">
+                        <!-- Dashboard logo icon  -->
+                    <b style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage" class="dark-logo" style=" height:auto;margin-right: 2.5em"/> </b>
                     </a>
                 </div>
-                <!-- End Logo -->
                 <div class="navbar-collapse">
                     <!-- toggle and nav items -->
                     <ul class="navbar-nav mr-auto mt-md-0">
-                        <!-- This is  -->
-                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
-                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-                    </ul>
+                        <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
+                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  " href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
+                        <li> <h3 class="text-primary"> Account Level Dashboard </h3> </li>
 
+                    </ul>
                 </div>
+                <!-- End Logo -->
             </nav>
         </div>
-
 
          <!-- Left Sidebar  -->
         <div  id="sidebar" class="left-sidebar">
         </div>
         <!-- End Left Sidebar  -->
 
-
 	   <!-- Container fluid for central page  -->
-        <div class="page-wrapper">
-        <div class="container-fluid">
+        <div id="export-pdf" class="page-wrapper">
 
+
+        <div class="container-fluid">
 
 
 
         <!-- ROW for column of Account information -->
         <div class="row">
-            <div class="col-lg-6">
+
+        <!-- account information --> 
+            <div class="col-md-6">
                 <div class="card card-outline-info">
-                    <div class="card-header">
-                        <h4 class="m-b-0 text-white">Account Name:  <span id="account_name" class="m-b-0 text-white" style="font-weight: bold;">tbd</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id: <span id="account_id" class="m-b-0 text-white" style="font-weight: bold;">tbd</span></h4>
-                    </div>
-                    <div class="card-body">
-                    <br/>
-                    <p>Account Plan: <span id="plan_name" class="text-info">tbd</span></p>
-                    <p>Trial ends: <span id="trial_end" class="text-info">tbd</span></p>
-                    <p># registered users: <span id="nb_users" class="text-info">tbd</span></p>
-                    <p>Support Level: <span id="support_level" class="text-info">tbd</span></p>
-                    </div>
+                <h2 class="m-b-0"><span id="account_name" class="m-b-0" style="font-weight: bold;">Account Name</span>
+                <span id="account_id" class="m-b-0" style="float:right">00001</span>
+                <br>
+                <br>
+                    <table>
+
+                        <tbody>
+                        <tr>
+                              <td>Since: <span id="trial_end" ">tbd</span></td>
+                              <td><span id="nb_users" class="m-b-0 " style="font-weight: bold;"></span style="font-weight: bold;"> <span class="m-b-0 " style="font-weight: bold;">configured Users </span></td>
+
+                            </tr> 
+
+                            <tr>
+                              <td>WAF Base Plan: </td>
+                              <td>
+                              <span id="plan_name" style="font-weight: bold;">tbd</span>
+                              </td>
+                            </tr>   
+                            <tr>
+                              <td>Bandwidth Utilization:</td>
+                              <td>                              <span id="used_bandwidth" style="font-weight: bold;">0 Mbps</span>
+                              <span id="purchased_bandwidth" style="font-weight: bold;">0 Mbps</span>
+                              </td>
+                            </tr>  
+                            <tr>
+                              <td >Websites Configured:</td>
+                              <td>
+                              <span id="nb_websites" style="font-weight: bold;">tbd</span></p>
+                              </td>
+                            </tr>  
+              
+                    </tbody>
+                    </table>
                 </div>
             </div>
-                    
+
+            <!-- FEATURE LIST -->
+            <div class="col-md-6">
+                <div class="card card-outline-info">
+                <h2 class="m-b-0"><span class="m-b-0" style="font-weight: bold;">Activated licenses</span>
+                    <table>
+                        <tbody>
+   
+                            <tr>
+                              <td >SIEM license: </td>
+                              <td>
+                               <label class="switch">
+                               <input  id="add_on_siem" type="checkbox" disabled>
+                               <span class="slider"></span>
+                               </label>
+                              </td>
+                            </tr>     
+                            <tr>
+                              <td >Attack Analytics: </td>
+                              <td>
+                               <label class="switch">
+                               <input  id="add_on_aa" type="checkbox" disabled>
+                               <span class="slider"></span>
+                               </label>
+                              </td>
+                            </tr>        
+                            <tr>
+                              <td >Load Balancing: </td>
+                              <td>
+                               <label class="switch">
+                               <input id="add_on_lb" type="checkbox" disabled>
+                               <span class="slider"></span>
+                               </label>
+                              </td>
+                            </tr>    
+                            <tr>
+                              <td >DDoS: </td>
+                              <td>
+                               <label class="switch">
+                               <input  id="add_on_ddos"  type="checkbox" disabled>
+                               <span class="slider"></span>
+                               </label>
+                              </td>
+                            </tr>    
+                            <tr>
+                              <td >Support Level: </td>
+                              <td>
+                               <label class="label label-primary"> <span id="support_level">support level</span> </label>
+                               </label>
+                              </td>
+                            </tr>                 
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+
+<!--
+ 
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-title">
-                    <h4>Account Structure:</h4></p>
+                    <h2>Account Structure:</h2></p>
                     </div>
-                    <table class="table table-hover" id="account_structure">           
+                    <table class="display nowrap table table-hover table-striped table-bordered" id="account_structure">           
                         <tr>
                         <th> Sub Account ID </th>
                         <th> Sub Account Name </th>
-                        <th> # Configured/Total Sites </th>
                     </table>
- <!--                   <p">Sub Account 1: nameabc <span id="subaccounts" class="text-success">4 sites</span></p>
+                    <p">Sub Account 1: nameabc <span id="subaccounts" class="text-success">4 sites</span></p>
                     <p>Sub Account 2: namecdf <span id="temp2" class="text-success">3 sites</span></p>
-                    <p>Sub Account 3: name rfd <span id="nhkklhjkrs" class="text-success">6 sites</span></p> --> 
+                    <p>Sub Account 3: name rfd <span id="nhkklhjkrs" class="text-success">6 sites</span></p> 
                 </div>
             </div>
+-->
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-title">
+                    <h2>Executive Summary Assessment</h2> 
+                    </div>
+                <p class="f-w-600"  style="margin-top: 30px;">SITES FULLY CONFIGURED <span class="pull-right" id="configured right">0%</span></p>
+                    <div class="progress ">
+                        <div role="progressbar"  id="configured" style="width: 0%;" class="progress-bar bg-success wow animated progress-animated"> <span class="sr-only">60% Complete</span> 
+                        </div>
+                    </div>
+                        <p class="m-t-30 f-w-600"  id="block"  style="margin-top: 30px;">SECURITY SETTINGS IN BLOCKED MODE<span class="pull-right" id="block right">0%</span></p>
+                            <div class="progress">
+                            <div role="progressbar" id="block progress" style="width: 0%;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">60% Complete</span> 
+                            </div>
+                        </div>
+
+                    <p class="m-t-30 f-w-600"  style="margin-top: 30px;">CONFIGURED VS PURCHASED SITES<span class="pull-right" id="configured sites">0%</span></p>
+                        <div class="progress">
+                            <div role="progressbar" id="configured_sites" style="width: 0%;" class="progress-bar bg-info wow animated progress-animated"> <span class="sr-only">60% Complete</span> 
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-title">
+                    <h2>95-percentile Traffic Utilization of last 3 months</h2> 
+                    </div>
+                <canvas id="95perc" style="max-height: 300px, width:auto"></canvas>
+                </div>
+            </div>
+
         </div>
 
 <!-- ROW for line Security Assessment -->
+        <div class="pagebreak"> </div>
         <div class="row">
             <div class="col-12" >
                 <div class="card" style="background-color: #e6f7ff">
@@ -330,10 +443,11 @@ if (isset($_POST['sites_checkbox'])  )
                 <div class="card p-30">
                     <div class="media">
 						<div class="media-left meida media-middle">
-                        <span><i class="fa fa-globe f-s-40 color-success"></i></span>
+                        <span><i class="fa fa-globe f-s-40 color-success"  style="font-size:28"></i></span>
                         </div>
                         <div class="media-body media-text-right">
-                        <h2 id="nb_configured" class="text-success">tbd</h2>
+                        <h2 id="nb_configured" class="text-success">tbd
+                         </h2>
                         <p class="m-b-0">Sites Fully Configured</p>
                         </div>
                     </div>
@@ -343,7 +457,7 @@ if (isset($_POST['sites_checkbox'])  )
                 <div class="card p-30">
                     <div class="media">
                         <div class="media-left meida media-middle">
-                        <span><i class="fa fa-exclamation-triangle f-s-40 color-danger"></i></span>
+                        <span><i class="fa fa-exclamation-triangle f-s-40 color-danger"  style="font-size:28"></i></span>
                         </div>
                         <div class="media-body media-text-right">
                         <h2 id="nb_security" class="text-danger">tbd</h2>
@@ -356,11 +470,11 @@ if (isset($_POST['sites_checkbox'])  )
                 <div class="card p-30">
                     <div class="media">
                         <div class="media-left meida media-middle">
-                        <span><i class="fa fa-bolt f-s-40 color-warning"></i></span>
+                        <span><i class="fa fa-bolt f-s-40 color-warning"  style="font-size:28"></i></span>
                         </div>
                         <div class="media-body media-text-right">
                         <h2 id="nb_ddos" class="text-warning">tbd</h2>
-                        <p class="m-b-0">DDoS thresholds configured</p>
+                        <p class="m-b-0">DDoS thresholds <> Default</p>
                         </div>
                     </div>
                 </div>
@@ -369,7 +483,7 @@ if (isset($_POST['sites_checkbox'])  )
                 <div class="card p-30">
                     <div class="media">
                         <div class="media-left meida media-middle">
-                        <span><i class="fa fa-user f-s-40 color-info"></i></span>
+                        <span><i class="fa fa-user f-s-40 color-info"  style="font-size:28"></i></span>
                         </div>
                         <div class="media-body media-text-right">
                         <h2 id="nb_incaprules" class="text-info">#</h2>
@@ -383,57 +497,68 @@ if (isset($_POST['sites_checkbox'])  )
 		
         <!-- ROW for column of the progress -->
 		<div class="row">	
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-title">
-					<h4>Security Settings Assessment</h4> 
-					</div>
-                <p class="f-w-600">Sites Fully Configured <span class="pull-right" id="configured right">0%</span></p>
-                    <div class="progress ">
-                        <div role="progressbar"  id="configured" style="width: 0%;" class="progress-bar bg-success wow animated progress-animated"> <span class="sr-only">60% Complete</span> 
-                        </div>
-                    </div>
-                        <p class="m-t-30 f-w-600"  id="block">Security Settings in Blocked Mode<span class="pull-right" id="block right">0%</span></p>
-                            <div class="progress">
-                            <div role="progressbar" id="block progress" style="width: 0%;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">60% Complete</span> 
-                            </div>
-                        </div>
 
-                    <p class="m-t-30 f-w-600">Sites with tuned DDoS threshold<span class="pull-right" id="ddos right">0%</span></p>
-                        <div class="progress">
-                            <div role="progressbar" id="ddos" style="width: 0%;" class="progress-bar bg-info wow animated progress-animated"> <span class="sr-only">60% Complete</span> 
-                            </div>
-                    </div>
-                </div>
-            </div>
-	
-            <div class="col-lg-6">
+
+            <div class="col-md-6">
                 <div class="card">
                         <div class="card-title">
-					   <h4>Security Statistics per Threat: Account Level</h4> 
+                       <h2>Nb Explicit Security Events per OWASP threat     <span style="font-size: 10pt">(on selected period)</span> </h2> 
+                       </div>
+                        <canvas id="threatChart"></canvas>
+                   </div>
+            </div>
+	
+            <div class="col-md-6">
+                <div class="card">
+                        <div class="card-title">
+					   <h2>Nb Custom and DDoS Security Events     <span style="font-size: 10pt">(on selected period)</span> </h2> 
 					   </div>
-				        <canvas id="threatChart"></canvas>
+				        <canvas id="threatChart_custom"></canvas>
 	               </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                     <div class="card">
                         <div class="card-title">
-                        <h4>Human versus Bot Visits</h4> 
+                        <h2>Human Visitors</h2> 
                         </div>
-                    <canvas id="humanGraph"></canvas>
+                        <div class="media">
+                        <div class="media-left media-middle">
+                        <span><i class="fas fa-child color-success"  style="font-size:78"></i></span>
+                        </div>
+                        <div class="media-body media-text-right">
+                        <h2 id="human_visits" class="text-success">50%</h2>
+                        </div>
+                    </div>
                     </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-title">
+                        <h2>Bots Visitors</h2> 
+                        </div>
+                        <div class="media">
+                        <div class="media-left media-middle">
+                        <h2 id="bot_visits" class="text-danger">50%</h2>                                                
+                        </div>
+                        <div class="media-body media-text-right">
+                        <span><i class="fas fa-robot color-danger"  style="font-size:78"></i></span>
+                        </div>
+                    </div>
+</div>
+            </div>
+
+
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-title">
-                        <h4>Visits per Bot type at Account</h4> 
+                        <h2>Visits per Bot type on all sites</h2> 
                         </div>
                     <canvas id="BotsGraph"></canvas>
                 </div>
             </div>
-            <div class="col-md-4" ">
+<!--            <div class="col-md-4" ">
                 <div class="card" style="max-height: 500px"> 
                     <div class="card-title">
                         <h4>List of domains: more details</h4> <a style="color:blue" href="raw tables.html">here</a>
@@ -444,13 +569,14 @@ if (isset($_POST['sites_checkbox'])  )
                         <th>Site Name</th>
                         <th>Site Status</th>
                         </table>
-                </div>
-            </div>
+                </div> 
+            </div>-->
         </div>
  <!-- END ROW for column of the progress -->
 
 
 <!-- ROW for line Performance Assessment TITLE-->
+        <div class="pagebreak"> </div>
         <div class="row">
             <div class="col-12">
                 <div class="card" style="background-color: #e6fff2">
@@ -467,7 +593,7 @@ if (isset($_POST['sites_checkbox'])  )
                 <div class="card p-30">
                     <div class="media">
                         <div class="media-left meida media-middle">
-                        <span><i class="fa fa-globe f-s-40 color-success"></i></span>
+                        <span><i class="fa fa-globe f-s-40 color-success"  style="font-size:28"></i></span>
                         </div>
                         <div class="media-body media-text-right">
                         <h2 id="trafficVolume" class="text-success">tbd</h2>
@@ -480,7 +606,7 @@ if (isset($_POST['sites_checkbox'])  )
                 <div class="card p-30">
                     <div class="media">
                         <div class="media-left meida media-middle">
-                        <span><i class="fa fa-bolt f-s-40 color-success"></i></span>
+                        <span><i class="fa fa-bolt f-s-40 color-success"  style="font-size:28"></i></span>
                         </div>
                         <div class="media-body media-text-right">
                         <h2 id="cachingRatio" class="text-success">tbd</h2>
@@ -493,7 +619,7 @@ if (isset($_POST['sites_checkbox'])  )
                 <div class="card p-30">
                     <div class="media">
                         <div class="media-left meida media-middle">
-                        <span><i class="fa fa-cloud f-s-40 color-warning"></i></span>
+                        <span><i class="fa fa-cloud f-s-40 color-warning"  style="font-size:28"></i></span>
                         </div>
                         <div class="media-body media-text-right">
                         <h2 id="cachingSettings" class="text-warning">tbd</h2>
@@ -507,7 +633,7 @@ if (isset($_POST['sites_checkbox'])  )
                 <div class="card p-30">
                     <div class="media">
                         <div class="media-left meida media-middle">
-                        <span><i class="fa fa-signal f-s-40 color-info"></i></span>
+                        <span><i class="fa fa-signal f-s-40 color-info"  style="font-size:28"></i></span>
                         </div>
                         <div class="media-body media-text-right">
                         <h2 id="cached_total" class="text-info">tbd</h2>
@@ -526,8 +652,7 @@ if (isset($_POST['sites_checkbox'])  )
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-title">
-                    <h4>Site added activity last 6 months</h4> <p>
-                        <h6>total sites in place</h6> <p>
+                    <h2>Nb Site Configured Trend last 6 months</h2> <p>
                     </div>
                 <canvas id="site_addition" style="max-height: 300px";> </canvas>
                 </div>
@@ -535,7 +660,7 @@ if (isset($_POST['sites_checkbox'])  )
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-title">
-                    <h4>Accumulated Cached Bandwidth in Account</h4> 
+                    <h2>Accumulated Cached Bandwidth in Account</h2> 
                     </div>
                 <canvas id="bwGraph" style="max-height: 300px; width:auto"></canvas>
                 </div>
@@ -544,12 +669,14 @@ if (isset($_POST['sites_checkbox'])  )
 <!--  END ROW for Traffic Graphs -->
 
 <!-- ROW for serving Data Centers vs visitors -->
+<div class="pagebreak"> </div>
+
 <!-- Map of Visitors per country row -->
         <div class="row">
                 <div class="col-md-12">
                      <div class="card">
                             <div class="card-title">
-                            <h3>Map of Visitors per Country for all Sites</h3> 
+                            <h2>Map of Visitors per Country for all Sites</h2> 
                             </div>
                     <div id="threatmap"></div>
                 </div>
@@ -562,8 +689,7 @@ if (isset($_POST['sites_checkbox'])  )
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-title">
-                    <h4>Visitors per Country</h4> <p>
-                    <span style="font-size: 12px">pie view of all sites</span>
+                    <h2>Visitors per Country (on all sites)</h2> <p>
                     </div>
                 <canvas id="visitorsCountry"></canvas>
                 </div>
@@ -573,14 +699,23 @@ if (isset($_POST['sites_checkbox'])  )
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-title">
-                    <h4>Serving POPs</h4><p>
-                    <span style="font-size: 12px">compare with visited countries to see that customer is served by best POP</span>
+                    <h2>Serving POPs (on all sites)</h2><p>
+                    <span style="font-size: 12px">tip: compare with visited countries to see that customer is served by best POP</span>
                     </div>
                 <canvas id="POPCountry"></canvas>
                 </div>
             </div>
         </div>
 <!-- END ROW for serving data centers vs visitors --> 
+
+
+
+<button  class="btn btn-info" onclick="printPage()" style="font-size: 24px;">Generate PDF </button>
+
+
+            <!-- footer -->
+            <footer class="footer"> © 2018 Imperva dashboard for Incapsula APIs, not an Imperva product <a href="https://github.com/imperva">Github Imperva Page</a></footer>
+            <!-- End footer -->
 
     </div>
 </div> <!-- end page wrapper--> 
@@ -599,9 +734,37 @@ if (isset($_POST['sites_checkbox'])  )
 
 
 
+
+
+
+
+
+
+
+
 <!-- START OF JAVASCRIPT SCRIPTS --> 
 
+<!--JS LIBRARIES --> 
+    <!-- All Jquery -->
+    <script src="js/lib/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>    
+    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
 
+
+    <!--Charts and scripts JavaScript -->
+    <script src="js/lib/calendar-2/moment.latest.min.js"></script>
+    <script src="js/Chart.js"></script>
+    <script src="js/chartjs-plugin-datalabels.js"></script>
+    <script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part --> 
+    <script src="js/scripts.js"></script>  
+
+    <script> 
+        $(function(){
+        $("#sidebar").load("sidebar.html"); 
+        });
+    </script>
+</head>  
 
 
 <script src="js/incapse-graphs.js"></script>
@@ -613,12 +776,13 @@ var default_colors = ['#e1e1ea','#ccffcc','#ccffff','#ffccff',' #ccccff','#ffe0c
 <!-- Javascript graph for threat type --> 
 <script>
 let myChart = document.getElementById('threatChart').getContext('2d');
+let myChart_Custom = document.getElementById('threatChart_custom').getContext('2d');
 //let myChart = document.getElementById('threatChart').getContext('2d');
 
 let threatsGraph = new Chart(threatChart,{
         type:'bar',
         data:{
-        labels:['Incaprules','Bad Bots', 'XSS', 'SQLi', 'illegal Resource', 'RFi'],
+        labels:['Suspected Bots','Bad Bots', 'XSS', 'SQLi', 'illegal Resource', 'RFi', 'Backdoor'],
         datasets:[{
           label:'threats events',
           data:[
@@ -646,8 +810,23 @@ let threatsGraph = new Chart(threatChart,{
         }]
       },
       options:{
+
+    plugins: {
+      datalabels: {
+        display: true,
+        anchor: 'end',
+        align: 'top',
+        formatter: Math.round,
+        font: {
+          weight: 'bold',
+          size: '16'
+        }
+      }
+  },
+    
+
         title:{
-          display:true,
+          display:false,
           text:'Threat Events for selected period',
           fontSize:14
         },
@@ -670,7 +849,130 @@ let threatsGraph = new Chart(threatChart,{
           enabled:true
         },
         scales: {
+        xAxes: [{
+
+            display: true,
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+            
+            display: true,
+            ticks: {
+            beginAtZero: true   // minimum value will be 0.
+            }
+        }],
+
         yAxes: [{
+
+            display: true,
+                    gridLines: {
+                        display: true,
+                        drawBorder: false
+                    },
+
+            display: true,
+            ticks: {
+            beginAtZero: true   // minimum value will be 0.
+            }
+        }]
+      }
+  }
+});
+
+
+let threatsGraph_custom = new Chart(threatChart_custom,{
+        type:'bar',
+        data:{
+        labels:['Incaprules','Blacklisted URL', 'Blacklisted Country', 'Blacklisted IP', 'DDoS'],
+        datasets:[{
+          label:'threats events',
+          data:[
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          //backgroundColor:'green',
+          backgroundColor:[
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000'
+        }]
+      },
+      options:{
+
+    plugins: {
+      datalabels: {
+        display: true,
+        anchor: 'end',
+        align: 'top',
+        formatter: Math.round,
+        font: {
+          weight: 'bold',
+          size: '16'
+        }
+      }
+  },
+    
+
+        title:{
+          display:false,
+          text:'Threat Events for selected period',
+          fontSize:14
+        },
+        layout:{
+          padding:{
+            left:0,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        legend:{
+          display:false,
+          position:'right',
+          labels:{
+            fontColor:'#000'
+          }
+      },
+        tooltips:{
+          enabled:true
+        },
+        scales: {
+        xAxes: [{
+
+            display: true,
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+            
+            display: true,
+            ticks: {
+            beginAtZero: true   // minimum value will be 0.
+            }
+        }],
+
+        yAxes: [{
+
+            display: true,
+                    gridLines: {
+                        display: true,
+                        drawBorder: false
+                    },
+
             display: true,
             ticks: {
             beginAtZero: true   // minimum value will be 0.
@@ -689,17 +991,25 @@ $.ajax({
     cache: false,
     success: function(result){
         if (typeof result.incap_rules === 'undefined'){
-        threatsGraph.data.datasets[0].data[0] = 0;
+        threatsGraph_custom.data.datasets[0].data[0] = 0;
                 }else{
-        threatsGraph.data.datasets[0].data[0] = result.incap_rules[0].incidents;
+        threatsGraph_custom.data.datasets[0].data[0] = result.incap_rules[0].incidents;
                     }
-    threatsGraph.data.datasets[0].data[1] = result.threats[10].incidents;
-    threatsGraph.data.datasets[0].data[2] = result.threats[0].incidents;
-    threatsGraph.data.datasets[0].data[3] = result.threats[3].incidents;
-    threatsGraph.data.datasets[0].data[4] = result.threats[5].incidents;
-    threatsGraph.data.datasets[0].data[5] = result.threats[9].incidents;
-    threatsGraph.update();
 
+
+    threatsGraph.data.datasets[0].data[2] = result.threats[0].incidents;
+    threatsGraph_custom.data.datasets[0].data[1] = result.threats[1].incidents;
+    threatsGraph_custom.data.datasets[0].data[2] = result.threats[2].incidents;
+    threatsGraph.data.datasets[0].data[3] = result.threats[3].incidents;
+    threatsGraph_custom.data.datasets[0].data[3] = result.threats[4].incidents;
+    threatsGraph.data.datasets[0].data[4] = result.threats[5].incidents;
+    threatsGraph.data.datasets[0].data[0] = result.threats[6].incidents;
+    threatsGraph.data.datasets[0].data[6] = result.threats[7].incidents;
+    threatsGraph_custom.data.datasets[0].data[4] = result.threats[8].incidents;
+    threatsGraph.data.datasets[0].data[5] = result.threats[9].incidents;
+    threatsGraph.data.datasets[0].data[1] = result.threats[10].incidents;
+    threatsGraph.update();
+    threatsGraph_custom.update();
 
 }
 });
@@ -741,51 +1051,6 @@ $.ajax({
 
 <!-- Graph for Human / Bot visits --> 
 <script>
-var dataHuman = {
-    datasets: [{
-        data: [
-            2,
-            4
-        ],
-        backgroundColor: [
-            "#36A2EB",
-            '#ffce56'
-        ],
-        label: 'My dataset' // for legend
-    }],
-    labels: [
-        "Human",
-        "Bots"
-    ]
-};
-
-var optionsHuman = {
-        legend:{
-          display:true,
-          position:'right',
-          labels:{
-            fontColor:'#000'
-          }
-        },
-        layout:{
-          padding:{
-            left:0,
-            right:0,
-            bottom:0,
-            top:0
-          }
-        },
-        tooltips:{
-          enabled:true
-        }
-      };
-
-var humanGraph2 = document.getElementById("humanGraph").getContext('2d');
-var varHumanChart = new Chart(humanGraph2, {
-  type: 'doughnut',
-  data: dataHuman,
-  options: optionsHuman
-});
 
 $(document).ready(function(){
 $.ajax({
@@ -803,13 +1068,11 @@ $.ajax({
                 totBots = totBots + value[1];
                 });
 
-    varHumanChart.data.datasets[0].data[0] = totHumans;
-    varHumanChart.data.datasets[0].data[1] = totBots;
-    varHumanChart.data.datasets[0].data[0] = totHumans;
-    varHumanChart.data.datasets[0].data[1] = totBots;
-    varHumanChart.data.labels[0] = Math.round((totHumans/(totHumans+totBots))*100) + "% Humans";
-    varHumanChart.data.labels[1]= Math.round((totBots/(totHumans+totBots))*100)+ "% Bots";
-    varHumanChart.update();
+    document.getElementById("human_visits").textContent = Math.round((totHumans/(totHumans+totBots))*100) + "%";
+    document.getElementById("bot_visits").textContent= Math.round((totBots/(totHumans+totBots))*100)+ "%";
+    document.getElementById("human_visits").style.fontSize = Math.max(Math.round((totHumans/(totHumans+totBots))*100),20) +"px" ;
+    document.getElementById("bot_visits").style.fontSize= Math.max(Math.round((totBots/(totHumans+totBots))*100),20)+ "px";
+
 }
 });
 });
@@ -839,12 +1102,19 @@ var varBotsChart = new Chart(BotsChart2, {
   type: 'doughnut',
   data: dataBots,
     options:{
+
+    plugins: {
+      datalabels: {
+        display: false
+      }
+  },
+
         legend:{
           display:true,
           position:'right',
           labels:{
           fontColor:'#000',
-          fontSize:10,
+          fontSize:14,
           padding: 0
           }
         },
@@ -963,13 +1233,13 @@ var dataCached = {
                 backgroundColor: '#26dad2',
                 borderColor: '#28a745',
                 data: [1,6,3],
-                label: 'Cached Bw (Mbytes)', 
+                label: 'Cached Bw (Gbytes)', 
                 fill: true      },
                 {
                 backgroundColor: '#36A2EB',
                 borderColor: '#36A2EB',
                 data: [2,7,8],
-                label: 'Total Bw (Mbytes)', 
+                label: 'Total Bw (Gbytes)', 
                 fill: true
                     }],
     labels: ["01","02","03"]};
@@ -984,6 +1254,13 @@ var optionsBw = {
                 }
             },
             plugins: {
+
+
+
+            datalabels: {
+            display: false
+            },
+
                 filler: {
              propagate: false
                 }
@@ -1013,10 +1290,10 @@ $.ajax({
     cache: false,
     success: function(result){
         var BwArray_cached = [];
-        $(result.caching_timeseries[5].data).each(function(index, value) {   
+        $(result.caching_timeseries[1].data).each(function(index, value) {   
                 BwArray_cached.push([value[0],value[1],0]) ;
                 });
-        $(result.bandwidth_timeseries[0].data).each(function(index, value) {
+        $(result.caching_timeseries[5].data).each(function(index, value) {
                 BwArray_cached[index][2]=value[1];
                 });
 
@@ -1029,8 +1306,8 @@ for (var i=0; i<BwArray_cached.length;i++){
     varbwGraph.data.labels[i]=moment(BwArray_cached[i][0]).format('DD MMM');
 
         if (i===0){
-    varbwGraph.data.datasets[0].data[0] = Math.round(BwArray_cached[0][1]/1000000);
-    varbwGraph.data.datasets[1].data[0] = Math.round(BwArray_cached[0][2]/1000000);
+    varbwGraph.data.datasets[0].data[0] = Math.round(BwArray_cached[0][1]/1000000000);
+    varbwGraph.data.datasets[1].data[0] = Math.round(BwArray_cached[0][2]/1000000000);
         }else{    
         varbwGraph.data.datasets[0].data[i] = Math.round((BwArray_cached[i][1]+BwArray_cached[i-1][1])/1000000);
         varbwGraph.data.datasets[1].data[i] = Math.round((BwArray_cached[i][2]+BwArray_cached[i-1][2])/1000000);  
@@ -1044,7 +1321,126 @@ for (var i=0; i<BwArray_cached.length;i++){
 });
 });
 </script>
+<!-- END graph for Cached Bandwidth per account--> 
 
+
+<!--  GRAPH 95 PERC -->
+<script>
+var graphPerc95 = document.getElementById('95perc');
+graphPerc95.height = 200;
+var dataPerc95 = {
+            labels: ["Earlier Billing Cycle","Previous Billing Cycle","Current Billing Cycle"],            
+            type: 'line',     
+            datasets: [{
+                backgroundColor: 'rgba(0,103,255,.15)',
+                borderColor: 'rgba(0,103,255,0.5)',
+                data: [0.1,0.2,0.3],
+                borderWidth: 3.5,
+                pointStyle: 'circle',
+                label: '95 percentile Utilization (Mbps)', 
+                pointRadius: 5,
+                pointBorderColor: 'transparent',
+                pointBackgroundColor: 'rgba(0,103,255,0.5)'
+                      }],
+};
+
+
+
+var optionsPerc95 = {
+        responsive: true,
+            tooltips: {
+                mode: 'index',
+                titleFontSize: 12,
+                titleFontColor: '#000',
+                bodyFontColor: '#000',
+                backgroundColor: '#fff',
+                cornerRadius: 3,
+                intersect: false,
+            },
+            maintainAspectRatio: true,
+            display: true,
+            elements: {
+            line: {tension: 0.4 }
+            },
+            plugins: {
+            datalabels: {
+            display: false
+            },
+
+            filler: {
+             propagate: false
+                }
+            },
+        legend: {
+                display: false,
+                position: 'top',
+                labels: {
+                    usePointStyle: true,
+                },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0
+                    }
+                }],
+                yAxes: [ {
+                    display: true,
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Mbps'
+                    }
+                        } ]
+            }
+        }
+        };
+
+let varGraphPerc95 = new Chart(graphPerc95,{
+        type:'line',
+        data: dataPerc95,
+      options: optionsPerc95
+});
+
+
+$(document).ready(function(){
+$.ajax({
+    url:'export_account_subscriptions.json',
+    datatype: 'json',
+    type: 'get',
+    cache: false,
+    success: function(result){
+        var perc95_array = [];
+        $(result.bandwidthHistory).each(function(index, value) {   
+                perc95_array.unshift([value.billingCycle,parseFloat(value.alwaysOnBandwidth)]) ;
+                });
+
+varGraphPerc95.data.datasets[0].data=[perc95_array[0][1],perc95_array[1][1],perc95_array[2][1]];
+
+/* for (var i=0; i<BwArray_cached.length;i++){
+    varGraphPerc95.data.labels[i]=moment(BwArray_cached[i][0]).format('DD MMM');
+
+        if (i===0){
+    varGraphPerc95.data.datasets[0].data[0] = Math.round(BwArray_cached[0][1]/1000000);
+    graphPerc95.data.datasets[1].data[0] = Math.round(BwArray_cached[0][2]/1000000);
+        }else{    
+        varGraphPerc95.data.datasets[0].data[i] = Math.round((BwArray_cached[i][1]+BwArray_cached[i-1][1])/1000000);
+        gvarGraphPerc95.data.datasets[1].data[i] = Math.round((BwArray_cached[i][2]+BwArray_cached[i-1][2])/1000000);  
+        BwArray_cached[i][1] = BwArray_cached[i][1] + BwArray_cached[i-1][1]
+        BwArray_cached[i][2] = BwArray_cached[i][2] + BwArray_cached[i-1][2]
+            }
+    }
+*/
+
+    varGraphPerc95.update();
+}
+});
+});
+</script>
+<!-- END GRAPH 95 PERC -->
 
 
 
@@ -1079,6 +1475,13 @@ var varPOPChart = new Chart(POPCountry2, {
             fontColor:'#000'
           }
         },
+
+            plugins: {
+            datalabels: {
+            display: false
+            }
+        },
+
         layout:{
           padding:{
             left:0,
@@ -1154,6 +1557,12 @@ var varVisitorsCountryChart = new Chart(VisitorsCountry2, {
   type: 'doughnut',
   data: dataPOP,
     options:{
+            plugins: {
+            datalabels: {
+            display: false
+            }
+        },
+
         legend:{
           display:true,
           position:'right',
@@ -1273,8 +1682,6 @@ $(document).ready(function() {
 			  
 			document.getElementById("block right").innerHTML = Math.round(count_block/(count_alert+count_block)*100) +"%";	
 			document.getElementById("block progress").style.width = count_block/(count_alert+count_block)*100 + "%";
-			document.getElementById("ddos right").innerHTML = Math.round(((count_configured+count_not_configured)-count_ddos)/(count_configured+count_not_configured)*100) +"%";	
-			document.getElementById("ddos").style.width = ((count_configured+count_not_configured)-count_ddos)/(count_configured+count_not_configured)*100 + "%";
 			document.getElementById("configured right").innerHTML = Math.round(count_configured/(count_configured+count_not_configured)*100) +"%";	
 			document.getElementById("configured").style.width = count_configured/(count_configured+count_not_configured)*100 + "%";
             document.getElementById("cachingSettings").textContent = count_advCaching+"/"+(count_configured+count_not_configured);
@@ -1308,7 +1715,6 @@ $(document).ready(function() {
                 structure_table += '<tr>';
                 structure_table += '<td>'+value.sub_account_id+'</td>'; 
                 structure_table += '<td>'+value.sub_account_name+'</td>';
-                structure_table += '<td>'+ "beta" + " 0 / 0"+'</td>';
                 });
             $('#account_structure').append(structure_table); 
             }
@@ -1320,9 +1726,8 @@ $(document).ready(function() {
  </script> 
 
 
-
   <!-- print Account Plan -->
-    <script>
+  <script>
 $(document).ready(function() {
 		$.ajax({
 		url: 'export_account_plan.json',
@@ -1344,6 +1749,56 @@ $(document).ready(function() {
 			});
 		});	  
  </script>   
+
+
+ <!-- print Account Subscriptions -->
+    <script>
+$(document).ready(function() {
+        $.ajax({
+        url: 'export_account_subscriptions.json',
+        datatype: 'json',
+        type: 'get',
+        cache: false,
+        success: function(data) {
+            console.log("JSON of Account Subscription");
+            console.log(data);
+            // Load Balancing add on
+            if (data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Load Balancing').purchased !=0){
+document.getElementById("add_on_lb").checked = true;
+            }
+            if (data.planStatus.additionalServices.planSectionRows.find(x => x.name === 'SIEM Integration').purchased !=0){
+document.getElementById("add_on_siem").checked = true;
+            }
+            if (data.planStatus.additionalServices.planSectionRows.find(x => x.name === 'Web Attack Analytics').purchased !=0){
+                document.getElementById("add_on_aa").checked = true;
+            }
+            if (data.planStatus.additionalServices.planSectionRows.find(x => x.name === 'DDoS Protection').purchased !="None"){
+                document.getElementById("add_on_ddos").checked = true;
+            }
+document.getElementById("used_bandwidth").textContent = data.planStatus.additionalServices.planSectionRows[0].used.slice(0, data.planStatus.additionalServices.planSectionRows[0].used.search("-")) ;
+document.getElementById("purchased_bandwidth").textContent = data.planStatus.additionalServices.planSectionRows[0].purchased +" purchased";
+
+document.getElementById("nb_websites").textContent = data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').used + " Used / " + data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').purchased + " Purchased";
+
+ //           document.getElementById("configured_sites").style.width = count_block/(count_alert+count_block)*100 + "%";
+
+if ((data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').purchased)=="Unlimited"){
+document.getElementById("configured sites").textContent = "100%";
+document.getElementById("configured_sites").style.width = "100%";
+}else{
+document.getElementById("configured sites").textContent = Math.round(100*parseFloat(data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').used) / parseFloat(data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').purchased)) +"%";
+document.getElementById("configured_sites").style.width = Math.round(100*parseFloat(data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').used) / parseFloat(data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').purchased)) +"%";
+
+}
+        //    data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').used +  data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Additional Sites').purchased ;
+
+        }
+        });
+});
+</script>
+
+
+
 
 
 
@@ -1540,12 +1995,19 @@ var dataSiteAddition = {
                 backgroundColor: '#62d1f3',
                 borderColor: 'rgba(54, 162, 235, 0.6)',
                 data: [1,6,3,2,3,6],
-                label: 'Total Sites per Month',
                     }],
     labels: [ "Month 1", "Month 2","Month 3","Month 4","last Month","this Month",]
 };
 
 var optionsSiteAddition = {
+            legend: {
+                display: false,
+                labels: {
+                    usePointStyle: true,
+                    fontFamily: 'Montserrat',
+                },
+            },
+
             maintainAspectRatio: false,
             spanGaps: false,
             elements: {
@@ -1554,19 +2016,36 @@ var optionsSiteAddition = {
                 }
             },
             plugins: {
+                datalabels: {
+                display: true,
+                anchor: 'center',
+                formatter: Math.round,
+                font: {
+                    weight: 'bold',
+                    size: '16'
+                }
+            },
+
                 filler: {
                     propagate: false
                 }
             },
             scales: {
                 xAxes: [{
-                    ticks: {
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },                    ticks: {
                         autoSkip: false,
                         maxRotation: 0
                     }
                 }],
                 yAxes: [{
             display: true,
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
             ticks: {
             beginAtZero: true   // minimum value will be 0.
             }
@@ -1577,7 +2056,7 @@ var optionsSiteAddition = {
 let varsiteAddGraph = new Chart(site_addition,{
         type:'bar',
         data: dataSiteAddition,
-      options: optionsSiteAddition
+        options: optionsSiteAddition
 });
 
 $(document).ready(function() {
@@ -1612,6 +2091,10 @@ $(document).ready(function() {
     });
 </script>
 
-
-
+<script>
+function printPage() {
+    alert("IMPORTANT: enable the option Background graphics in printer option");
+  window.print();
+}
+</script>
  
