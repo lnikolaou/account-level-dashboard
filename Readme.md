@@ -52,6 +52,11 @@ Main Dashboard Page
 Security Settings table, per site, exportable in pdf and excel  
 ![alt text](https://github.com/imperva/account-level-dashboard/raw/master/images/screenshots/security%20assessment%20table.png)  
 
+ERRORS
+If you are getting an error that says "Issue with the API Key or Account Permission", make sure that:
+1- The API is properly running on Incapsula API explorer page to confirm it is not a permissions issue
+2- Check that you have the curl-ca-bundle.crt file in your C:\xampp\apache\bin if you are using Xampp.  (grab from https://github.com/bagder/ca-bundle if you don't have it and use the right name)
+
 CONTRIBUTIONS  
 - reach out to me for suggestion or if you want to contribute: jonathan.gruber@imperva.com  
 - You can create your own branch and ping me to suggest merges to the master branch
