@@ -502,7 +502,7 @@ th  {
             <div class="col-md-6">
                 <div class="card">
                         <div class="card-title">
-                       <h2>Nb Explicit Security Events per OWASP threat     <span style="font-size: 10pt">(on selected period)</span> </h2> 
+                       <h2># Explicit Security Events per OWASP threat     <span style="font-size: 10pt">(on selected period)</span> </h2> 
                        </div>
                         <canvas id="threatChart"></canvas>
                    </div>
@@ -511,7 +511,7 @@ th  {
             <div class="col-md-6">
                 <div class="card">
                         <div class="card-title">
-					   <h2>Nb Custom and DDoS Security Events     <span style="font-size: 10pt">(on selected period)</span> </h2> 
+					   <h2># Custom and DDoS Security Events     <span style="font-size: 10pt">(on selected period)</span> </h2> 
 					   </div>
 				        <canvas id="threatChart_custom"></canvas>
 	               </div>
@@ -652,7 +652,7 @@ th  {
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-title">
-                    <h2>Nb Site Configured Trend last 6 months</h2> <p>
+                    <h2># Site Configured Trend last 6 months</h2> <p>
                     </div>
                 <canvas id="site_addition" style="max-height: 300px";> </canvas>
                 </div>
