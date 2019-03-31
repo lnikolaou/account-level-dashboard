@@ -5,14 +5,14 @@
 $post = [
     'api_id' => $_POST['api_id'],
     'api_key' => $_POST['api_key'],
-    'account_id'   => $_POST['account_nb'],
+    'account_id'   => $_POST['account_id'],
     'page_size' => 100,    
 ];
 
 $post_stats = [
     'api_id' => $_POST['api_id'],
     'api_key' => $_POST['api_key'],
-    'account_id'   => $_POST['account_nb'],
+    'account_id'   => $_POST['account_id'],
 	'stats' => 'visits_timeseries, hits_timeseries, bandwidth_timeseries, requests_geo_dist_summary, visits_dist_summary, caching, caching, caching_timeseries, threats, incap_rules, incap_rules_timeseries',
 	'time_range' => $_POST['period'],
 ];
@@ -23,7 +23,7 @@ function requestList($pageNb) {
 	$post_extra = [
     'api_id' => $_POST['api_id'],
     'api_key' => $_POST['api_key'],
-    'account_id'   => $_POST['account_nb'],
+    'account_id'   => $_POST['account_id'],
     'page_size' => 100,
     'page_num' => $pageNb 
 ];
@@ -53,7 +53,7 @@ function requestList($pageNb) {
 	$json_object_2 = json_decode($json,true);
     $array_sites = [];
     
-	$array_sites = $json_object_2['sites'] or die("<div>Issue with the API Key or Account Permission</div>");
+	$array_sites = $json_object_2['sites'] or die("<div>Issue with the API Key or Account Permissions</div>");
 
 	if (count ($json_object-> sites) == "100") {
 		$number_sites = 100;
@@ -67,12 +67,10 @@ function requestList($pageNb) {
 		$number_sites = count($json_extra_object_2['sites']);
 		$page_count = $page_count + 1;
  		}
-
 	}
 
 	$json_export_sites = json_encode($array_sites);
 	file_put_contents("export_sites.json",$json_export_sites);
-
 
 	
 /*  curl to get account stats*/ 
@@ -86,9 +84,6 @@ function requestList($pageNb) {
 	file_put_contents("export_stats_7_days.json",$json);
 	curl_close($ch);
 	
-
-
-
 
 /* Curl to get the account Info */
 	$ch = curl_init();
@@ -142,7 +137,7 @@ function requestSitesStats($site_id) {
 	$post_stats_sites = [
     'api_id' => $_POST['api_id'],
     'api_key' => $_POST['api_key'],
-    'account_id'   => $_POST['account_nb'],
+    'account_id'   => $_POST['account_id'],
     'site_id' => $site_id,
 	'stats' => 'visits_timeseries, hits_timeseries, bandwidth_timeseries, requests_geo_dist_summary, visits_dist_summary, caching, caching, caching_timeseries, threats, incap_rules, incap_rules_timeseries',
 	'time_range' => $_POST['period']
@@ -214,10 +209,10 @@ if (isset($_POST['sites_checkbox'])  )
     <!-- Custom CSS -->
     <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 
 	
  
- <!-- OLD JS LIBRARIES WERE --> 
  <style>
  td  {
   min-width: 180px;
@@ -249,7 +244,7 @@ th  {
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
                         <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  " href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
-                        <li> <h3 class="text-primary"> Account Level Dashboard </h3> </li>
+                        <li> <h3 class="text-primary"> Account Level Dashboard</h3> </li>
 
                     </ul>
                 </div>
@@ -368,24 +363,6 @@ th  {
                 </div>
             </div>
 
-<!--
- 
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-title">
-                    <h2>Account Structure:</h2></p>
-                    </div>
-                    <table class="display nowrap table table-hover table-striped table-bordered" id="account_structure">           
-                        <tr>
-                        <th> Sub Account ID </th>
-                        <th> Sub Account Name </th>
-                    </table>
-                    <p">Sub Account 1: nameabc <span id="subaccounts" class="text-success">4 sites</span></p>
-                    <p>Sub Account 2: namecdf <span id="temp2" class="text-success">3 sites</span></p>
-                    <p>Sub Account 3: name rfd <span id="nhkklhjkrs" class="text-success">6 sites</span></p> 
-                </div>
-            </div>
--->
         </div>
 
         <div class="row">
@@ -750,6 +727,7 @@ th  {
     <!-- Bootstrap tether Core JavaScript -->
     <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>    
     <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="js/lib/sweetalert/sweetalert.min.js"></script>
 
 
     <!--Charts and scripts JavaScript -->
@@ -2089,6 +2067,7 @@ $(document).ready(function() {
     }
 });
     });
+
 </script>
 
 <script>

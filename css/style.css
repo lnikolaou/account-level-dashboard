@@ -4,6 +4,14 @@
 
 /* Added by Myself CUSTOM CUSTOM */
 
+table.dataTable thead th, table.dataTable thead td {
+    padding: 10px 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
 .switch {
   position: relative;
   display: inline-block;

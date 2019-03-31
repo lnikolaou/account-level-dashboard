@@ -1,7 +1,6 @@
+<html>
 
-<html>  
-
-<head>  
+<head>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,14 +11,16 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="favico.png">
 
-    <title>Account Incapsula Dashboard</title>  
-    <!-- CSS LIBRARIES -->  
+    <title>Account Incapsula Dashboard</title>
+    <!-- CSS LIBRARIES -->
     <!-- Bootstrap Core CSS -->
-    <link href="css/style.css" rel="stylesheet" type="text/css">	
+    <link href="css/style.css" rel="stylesheet" type="text/css">
     <!-- Custom CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 
- <!--JS LIBRARIES --> 
+
+    <!--JS LIBRARIES -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
@@ -27,38 +28,39 @@
     <!--Charts and scripts JavaScript -->
     <script src="js/lib/calendar-2/moment.latest.min.js"></script>
     <script src="js/Chart.js"></script>
-    <script src="js/scripts.js"></script>  
+    <script src="js/scripts.js"></script>
+    <script src="js/lib/sweetalert/sweetalert.min.js"></script>
 
 
-
-    <script> 
-        $(function(){
-        $("#sidebar").load("sidebar.html"); 
+    <script>
+        $(function () {
+            $("#sidebar").load("sidebar.html");
         });
     </script>
-</head>  
+</head>
 
 
-      <body class="fix-header fix-sidebar"> 
-      <div class="preloader">
+<body class="fix-header fix-sidebar">
+    <div class="preloader">
         <svg class="circular" viewBox="25 25 50 50">
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-        </div>
+    </div>
 
 
-<!-- page wrapper -->
-<div class="main-wrapper">
-           
+    <!-- page wrapper -->
+    <div class="main-wrapper">
+
         <!-- header header  -->
         <div class="header">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
-                    <a class="navbar-brand"   href="dashboard.php">
+                    <a class="navbar-brand" href="dashboard.php">
                         <!-- Dashboard logo icon  -->
                         <ul>
-                            <li style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage" class="dark-logo" style="max-width: 190px; height:auto;margin-right: 2.5em"/> </li>
-                        </ul>  
+                            <li style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage"
+                                    class="dark-logo" style="max-width: 190px; height:auto;margin-right: 2.5em" /> </li>
+                        </ul>
                     </a>
                 </div>
                 <!-- End Logo -->
@@ -66,134 +68,131 @@
                     <!-- toggle and nav items -->
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
-                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  " href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
-                        <li> <h3 class="text-primary"> Account Level Dashboard Login </h3> </li>
+                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  "
+                                href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
+                        <li>
+                            <h3 class="text-primary"> Account Level Dashboard Login - v2.0</h3>
+                        </li>
                     </ul>
                 </div>
             </nav>
         </div>
 
 
-         <!-- Left Sidebar  -->
-        <div  id="sidebar" class="left-sidebar">
+        <!-- Left Sidebar  -->
+        <div id="sidebar" class="left-sidebar">
         </div>
         <!-- End Left Sidebar  -->
 
 
-	   <!-- Container fluid for central page  -->
+        <!-- Container fluid for central page  -->
         <div class="page-wrapper">
-        <div class="container-fluid">
+            <div class="container-fluid">
 
-    	<!-- Input Form -->
-		<div clas="row">
-            <div class="card"  style="max-width: 600px; background-color:#D6EAF8">
-                <div class="card-title">
-			     <h4 >Enter Account Credentials </h4> <br>
-			     </div>
-	        <form method="post" action="dashboard.php" style="width: 90%" onsubmit="return submitForm(this);">  
-        
-            <div class="row p-t-20">  
-                <div class="col-sm-4">
-                <label>Account ID</label>  
-                <input type="text" id="account_nb" name="account_nb" placeholder="Account Number" class="form-control" />
-                </div> 
-                <div class="col-sm-4"> 
-                <div class="form-group">
-                    <label>Select Period</label> 
-                    <select class = "form-control" name="period" id="period">
-                    <option value="last_7_days">last 7 days</option>
-                    <option value="last_30_days">last 30 days</option>
-                    <option value="last_90_days">last 90 days</option>
-                    </select>
+                <!-- Input Form -->
+                <div clas="row">
+                    <div class="card" style="max-width: 600px; background-color:#D6EAF8">
+                        <div class="card-title">
+                            <h4>Enter Account Credentials </h4> <br>
+                        </div>
+                        <form method="post" action="dashboard.php" style="width: 90%"
+                            onsubmit="return submitForm(this);">
+
+                            <div class="row p-t-20">
+                                <div class="col-sm-4">
+                                    <label>Account ID</label>
+                                    <input type="text" id="account_id" name="account_id" placeholder="Account Number"
+                                        class="form-control" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Select Period</label>
+                                        <select class="form-control" name="period" id="period">
+                                            <option value="last_7_days">last 7 days</option>
+                                            <option value="last_30_days">last 30 days</option>
+                                            <option value="last_90_days">last 90 days</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Add per-site Statistics</label>
+                                        <input class="ui large checkbox" type="checkbox" name="sites_checkbox"
+                                            value="yes" onclick="return alert_api(this);">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row p-t-20">
+                                <div class="col-md-4">
+                                    <label class="control-label">API ID</label>
+                                    <input type="text" id="api_id" name="api_id" placeholder="API ID"
+                                        class="form-control">
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="control-label">API Keys</label>
+                                    <input type="password" id="api_key" name="api_key" placeholder="API Key"
+                                        class="form-control" />
+                                </div>
+                            </div>
+                            <br>
+                            <button onclick="return saveKeys();" type="submit" class="btn btn-info"
+                                id="spinner">Submit</button> <br />
+                            <br>
+                        </form>
+                    </div>
                 </div>
-                </div>
-
-                <div class="col-sm-4"> 
-                <div class="form-group">
-                    <label>Add per-site Statistics</label> 
-                    <input class="ui large checkbox" type="checkbox" name="sites_checkbox" value="yes" onclick="return alert_api(this);">
-                </div>
-                </div>
-
-            </div>  
-            
-            <div class="row p-t-20">
-                <div class="col-md-4">
-                <label class="control-label">API ID</label>  
-                <input type="text" id="api_id" name="api_id" placeholder="API ID" class="form-control">
-                 </div>
-                 <div class="col-md-8">
-                <label class="control-label">API Keys</label>  
-                 <input type="password" id="api_key" name="api_key" placeholder="API Key" class="form-control" />
-                </div> 
-            </div>
-            <br>
-            <button type="submit" class="btn btn-info" id="spinner" >Submit</button> <br />                      
-			<br> 
-            </form> 
-			</div>
-		</div>
-		<!-- END ROW of Inputs form -->
+                <!-- END ROW of Inputs form -->
 
 
-<script>
+                <script>
+                    function saveKeys() {
+                        sessionStorage.setItem("var_api_id", document.getElementById("api_id").value);
+                        sessionStorage.setItem("var_api_key", document.getElementById("api_key").value);
+                        sessionStorage.setItem("var_account_id", document.getElementById("account_id").value);
+
+                        return true;
+                    }
+
+                    function submitForm(oFormElement) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onload = function () { alert("success"); } // success case
+                        xhr.onerror = function () { alert("failed API call"); } // failure case
+                        xhr.open(oFormElement.method, oFormElement.action, true);
+                        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.send(new FormData(oFormElement));
+                        return false;
+                    }
+
+                    $('#spinner').click(function () {
+                        this.form.submit();
+                        this.disabled = true;
+                        this.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading APIs and Dashboard';
+                    });
 
 
-function submitForm(oFormElement)
-{
-  var xhr = new XMLHttpRequest();
-  xhr.onload = function(){ alert ("success"); } // success case
-  xhr.onerror = function(){ alert ("failed API call"); } // failure case
-  xhr.open (oFormElement.method, oFormElement.action, true);
-  xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send (new FormData (oFormElement));
-  return false;
-}
+                </script>
 
-$('#spinner').click(function(){
-this.form.submit();
-this.disabled=true;
-this.innerHTML='<i class="fa fa-spinner fa-spin"></i> Loading APIs and Dashboard';
-});
-
-
-</script>
-
-</script>
+                </script>
 
 
 
 
-<script>
- function alert_api(obj) {
-                         if (obj.checked) {
-                            alert('Warning: Site statistics APIs might take several minutes to be generated');
+                <script>
+                    function alert_api(obj) {
+                        if (obj.checked) {
+                            swal({
+                                title: "Warning",
+                                text: "Site statistics APIs might take several minutes to be generated: be patient or try without",
+                                type: "warning"
+                            });
                         }
                         return true;
-                   }   
-</script>
+                    }   
+                </script>
 
 
-</div>
-</div> <!-- end page wrapper--> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
+            </div>
+        </div> <!-- end page wrapper-->
