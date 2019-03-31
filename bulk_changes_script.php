@@ -104,7 +104,6 @@ function requestList($pageNb) {
 		$number_sites = count($json_extra_object_2['sites']);
 		$page_count = $page_count + 1;
  		}
-
 	}
 
 	$json_export_sites = json_encode($array_sites);
@@ -113,7 +112,7 @@ function requestList($pageNb) {
 
 // END CURL to list sites and settings 
 
-$return_arr[] = array("statys" => "success");
+$return_arr[] = array("status" => "success");
 // Encoding array in JSON format
 echo json_encode($return_arr);
 

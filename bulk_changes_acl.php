@@ -17,8 +17,7 @@ foreach ($site_list as $site_value) {
 				'api_key' => $_POST['api_key'],
 				'site_id'   => $site_value,
 			];
-		
-	
+			
 
 	//   Curl to retrieve old configuration
 	$ch = curl_init();

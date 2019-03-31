@@ -166,7 +166,7 @@
                         <div class="card">
                             <div class="card-title">
                                 <label>Backdoor: Auto-Quarantine</label>
-                                <button style="float: right; min-width: 130px;" onclick="return " type="submit"
+                                <button style="float: right; min-width: 130px;"  type="submit"
                                     class="btn btn-danger" id="run_backdoor">Auto-Quarantine</button> <br />
                             </div>
                         </div>
@@ -436,9 +436,9 @@
                     console.log("data");
                     window.location.reload();
                 },
-                error: function (e) {
+                error: function (jqXHR, textStatus, errorThrown) {
                     window.location.reload();
-                    console.log(e);
+                    console.log(jqXHR, textStatus, errorThrown);
                     console.log("PHP ERROR CHANGE SCRIPT");
                 }
             });

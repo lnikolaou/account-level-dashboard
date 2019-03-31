@@ -19,7 +19,6 @@
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 
-
     <!--JS LIBRARIES -->
     <!-- All Jquery -->
     <script src="js/lib/jquery/jquery.min.js"></script>
@@ -30,7 +29,6 @@
     <script src="js/Chart.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
-
 
     <script>
         $(function () {
@@ -46,7 +44,6 @@
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
     </div>
 
-
     <!-- page wrapper -->
     <div class="main-wrapper">
 
@@ -55,7 +52,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="dashboard.php">
+                    <a class="navbar-brand" href="dashboard.html">
                         <!-- Dashboard logo icon  -->
                         <ul>
                             <li style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage"
@@ -84,7 +81,6 @@
         </div>
         <!-- End Left Sidebar  -->
 
-
         <!-- Container fluid for central page  -->
         <div class="page-wrapper">
             <div class="container-fluid">
@@ -95,19 +91,18 @@
                         <div class="card-title">
                             <h4>Enter Account Credentials </h4> <br>
                         </div>
-                        <form method="post" action="dashboard.php" style="width: 90%"
-                            onsubmit="return submitForm(this);">
+                        <form action="#" method="post" style="width: 90%" id="login_form">
 
                             <div class="row p-t-20">
                                 <div class="col-sm-4">
                                     <label>Account ID</label>
-                                    <input type="text" id="account_id" name="account_id" placeholder="Account Number"
+                                    <input type="text" id="account_id" placeholder="Account Number"
                                         class="form-control" />
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Select Period</label>
-                                        <select class="form-control" name="period" id="period">
+                                        <select class="form-control" id="period">
                                             <option value="last_7_days">last 7 days</option>
                                             <option value="last_30_days">last 30 days</option>
                                             <option value="last_90_days">last 90 days</option>
@@ -118,8 +113,8 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Add per-site Statistics</label>
-                                        <input class="ui large checkbox" type="checkbox" name="sites_checkbox"
-                                            value="yes" onclick="return alert_api(this);">
+                                        <input class="ui large checkbox" type="checkbox" id="sites_checkbox" value="yes"
+                                            onclick="return alert_api(this);">
                                     </div>
                                 </div>
 
@@ -128,18 +123,16 @@
                             <div class="row p-t-20">
                                 <div class="col-md-4">
                                     <label class="control-label">API ID</label>
-                                    <input type="text" id="api_id" name="api_id" placeholder="API ID"
-                                        class="form-control">
+                                    <input type="text" id="api_id" placeholder="API ID" class="form-control">
                                 </div>
                                 <div class="col-md-8">
                                     <label class="control-label">API Keys</label>
-                                    <input type="password" id="api_key" name="api_key" placeholder="API Key"
-                                        class="form-control" />
+                                    <input type="password" id="api_key" placeholder="API Key" class="form-control" />
                                 </div>
                             </div>
                             <br>
-                            <button onclick="return saveKeys();" type="submit" class="btn btn-info"
-                                id="spinner">Submit</button> <br />
+                            <button type="submit" id="submit_button" class="btn btn-info"
+                                onclick="submitForm(this)">Submit</button> <br />
                             <br>
                         </form>
                     </div>
@@ -148,36 +141,57 @@
 
 
                 <script>
-                    function saveKeys() {
+                    function submitForm(clicked_obj) {
+                        document.getElementById("submit_button").disabled = true;
+                        document.getElementById("submit_button").innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading APIs and Dashboard';
                         sessionStorage.setItem("var_api_id", document.getElementById("api_id").value);
                         sessionStorage.setItem("var_api_key", document.getElementById("api_key").value);
                         sessionStorage.setItem("var_account_id", document.getElementById("account_id").value);
 
-                        return true;
-                    }
+                        var post_data = {
+                            "account_id": document.getElementById("account_id").value,
+                            "api_key": document.getElementById("api_key").value,
+                            "api_id": document.getElementById("api_id").value,
+                            "sites_checkbox": document.getElementById("sites_checkbox").value,
+                            "period": document.getElementById("period").value
+                        };
+                        console.log("POST_DATA");
+                        console.log(post_data);
 
-                    function submitForm(oFormElement) {
-                        var xhr = new XMLHttpRequest();
-                        xhr.onload = function () { alert("success"); } // success case
-                        xhr.onerror = function () { alert("failed API call"); } // failure case
-                        xhr.open(oFormElement.method, oFormElement.action, true);
-                        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                        xhr.send(new FormData(oFormElement));
-                        return false;
-                    }
+                        $.ajax({
+                            url: "dashboard_scripts.php",
+                            type: "post",
+                            dataType: 'json',
+                            data: post_data,
+                            success: function (data) {
+                                console.log("PHP SUCCESS CHANGE SCRIPT");
+                                console.log(data);
+                                if (data[0].status != "OK") {
+                                    swal({
+                                        title: "Authentication Error",
+                                        text: ("Please test your API keys on Incapsula API explorer. error code: "+data[0].status),
+                                        type: "error"
+                                    });
+                                    document.getElementById("submit_button").disabled = false;
+                                    document.getElementById("submit_button").innerHTML = '<i class="btn btn-info"></i> Loading APIs and Dashboard';
+                                } else {
+                                    window.location.href = "dashboard.html";
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log("PHP FAIL");
+                                console.log(jqXHR, textStatus, errorThrown);
+                                //swal({
+                                //    title: "oups",
+                                //    text: "there has been a small error in the php run, some data might be incomplete",
+                                //    type: "warning"
+                                //});
+                               window.location.href = "dashboard.html";
+                            }
+                        });
 
-                    $('#spinner').click(function () {
-                        this.form.submit();
-                        this.disabled = true;
-                        this.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading APIs and Dashboard';
-                    });
-
-
+                    } 
                 </script>
-
-                </script>
-
-
 
 
                 <script>
