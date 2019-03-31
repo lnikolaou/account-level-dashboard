@@ -26,6 +26,7 @@
 
 
 </head>
+
 <body class="fix-header fix-sidebar">
 
     <!-- page wrapper -->
@@ -85,215 +86,205 @@
                 <!-- ROW for Security Settings table summary <div class="col-lg-4" >-->
                 <div class="row">
                     <div class="card">
-                        <div class="card-title">
-                            <h4>Security Settings Breakdown</h4>
-                        </div>
-                        <br />
-                        <div id="threats_settings" style="overflow-x:auto;">
-                            <table id="security_table"
-                                class="display nowrap table table-hover table-striped table-bordered"
-                                data-page-length='25'>
-                                <thead>
+                        <!--        <div class="card-title"> -->
+
+                        <h4 class="card-title">Site Settings Tables</h4>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#security_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span
+                                        class="hidden-xs-down">Security Settings</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#caching_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span
+                                        class="hidden-xs-down">Caching & DNS</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#acl_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Access Control Settings</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#attack_stats"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Attack Statistics</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#incapRule_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Incaprule Settings</span></a> </li>
+
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content tabcontent-border">
+                            <div class="tab-pane active" id="security_settings" role="tabpanel">
+                                <div class="p-20">
+                                    <div id="threats_settings" style="overflow-x:auto;">
+                                        <table id="security_table"
+                                            class="display nowrap table table-hover table-striped table-bordered"
+                                            data-page-length='25'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Account Number</th>
+                                                    <th>Site ID</th>
+                                                    <th>Site Name</th>
+                                                    <th>Site Status</th>
+                                                    <th>Backdoor</th>
+                                                    <th>SQL injection</th>
+                                                    <th>Cross Site Scripting</th>
+                                                    <th>Illegal Resource Access</th>
+                                                    <th>Remote File Inclusion</th>
+                                                    <th>DDoS mode</th>
+                                                    <th>DDoS Threshold</th>
+                                                    <th>Block Bad Bots</th>
+                                                    <th>Challenge Suspected Bots</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Account Number</th>
+                                                    <th>Site ID</th>
+                                                    <th>Site Name</th>
+                                                    <th>Site Status</th>
+                                                    <th>Backdoor</th>
+                                                    <th>SQL injection</th>
+                                                    <th>Cross Site Scripting</th>
+                                                    <th>Illegal Resource Access</th>
+                                                    <th>Remote File Inclusion</th>
+                                                    <th>DDoS mode</th>
+                                                    <th>DDoS Threshold</th>
+                                                    <th>Block Bad Bots</th>
+                                                    <th>Challenge Suspected Bots</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane  p-20" id="attack_stats" role="tabpanel">
+                                <table class="table table-bordered table-striped table-hover table-responsive"
+                                    id="api_list_stats">
                                     <tr>
-                                        <th>Account Number</th>
-                                        <th>Site ID</th>
-                                        <th>Site Name</th>
-                                        <th>Site Status</th>
-                                        <th>Backdoor</th>
-                                        <th>SQL injection</th>
-                                        <th>Cross Site Scripting</th>
+                                        <th>Total Events</th>
+                                        <th>Bad Bots Events</th>
+                                        <th>XSS Incidents</th>
+                                        <th>SQLi Incidents</th>
                                         <th>Illegal Resource Access</th>
-                                        <th>Remote File Inclusion</th>
-                                        <th>DDoS mode</th>
-                                        <th>DDoS Threshold</th>
-                                        <th>Block Bad Bots</th>
-                                        <th>Challenge Suspected Bots</th>
+                                        <th>RFI Events</th>
+                                        <th>DDoS L7 Events</th>
                                     </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Account Number</th>
-                                        <th>Site ID</th>
-                                        <th>Site Name</th>
-                                        <th>Site Status</th>
-                                        <th>Backdoor</th>
-                                        <th>SQL injection</th>
-                                        <th>Cross Site Scripting</th>
-                                        <th>Illegal Resource Access</th>
-                                        <th>Remote File Inclusion</th>
-                                        <th>DDoS mode</th>
-                                        <th>DDoS Threshold</th>
-                                        <th>Block Bad Bots</th>
-                                        <th>Challenge Suspected Bots</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                </tbody>
-                            </table>
+                                </table>
+                            </div>
+                            <div class="tab-pane p-20" id="acl_settings" role="tabpanel">
+                                <table id="acl_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>ACL IP Blaklist</th>
+                                            <th>ACL Country Blacklist</th>
+                                            <th>Blacklist URL Pattern & Value</th>
+                                            <th>Whitelist Rules</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>ACL IP Blaklist</th>
+                                            <th>ACL Country Blacklist</th>
+                                            <th>Blacklist URL Pattern & Value</th>
+                                            <th>Whitelist Rules</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane p-20" id="caching_settings" role="tabpanel">
+                                <table class="table table-bordered table-striped table-hover table-responsive"
+                                    id="performance_table" data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>Site Creation Date</th>
+                                            <th>Site Status</th>
+                                            <th>Caching Settings</th>
+                                            <th>Incapsula A Record</th>
+                                            <th>CNAME Record</th>
+                                            <th>SSL Validation Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>Site Creation Date</th>
+                                            <th>Site Status</th>
+                                            <th>Caching Settings</th>
+                                            <th>Incapsula A Record</th>
+                                            <th>CNAME Record</th>
+                                            <th>SSL Validation Status</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="tab-pane p-20" id="incapRule_settings" role="tabpanel">
+                                <table class="table table-bordered table-striped table-hover table-responsive"
+                                    id="performance_table" data-page-length='25'>
+                                    <!--             <div id="incapRule_settings" style="overflow-x:auto;">  -->
+                                    <table id="incapRule_table"
+                                        class="display nowrap table table-hover table-striped table-bordered"
+                                        data-page-length='25'>
+                                        <thead>
+                                            <tr>
+                                                <th>Account Number</th>
+                                                <th>Site ID</th>
+                                                <th>Site Name</th>
+                                                <th>IncapRule ID</th>
+                                                <th>IncapRule Name</th>
+                                                <th>Action</th>
+                                                <th>Rule</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Account Number</th>
+                                                <th>Site ID</th>
+                                                <th>Site Name</th>
+                                                <th>IncapRule ID</th>
+                                                <th>IncapRule Name</th>
+                                                <th>Action</th>
+                                                <th>Rule</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody></tbody>
+                                    </table>
+                            </div>
+
+
+
                         </div>
+
+
+
                     </div>
+                    <br />
+
                 </div>
-                <!-- END ROW for security Settings table summary -->
+            </div>
+            <!-- END ROW for security Settings table summary -->
 
 
-                <hr />
-
-
-                <!-- ROW for Threat statistics table summary -->
-                <div class="row">
-                    <div class="card">
-                        <div class="card-title">
-                            <h4>Security Statistics Account</h4>
-                        </div>
-                        <br />
-                        <table class="table table-bordered table-striped table-hover table-responsive"
-                            id="api_list_stats">
-                            <tr>
-                                <th>Total Events</th>
-                                <th>Bad Bots Events</th>
-                                <th>XSS Incidents</th>
-                                <th>SQLi Incidents</th>
-                                <th>Illegal Resource Access</th>
-                                <th>RFI Events</th>
-                                <th>DDoS L7 Events</th>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <!-- END ROW for Threat Statistics table summary -->
-                <hr />
-                <!-- ROW for Performance Settings table summary <div class="col-lg-4" >-->
-                <div class="row">
-                    <div class="card">
-                        <div class="card-title">
-                            <h4>Caching Settings</h4>
-                        </div>
-                        <br />
-                        <div id="caching_settings" style="overflow-x:auto;">
-                            <table class="table table-bordered table-striped table-hover table-responsive"
-                                id="performance_table" data-page-length='25'>
-                                <thead>
-                                    <tr>
-                                        <th>Site ID</th>
-                                        <th>Site Name</th>
-                                        <th>Site Creation Date</th>
-                                        <th>Site Status</th>
-                                        <th>Caching Settings</th>
-                                        <th>Incapsula A Record</th>
-                                        <th>CNAME Record</th>
-                                        <th>SSL Validation Status</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Site ID</th>
-                                        <th>Site Name</th>
-                                        <th>Site Creation Date</th>
-                                        <th>Site Status</th>
-                                        <th>Caching Settings</th>
-                                        <th>Incapsula A Record</th>
-                                        <th>CNAME Record</th>
-                                        <th>SSL Validation Status</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <hr />
-                <!-- END ROW for Performance Settings table summary -->
+            <hr />
 
 
 
-
-
-                <!-- ROW for ACL Security Settings table Access Control List-->
-                <div class="row">
-                    <div class="card">
-                        <div class="card-title">
-                            <h4>Access Control Settings Breakdown</h4>
-                        </div>
-                        <br />
-                        <div id="acl_settings" style="overflow-x:auto;">
-                            <table id="acl_table" class="display nowrap table table-hover table-striped table-bordered"
-                                data-page-length='25'>
-                                <thead>
-                                    <tr>
-                                        <th>Account Number</th>
-                                        <th>Site ID</th>
-                                        <th>Site Name</th>
-                                        <th>ACL IP Blaklist</th>
-                                        <th>ACL Country Blacklist</th>
-                                        <th>Blacklist URL Pattern & Value</th>
-                                        <th>Whitelist Rules</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Account Number</th>
-                                        <th>Site ID</th>
-                                        <th>Site Name</th>
-                                        <th>ACL IP Blaklist</th>
-                                        <th>ACL Country Blacklist</th>
-                                        <th>Blacklist URL Pattern & Value</th>
-                                        <th>Whitelist Rules</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- END ROW for security Settings table summary -->
-                <hr />
-
-                <!-- New table for IncapRules-->
-                <div class="row">
-                    <div class="card">
-                        <div class="card-title">
-                            <h4>All IncapRules</h4>
-                        </div>
-                        <br />
-                        <div id="incapRule_settings" style="overflow-x:auto;">
-                            <table id="incapRule_table"
-                                class="display nowrap table table-hover table-striped table-bordered"
-                                data-page-length='25'>
-                                <thead>
-                                    <tr>
-                                        <th>Account Number</th>
-                                        <th>Site ID</th>
-                                        <th>Site Name</th>
-                                        <th>IncapRule ID</th>
-                                        <th>IncapRule Name</th>
-                                        <th>Action</th>
-                                        <th>Rule</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Account Number</th>
-                                        <th>Site ID</th>
-                                        <th>Site Name</th>
-                                        <th>IncapRule ID</th>
-                                        <th>IncapRule Name</th>
-                                        <th>Action</th>
-                                        <th>Rule</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- END table for IncapRules -->
-
-                <hr />
-
-
-            </div> <!-- end page wrapper-->
+        </div> <!-- end page wrapper-->
 </body>
 
 
