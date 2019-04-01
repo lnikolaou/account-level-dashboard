@@ -35,7 +35,6 @@ $post_stats = [
         $return_arr[] = array("status" => $json_status);
         echo json_encode($return_arr);
     }else{
-    print_r("I REACHED HERE");
 	$json_object = json_decode($json);
 	$json_object_2 = json_decode($json,true);
     $array_sites = [];

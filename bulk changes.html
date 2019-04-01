@@ -22,6 +22,8 @@
     <!-- Custom CSS -->
     <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/lib/toastr/toastr.min.css" rel="stylesheet" type="text/css">
+
 
     <style>
         th {
@@ -261,6 +263,8 @@
 <script src="js/scripts.js"></script>
 <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
 <script src="js/lib/sweetalert/sweetalert.min.js"></script>
+<script src="js/lib/toastr/toastr.min.js"></script>
+
 
 <!-- LOAD SIDEBAR -->
 <script>
@@ -435,6 +439,7 @@
                     console.log("PHP SUCCESS CHANGE SCRIPT");
                     console.log("data");
                     window.location.reload();
+                    toastr.success('Success');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     window.location.reload();
@@ -468,6 +473,7 @@
                     console.log("PHP SUCCESS ACL");
                     console.log(data2);
                     window.location.reload();
+                    toastr.success('Success');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     window.location.reload();
