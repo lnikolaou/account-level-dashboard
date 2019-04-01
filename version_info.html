@@ -17,21 +17,21 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-        <script src="js/lib/jquery/jquery.min.js"></script>
-        <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
-        <script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part -->
-<script src="js/scripts.js"></script>
-<script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="js/lib/jquery/jquery.min.js"></script>
+    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part -->
+    <script src="js/scripts.js"></script>
+    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <!-- Custom CSS -->
     <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
-<!-- LOAD SIDEBAR -->
-<script>
-    $(function () {
-        $("#sidebar").load("sidebar.html");
-    });
-</script>
+    <!-- LOAD SIDEBAR -->
+    <script>
+        $(function () {
+            $("#sidebar").load("sidebar.html");
+        });
+    </script>
 
     <style>
         th {
@@ -91,16 +91,48 @@
                     <div class="card-title">
                         <h2>version info</h2> <br>
                     </div>
-                    <p class="text-md-left">29 March 2019: v2.0 new Bulk action options: change security settings, add IP to blacklist                  </p>
-                    <p class="text-md-left">7th January 2019: v1.6 improved UI with features, subscription. New reporting & export to pdf</p>
-                    <p class="text-md-left">15th December 2018: v1.5 Support of pagination for accounts with > 100 sites</p>
-                        <p class="text-md-left">25 October 2018: v1.2 exportable tables</p>
-                            <p class="text-md-left">1st July 2018: v1.0 First upload to Github</p>
-                    
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Update Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1st April 2019:</td>
+                                    <td class="color-primary">v2.1 More explicit error messages in case of success and
+                                        error</td>
+                                </tr>
+                                <tr>
+                                    <td>29 March 2019:</td>
+                                    <td >v2.0 new Bulk action options: change security settings,
+                                        add IP to blacklist</td>
+                                </tr>
+                                <tr>
+                                    <td>7th January 2019:</td>
+                                    <td >v1.6 improved UI with features, subscription. New
+                                        reporting & export to pdf</td>
+                                </tr>
+                                <tr>
+                                    <td>15th December 2018:</td>
+                                    <td >v1.5 Support of pagination for accounts with >100 sites                     </td>
+                                </tr>
+                                <tr>
+                                        <td>25 October 2018:</td>
+                                        <td>25 October 2018: v1.2 exportable tables                     </td>
+                                    </tr>
+                                    <tr>
+                                            <td>1st July 2018:</td>
+                                            <td >1st July 2018: v1.0 First upload to Github                     </td>
+                                        </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </body>
-
-

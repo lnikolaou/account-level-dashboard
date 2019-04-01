@@ -20,6 +20,7 @@
     <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="css/lib/toastr/toastr.min.css" rel="stylesheet" type="text/css">
 
 	
  
@@ -206,7 +207,7 @@ th  {
                     <div class="card-title">
                     <h2>95-percentile Traffic Utilization of last 3 months</h2> 
                     </div>
-                <canvas id="95perc" style="max-height: 300px, width:auto"></canvas>
+                <canvas id="95perc" style="max-height: 300px; width:auto"></canvas>
                 </div>
             </div>
 
@@ -539,13 +540,14 @@ th  {
     <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
 
-
     <!--Charts and scripts JavaScript -->
     <script src="js/lib/calendar-2/moment.latest.min.js"></script>
     <script src="js/Chart.js"></script>
     <script src="js/chartjs-plugin-datalabels.js"></script>
     <script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part --> 
     <script src="js/scripts.js"></script>  
+    <script src="js/lib/toastr/toastr.min.js"></script>
+
 
     <script> 
         $(function(){
@@ -557,6 +559,9 @@ th  {
 
 <script src="js/incapse-graphs.js"></script>
 <script>
+
+
+
 var default_colors = ['#e1e1ea','#ccffcc','#ccffff','#ffccff',' #ccccff','#ffe0cc','#ccfff5','#ffd9b3','#ffff80','#f0b3ff','#316395','#ff6666','#5353c6','#ff794d','#6633CC','#E67300','#8B0707','#329262','#5574A6','#3B3EAC']
 </script>
 <!-- SECURITY JAVASCRIPTS --> 
@@ -977,7 +982,6 @@ $(document).ready(function() {
                 
             });
             $('#api_list_sites').append(list_sites); 
-     
      }
  });
 });
@@ -1431,10 +1435,15 @@ $(document).ready(function() {
 		success: function(data) {
             console.log("JSON of sites and settings");
 			console.log(data);
-
-            $(data).each(function(index, value) {
-
-		
+            if (data = "null") {
+                toastr.warning('some API calls failed');
+                toastr.error('Check in API Expolorer that you can run /api/prov/v1/sites/list API call', 'API Permissions Error');
+            }else if (data.res_message = "OK"){
+                toastr.success('Data successfully loaded', 'Success');
+            }else {
+                toastr.warning('Error when running running API /api/prov/v1/sites/list  '+ data.res_message, 'Warning');
+            }
+            $(data).each(function(index, value) {		
 				if(value.security.waf.rules[0].action_text === 'Alert Only' | value.security.waf.rules[0].action_text === 'Ignore') {
 				count_alert++;
 				} else {
@@ -1508,7 +1517,11 @@ $(document).ready(function() {
             }
             }
             });
-	 }
+	 },
+     error: function (data){
+        toastr.warning('error seems related to setup, not to API permissions', 'Warning')
+        toastr.error('error can be in Xampp or write permissions in folder. Check Readme.md for troubleshooting', 'API calls could not be generated')
+     }
  });
 });
  </script> 
@@ -1853,16 +1866,13 @@ $(document).ready(function() {
         datatype: 'json',
         type: 'get',
         cache: false,
-
         success: function(data) {
-
         var count_sites_month = [0,0,0,0,0,0];
         var months_unix = [];
 
         for (i=0; i<6; i++){
         months_unix.push(moment().add(i-5,'months').unix());
         }
-
 
         $(data).each(function(index, value) {
             for (j=0; j<6; j++){

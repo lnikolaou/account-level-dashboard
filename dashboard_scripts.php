@@ -40,7 +40,7 @@ $post_stats = [
 	$json_object_2 = json_decode($json,true);
     $array_sites = [];
     
-	$array_sites = $json_object_2['sites'] or die("<div>Issue with the API Key or Account Permissions</div>");
+	$array_sites = $json_object_2['sites'];
 
 
 /* generic Function for CURL to list sites and settings for page 2 and above*/

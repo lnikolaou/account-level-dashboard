@@ -168,12 +168,13 @@
                                 console.log(data);
                                 if (data[0].status != "OK") {
                                     swal({
-                                        title: "Authentication Error",
-                                        text: ("Please test your API keys on Incapsula API explorer. error code: "+data[0].status),
+                                        title: "API Authentication Error",
+                                        text: ("Make sure you are using Admin Keys\n Test on API explorer: /api/prov/v1/sites/list\n error code: "+data[0].status),
                                         type: "error"
                                     });
                                     document.getElementById("submit_button").disabled = false;
-                                    document.getElementById("submit_button").innerHTML = '<i class="btn btn-info"></i> Loading APIs and Dashboard';
+                                    document.getElementById("submit_button").innerHTML = ' Submit';
+                                    document.getElementById("submit_button").class = "btn btn-info";
                                 } else {
                                     window.location.href = "dashboard.html";
                                 }
@@ -181,11 +182,6 @@
                             error: function (jqXHR, textStatus, errorThrown) {
                                 console.log("PHP FAIL");
                                 console.log(jqXHR, textStatus, errorThrown);
-                                //swal({
-                                //    title: "oups",
-                                //    text: "there has been a small error in the php run, some data might be incomplete",
-                                //    type: "warning"
-                                //});
                                window.location.href = "dashboard.html";
                             }
                         });
