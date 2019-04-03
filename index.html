@@ -18,6 +18,7 @@
     <!-- Custom CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="css/lib/toastr/toastr.min.css" rel="stylesheet" type="text/css">
 
     <!--JS LIBRARIES -->
     <!-- All Jquery -->
@@ -29,6 +30,7 @@
     <script src="js/Chart.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/lib/sweetalert/sweetalert.min.js"></script>
+    <script src="js/lib/toastr/toastr.min.js"></script>
 
     <script>
         $(function () {
@@ -68,7 +70,7 @@
                         <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  "
                                 href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
                         <li>
-                            <h3 class="text-primary"> Account Level Dashboard Login - v2.0</h3>
+                            <h3 class="text-primary"> Account Level Dashboard Login - v<span id="versionNb">2.0</span></h3>
                         </li>
                     </ul>
                 </div>
@@ -169,7 +171,7 @@
                                 if (data[0].status != "OK") {
                                     swal({
                                         title: "API Authentication Error",
-                                        text: ("Make sure you are using Admin Keys\n Test on API explorer: /api/prov/v1/sites/list\n error code: "+data[0].status),
+                                        text: ("Make sure you are using Admin Keys\n Test on API explorer: /api/prov/v1/sites/list\n error code: " + data[0].status),
                                         type: "error"
                                     });
                                     document.getElementById("submit_button").disabled = false;
@@ -182,11 +184,38 @@
                             error: function (jqXHR, textStatus, errorThrown) {
                                 console.log("PHP FAIL");
                                 console.log(jqXHR, textStatus, errorThrown);
-                               window.location.href = "dashboard.html";
+                                window.location.href = "dashboard.html";
                             }
                         });
 
-                    } 
+                    }
+
+
+
+                    // CHECK VERSION
+                    var localVersion = $.ajax({
+                        dataType: "json",
+                        url: "js/version.json",
+                        async: false
+                    }).responseJSON;
+
+                    var remoteVersion = $.ajax({
+                        dataType: "json",
+                        url: "https://raw.githubusercontent.com/imperva/account-level-dashboard/master/js/version.json",
+                        async: false
+                    }).responseJSON;
+
+
+                    $.when(localVersion, remoteVersion).done(function () {
+                        document.getElementById("versionNb").innerHTML = localVersion.version;
+                        if (localVersion.version != remoteVersion.version){
+                            toastr.success("<a href=\"https://github.com/imperva/account-level-dashboard\">a newer version is available in Github; click to download</a>", {closeButton: true});
+                        }else{
+                            toastr.success('version is up to date', {closeButton: true});
+                        }
+                    });
+                    
+
                 </script>
 
 
@@ -200,7 +229,9 @@
                             });
                         }
                         return true;
-                    }   
+                    }
+
+
                 </script>
 
 

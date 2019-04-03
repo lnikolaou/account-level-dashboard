@@ -1,7 +1,5 @@
 <?php  
 
-$site_list = $_POST['site_id_input'];
-
 $post = [
     'api_id' =>  $_POST['api_id'],
     'api_key' => $_POST['api_key'],
@@ -9,6 +7,8 @@ $post = [
     'page_size' => 100,    
 ];
 
+if ($_POST['rule_id'] != ""){
+	$site_list = $_POST['site_id_input'];
 foreach ($site_list as $site_value) {
 
 	if($_POST['rule_id'] == "api.threats.bot_access_control"){
@@ -32,7 +32,7 @@ foreach ($site_list as $site_value) {
 			];		
 		}
 
-	}else{
+	}else {
 $post_action = [
     'account_id'   => $_POST['account_id'],
     'api_id' =>  $_POST['api_id'],
@@ -53,6 +53,8 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $json = curl_exec($ch);
 file_put_contents("export_security_config.json",$json);
 curl_close($ch);
+}
+
 }
 
 /* Curl to reload site settings */
@@ -90,7 +92,7 @@ function requestList($pageNb) {
 	$json_object_2 = json_decode($json,true);
     $array_sites = [];
     
-	$array_sites = $json_object_2['sites'] or die("<div>Issue with the API Key or Account Permissions</div>");
+	$array_sites = $json_object_2['sites'];
 
 	if (count ($json_object-> sites) == "100") {
 		$number_sites = 100;
