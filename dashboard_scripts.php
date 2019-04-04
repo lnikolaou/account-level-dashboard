@@ -33,7 +33,6 @@ $post_stats = [
     if ( $json_status != "OK" ){
         // AUTHENTICATION ERROR
         $return_arr[] = array("status" => $json_status);
-        echo json_encode($return_arr);
     }else{
 	$json_object = json_decode($json);
 	$json_object_2 = json_decode($json,true);
@@ -59,6 +58,7 @@ function requestList($pageNb) {
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post_extra));   // post data
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$json_extra = curl_exec($ch);
+	return $json_extra;
 	curl_close($ch);
 }
 
