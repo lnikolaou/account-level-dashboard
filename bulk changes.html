@@ -415,19 +415,23 @@
                     dataType: 'json',
                     data: post_data,
                     success: function (data) {
-                        console.log("PHP SUCCESS CHANGE SCRIPT");
+                        console.log("PHP SUCCESS");
                         fill_settings_table();
                         clicked_obj.disabled = false;
                         clicked_obj.innerHTML = clicked_obj.name;
+                        if (data.res_message == "OK"){
                         toastr.success('Success');
-                        //     window.location.reload();
+                        }else{
+                            toastr.error("<p style=\"color:white\">error code: </p>"+data.res_message,'please login with Accound Admin API keys', 'Permissions Error' ); 
+                        }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         fill_settings_table();
-                        //    window.location.reload();
                         console.log(jqXHR, textStatus, errorThrown);
-                        console.log("PHP ERROR CHANGE SCRIPT");
+                        console.log("PHP ERROR");
                         toastr.warning('warning: php script returned an error, reach out in Github if it didn\'t work');
+                        clicked_obj.disabled = false;
+                        clicked_obj.innerHTML = clicked_obj.name;
                     }
                 });
             } else {

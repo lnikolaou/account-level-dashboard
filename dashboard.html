@@ -103,7 +103,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Since: <span id="trial_end" ">tbd</span></td>
-                              <td><span id=" nb_users" class="m-b-0 " style="font-weight: bold;"></span
+                              <td><span id="nb_users" class="m-b-0 " style="font-weight: bold;"></span
                                                 style="font-weight: bold;"> <span class="m-b-0 "
                                                 style="font-weight: bold;">configured Users </span></td>
 
@@ -134,7 +134,7 @@
                 </div>
 
                 <!-- FEATURE LIST -->
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="card card-outline-info">
                         <h2 class="m-b-0"><span class="m-b-0" style="font-weight: bold;">Activated licenses</span>
                             <table>
@@ -188,6 +188,25 @@
                             </table>
                     </div>
                 </div>
+
+
+                <div class="col-md-3">
+                <div class="card card-outline-info">
+                    <h2 class="m-b-0"><span class="m-b-0" style="font-weight: bold;">Account Structure</span>
+                    </br>
+                        <h4 class="card-title" id="accountName2">Account Name</h4>
+                        <div class="card-content">
+                            <div class="nestable">
+                                <div class="dd">
+                                    <ol class="dd-list" id="account_structure">
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+
 
             </div>
 
@@ -595,10 +614,9 @@
 
 
     <script src="js/incapse-graphs.js"></script>
+
+
     <script>
-
-
-
         var default_colors = ['#e1e1ea', '#ccffcc', '#ccffff', '#ffccff', ' #ccccff', '#ffe0cc', '#ccfff5', '#ffd9b3', '#ffff80', '#f0b3ff', '#316395', '#ff6666', '#5353c6', '#ff794d', '#6633CC', '#E67300', '#8B0707', '#329262', '#5574A6', '#3B3EAC']
     </script>
     <!-- SECURITY JAVASCRIPTS -->
@@ -1457,11 +1475,31 @@
 
 </body>
 
-
-<!-- complete the security table -->
+<!-- print Account Plan -->
 <script>
+        $(document).ready(function () {
+            var main_account_name = "";
+            var main_account_id = "";
+            $.ajax({
+                url: 'export_account_plan.json',
+                datatype: 'json',
+                type: 'get',
+                cache: false,
+                success: function (data) {
+                    console.log("JSON of account plan");
+                    console.log(data);
+                    document.getElementById("account_name").textContent = data.account_name;
+                    document.getElementById("accountName2").textContent = data.account_id + "   " + data.account_name;
+                    document.getElementById("account_id").textContent = data.account_id;
+                    document.getElementById("plan_name").textContent = data.plan_name;
+                    document.getElementById("trial_end").textContent = data.account.trial_end_date;
+                    document.getElementById("nb_users").textContent = data.logins.length;
+                    document.getElementById("support_level").textContent = data.account.support_level;
+                    main_account_name = data.account_name;
+                    main_account_id = data.account_id;
+                }
+            });
 
-    $(document).ready(function () {
 
         var count_block = 0;
         var count_alert = 0;
@@ -1529,8 +1567,9 @@
                 document.getElementById("nb_ddos").textContent = (count_configured + count_not_configured - count_ddos) + "/" + (count_configured + count_not_configured);
 
 
+// SCRIPT TO CREATE THE ACCOUNT STRUCTURE
 
-                // print Account Structure
+
                 var structure_table = "";
                 $.ajax({
                     url: 'export_subaccounts.json',
@@ -1538,27 +1577,35 @@
                     type: 'get',
                     cache: false,
                     success: function (data2) {
-                        console.log("JSON of account Structure");
+                        console.log("JSON of SUBACCOUNTS");
                         console.log(data2);
-                        if (data2.res != 0) {
+                        if (data2.res_message != "OK") {
+                            toastr.warning(data2.res_message, 'permission error in /accounts/kustSubbacounts', 'Warning')
 
                         } else if (data2.resultList.length == 0) {
-                            structure_table += '<tr>';
-                            structure_table += '<td>' + data[0].account_id + '</td>';
-                            structure_table += '<td>' + "Main Account (no sub accounts)" + '</td>';
-                            structure_table += '<td>' + count_configured + "/" + (count_configured + count_not_configured) + '</td>';
-                            $('#account_structure').append(structure_table);
+                            var node = document.createElement("LI");
+                                var textnode = document.createTextNode("no subaccounts");
+                                node.appendChild(textnode);
+                                document.getElementById("account_structure").appendChild(node);
                         } else {
+                            var subaccount_list = [{id: main_account_id, name:  main_account_name}];
+                            
                             $(data2.resultList).each(function (index, value) {
-
-                                structure_table += '<tr>';
-                                structure_table += '<td>' + value.sub_account_id + '</td>';
-                                structure_table += '<td>' + value.sub_account_name + '</td>';
+                                var node = document.createElement("LI");
+                                var textnode = document.createTextNode(value.sub_account_id + "   " + value.sub_account_name);
+                                node.appendChild(textnode);
+                                document.getElementById("account_structure").appendChild(node);
+                                subaccount_list.push({id: value.sub_account_id, name : value.sub_account_name});
                             });
-                            $('#account_structure').append(structure_table);
+                           // sub = JSON.parse(subaccount_list);
+                            console.log("SUBACCOUNTS ARRAY");
+                            sessionStorage.setItem("subaccount_list", JSON.stringify(subaccount_list));
+                            console.log(subaccount_list);
                         }
                     }
                 });
+
+
             },
             error: function (data) {
                 toastr.warning('error seems related to setup, not to API permissions', 'Warning')
@@ -1569,29 +1616,7 @@
 </script>
 
 
-<!-- print Account Plan -->
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            url: 'export_account_plan.json',
-            datatype: 'json',
-            type: 'get',
-            cache: false,
-            success: function (data) {
-                console.log("JSON of account plan");
-                console.log(data);
 
-                document.getElementById("account_name").textContent = data.account_name;
-                document.getElementById("account_id").textContent = data.account_id;
-                document.getElementById("plan_name").textContent = data.plan_name;
-                document.getElementById("trial_end").textContent = data.account.trial_end_date;
-                document.getElementById("nb_users").textContent = data.account.logins.length;
-                document.getElementById("support_level").textContent = data.account.support_level;
-
-            }
-        });
-    });	  
-</script>
 
 
 <!-- print Account Subscriptions -->

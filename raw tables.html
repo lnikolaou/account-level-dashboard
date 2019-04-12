@@ -21,8 +21,8 @@
     <!-- Custom CSS -->
     <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
-
+    <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="css/lib/toastr/toastr.min.css" rel="stylesheet" type="text/css">
 
 
 </head>
@@ -106,7 +106,9 @@
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#incapRule_settings"
                                     role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
                                         class="hidden-xs-down">Incaprule Settings</span></a> </li>
-
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#auditing_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Activity Auditing</span></a> </li>
                         </ul>
 
                         <!-- Tab panes -->
@@ -160,15 +162,17 @@
                             <div class="tab-pane  p-20" id="attack_stats" role="tabpanel">
                                 <table class="table table-bordered table-striped table-hover table-responsive"
                                     id="api_list_stats">
-                                    <tr>
-                                        <th>Total Events</th>
-                                        <th>Bad Bots Events</th>
-                                        <th>XSS Incidents</th>
-                                        <th>SQLi Incidents</th>
-                                        <th>Illegal Resource Access</th>
-                                        <th>RFI Events</th>
-                                        <th>DDoS L7 Events</th>
-                                    </tr>
+                                    <thead>
+                                        <tr>
+                                            <th>Total Events</th>
+                                            <th>Bad Bots Events</th>
+                                            <th>XSS Incidents</th>
+                                            <th>SQLi Incidents</th>
+                                            <th>Illegal Resource Access</th>
+                                            <th>RFI Events</th>
+                                            <th>DDoS L7 Events</th>
+                                        </tr>
+                                    </thead>
                                 </table>
                             </div>
                             <div class="tab-pane p-20" id="acl_settings" role="tabpanel">
@@ -234,42 +238,83 @@
                             </div>
 
                             <div class="tab-pane p-20" id="incapRule_settings" role="tabpanel">
-                                <table class="table table-bordered table-striped table-hover table-responsive"
-                                    id="performance_table" data-page-length='25'>
-                                    <!--             <div id="incapRule_settings" style="overflow-x:auto;">  -->
-                                    <table id="incapRule_table"
-                                        class="display nowrap table table-hover table-striped table-bordered"
-                                        data-page-length='25'>
-                                        <thead>
-                                            <tr>
-                                                <th>Account Number</th>
-                                                <th>Site ID</th>
-                                                <th>Site Name</th>
-                                                <th>IncapRule ID</th>
-                                                <th>IncapRule Name</th>
-                                                <th>Action</th>
-                                                <th>Rule</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Account Number</th>
-                                                <th>Site ID</th>
-                                                <th>Site Name</th>
-                                                <th>IncapRule ID</th>
-                                                <th>IncapRule Name</th>
-                                                <th>Action</th>
-                                                <th>Rule</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody></tbody>
-                                    </table>
+                                <table id="incapRule_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>IncapRule ID</th>
+                                            <th>IncapRule Name</th>
+                                            <th>Action</th>
+                                            <th>Rule</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>IncapRule ID</th>
+                                            <th>IncapRule Name</th>
+                                            <th>Action</th>
+                                            <th>Rule</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody></tbody>
+                                </table>
                             </div>
 
 
+                            <div class="tab-pane p-20" id="auditing_settings" role="tabpanel">
 
+                                <form action="#" method="post" style="width: 90%" id="audit_form">
+                                    <div class="row p-t-20">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select class="form-control" id="period">
+                                                    <option value="last_7_days">last 7 days</option>
+                                                    <option value="last_30_days">last 30 days</option>
+                                                    <option value="last_90_days">last 90 days</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button id="fetch_audit" class="btn btn-info"
+                                                name="Fetch Audit Activity">Fetch Audit Activity</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <table id="activity_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Account ID</th>
+                                            <th>Account Name</th>
+                                            <th>User</th>
+                                            <th>Action Title</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Account ID</th>
+                                            <th>Account Name</th>
+                                            <th>User</th>
+                                            <th>Action Title</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
-
 
 
                     </div>
@@ -312,6 +357,8 @@
 <script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part -->
 <script src="js/scripts.js"></script>
 <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+<script src="js/lib/sweetalert/sweetalert.min.js"></script>
+<script src="js/lib/toastr/toastr.min.js"></script>
 <script>
     $(function () {
         $("#sidebar").load("sidebar.html");
@@ -320,6 +367,105 @@
 
 
 
+<!--  SCRIPT TO RUN AUDIT  -->
+<script>
+    $('#fetch_audit').click(function () {
+        var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "period": document.getElementById("period").value };
+        send_fetch_audit(post_values, this);
+    });
+
+
+    //CHECK IF THERE ARE KEYS IN BROWSER MEMORY
+    function check_keys() {
+        if (sessionStorage.getItem("var_account_id") == null || sessionStorage.getItem("var_api_id") == null || sessionStorage.getItem("var_api_key") == null) {
+            swal({
+                title: "Missing API Keys",
+                text: "API credentials or account number are missing, please login again",
+                type: "warning"
+            }, function () {
+                window.location.href = "index.html";
+            });
+        }
+    }
+
+    // GET THE ACTIVITY TABLE READY IN DATATABLE FORMAT
+    var activity_datatable = $('#activity_table').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'Activity log'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Activity log',
+                        orientation: 'landscape'
+                    }]
+                });
+
+    function fill_audit_table() {
+        var subaccount_list = JSON.parse(sessionStorage.getItem("subaccount_list"));
+        console.log("SUBACCOUNT LIST");
+        console.log(subaccount_list);
+        var audit_values = [];
+        $.ajax({
+            url: 'export_audit.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("ACTIVITY AUDIT");
+                console.log(data);
+                $(data.audit_events).each(function (index, value) {
+                    if (value.hasOwnProperty("user_id") == true){
+                        var temp_account_id = value.account_id;
+                audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, subaccount_list.find(x => x.id == value.account_id).name, value.user_id, value.type_key, value.type_description];      
+            }else{
+                        audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, subaccount_list.find(x => x.id == value.account_id).name,value.account_id, "Imperva", value.type_key, value.type_description];
+                    }
+                });
+                $('#activity_table').dataTable().fnClearTable();
+                console.log(audit_values);
+                $('#activity_table').dataTable().fnAddData(audit_values);
+
+
+            }
+        });
+    }
+
+
+
+
+    function send_fetch_audit(post_data, clicked_obj) {
+        check_keys();
+        clicked_obj.disabled = true;
+        clicked_obj.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing Changes';
+        console.log(post_data);
+        $.ajax({
+            url: "fetch_audit.php",
+            type: "post",
+            dataType: 'json',
+            data: post_data,
+            success: function (data2) {
+                console.log("PHP SUCCESS FETCH AUDIT");
+                console.log(data2);
+                fill_audit_table();
+                clicked_obj.disabled = false;
+                clicked_obj.innerHTML = clicked_obj.name;
+                toastr.success('Success');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                fill_audit_table();
+                //    window.location.reload();
+                console.log("PHP ERROR error_audit");
+                console.log(jqXHR, textStatus, errorThrown);
+                toastr.warning('warning: php script returned an error, reach out in Github if it didn\'t work');
+                clicked_obj.disabled = false;
+                clicked_obj.innerHTML = clicked_obj.name;
+            }
+        });
+    }
+
+</script>
 
 
 <!-- print table site list and settings -->
@@ -433,8 +579,6 @@
 <!-- print table stats 7 days -->
 <script>
     $(document).ready(function () {
-
-
         $.ajax({
             url: 'export_stats_7_days.json',
             datatype: 'json',
@@ -463,14 +607,14 @@
             cache: false,
             success: function (data) {
                 list_stats += '<tr>';
-                list_stats += '<td>' + data.threats[5].incidents + '</td>';
+                list_stats += '<td>' + (+data.threats[9].incidents + +data.threats[10].incidents + +data.threats[0].incidents + +data.threats[3].incidents + +data.threats[5].incidents + +data.threats[8].incidents) + '</td>';
                 list_stats += '<td>' + data.threats[10].incidents + '</td>';
                 list_stats += '<td>' + data.threats[0].incidents + '</td>';
                 list_stats += '<td>' + data.threats[3].incidents + '</td>';
                 list_stats += '<td>' + data.threats[5].incidents + '</td>';
                 list_stats += '<td>' + data.threats[9].incidents + '</td>';
                 list_stats += '<td>' + data.threats[8].incidents + '</td>';
-
+                list_stats += '</tr>';
 
                 $('#api_list_stats').append(list_stats);
 
@@ -478,7 +622,6 @@
         });
     });
 </script>
-
 
 
 <!-- print ACL settings -->

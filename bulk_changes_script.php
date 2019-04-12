@@ -1,5 +1,7 @@
 <?php  
 
+$return_arr = array('res_message' => '', "status" => "success");
+
 $post = [
     'api_id' =>  $_POST['api_id'],
     'api_key' => $_POST['api_key'],
@@ -50,11 +52,13 @@ curl_setopt($ch, CURLOPT_POST, 1);// set post data to true
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post_action));   // post data
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$json = curl_exec($ch);
-file_put_contents("export_security_config.json",$json);
+$json_security_config = curl_exec($ch);
+file_put_contents("export_security_config.json",$json_security_config);
 curl_close($ch);
-}
 
+$json_security_config = json_decode($json_security_config);
+$return_arr["res_message"] = $json_security_config -> res_message;
+}
 }
 
 /* Curl to reload site settings */
@@ -114,7 +118,6 @@ function requestList($pageNb) {
 
 // END CURL to list sites and settings 
 
-$return_arr[] = array("status" => "success");
 // Encoding array in JSON format
 echo json_encode($return_arr);
 

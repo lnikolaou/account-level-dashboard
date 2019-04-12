@@ -51,7 +51,7 @@ $(function() {
         }),
 
         $(function() {
-            $("#sidebarnav").metisMenu();
+          //  $("#sidebarnav").metisMenu();
         }),
 
         $(".scroll-sidebar").slimScroll({
