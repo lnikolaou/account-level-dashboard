@@ -27,12 +27,10 @@
 
     <style>
         td {
-            min-width: 180px;
             padding: 7px;
         }
 
         th {
-            min-width: 180px;
             padding: 14px;
         }
     </style>
@@ -44,7 +42,7 @@
 
         <!-- HEADER BAR  -->
         <div class="header">
-                <div class="col-md-6"></div>
+            <div class="col-md-6"></div>
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header> 
@@ -58,7 +56,7 @@
                     <!-- toggle and nav items -->
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
-                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  "
+                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted"
                                 href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
                         <li>
                             <h3 class="text-primary"> Account Level Dashboard</h3>
@@ -82,16 +80,27 @@
     <!-- Container fluid for central page  -->
     <div id="export-pdf" class="page-wrapper">
 
-
         <div class="container-fluid">
 
+            <!-- Print only dashboard title -->
 
+            <div class="print-only">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" style="background-color: white">
+                            <div class="card-body" style="background-color: white">
+                                <h1>ACCOUNT LEVEL DASHBOARD </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- ROW for column of Account information -->
             <div class="row">
 
                 <!-- account information -->
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card card-outline-info">
                         <h2 class="m-b-0"><span id="account_name" class="m-b-0" style="font-weight: bold;">Account
                                 Name</span>
@@ -103,9 +112,8 @@
                                 <tbody>
                                     <tr>
                                         <td>Since: <span id="trial_end" ">tbd</span></td>
-                              <td><span id="nb_users" class="m-b-0 " style="font-weight: bold;"></span
-                                                style="font-weight: bold;"> <span class="m-b-0 "
-                                                style="font-weight: bold;">configured Users </span></td>
+                              <td><span id="nb_users" style="font-weight: bold;">
+                                                configured Users </span></td>
 
                                     </tr>
 
@@ -134,14 +142,14 @@
                 </div>
 
                 <!-- FEATURE LIST -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="card card-outline-info">
                         <h2 class="m-b-0"><span class="m-b-0" style="font-weight: bold;">Activated licenses</span>
                             <table>
                                 <tbody>
 
                                     <tr>
-                                        <td>SIEM license: </td>
+                                        <td style="min-width: 160px;">SIEM license: </td>
                                         <td>
                                             <label class="switch">
                                                 <input id="add_on_siem" type="checkbox" disabled>
@@ -150,7 +158,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Attack Analytics: </td>
+                                        <td style="min-width: 160px;">Attack Analytics: </td>
                                         <td>
                                             <label class="switch">
                                                 <input id="add_on_aa" type="checkbox" disabled>
@@ -159,7 +167,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Load Balancing: </td>
+                                        <td style="min-width: 160px;">Load Balancing: </td>
                                         <td>
                                             <label class="switch">
                                                 <input id="add_on_lb" type="checkbox" disabled>
@@ -168,7 +176,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>DDoS: </td>
+                                        <td style="min-width: 160px;">DDoS: </td>
                                         <td>
                                             <label class="switch">
                                                 <input id="add_on_ddos" type="checkbox" disabled>
@@ -177,7 +185,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Support Level: </td>
+                                        <td style="min-width: 160px;">Support Level: </td>
                                         <td>
                                             <label class="label label-primary"> <span id="support_level">support
                                                     level</span> </label>
@@ -190,22 +198,22 @@
                 </div>
 
 
-                <div class="col-md-3">
-                <div class="card card-outline-info">
-                    <h2 class="m-b-0"><span class="m-b-0" style="font-weight: bold;">Account Structure</span>
-                    </br>
-                        <h4 class="card-title" id="accountName2">Account Name</h4>
-                        <div class="card-content">
-                            <div class="nestable">
-                                <div class="dd">
-                                    <ol class="dd-list" id="account_structure">
-                                    </ol>
+                <div class="col-md-4">
+                    <div class="card card-outline-info">
+                        <h2 class="m-b-0"><span class="m-b-0" style="font-weight: bold;">Account Structure</span>
+                            </br>
+                            <h4 class="card-title" > <span id="accountName2">Account Name</span><span id="accountnbsites"> 1</span></h4>
+                            <div class="card-content">
+                                <div class="nestable">
+                                    <div class="dd">
+                                        <ol class="dd-list" id="account_structure">
+                                        </ol>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                    </div>
                 </div>
-            </div>
 
 
             </div>
@@ -1477,28 +1485,29 @@
 
 <!-- print Account Plan -->
 <script>
-        $(document).ready(function () {
-            var main_account_name = "";
-            var main_account_id = "";
-            $.ajax({
-                url: 'export_account_plan.json',
-                datatype: 'json',
-                type: 'get',
-                cache: false,
-                success: function (data) {
-                    console.log("JSON of account plan");
-                    console.log(data);
-                    document.getElementById("account_name").textContent = data.account_name;
-                    document.getElementById("accountName2").textContent = data.account_id + "   " + data.account_name;
-                    document.getElementById("account_id").textContent = data.account_id;
-                    document.getElementById("plan_name").textContent = data.plan_name;
-                    document.getElementById("trial_end").textContent = data.account.trial_end_date;
-                    document.getElementById("nb_users").textContent = data.logins.length;
-                    document.getElementById("support_level").textContent = data.account.support_level;
-                    main_account_name = data.account_name;
-                    main_account_id = data.account_id;
-                }
-            });
+
+    $(document).ready(function () {
+        var main_account_name = "";
+        var main_account_id = "";
+        $.ajax({
+            url: 'export_account_plan.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("JSON of account plan");
+                console.log(data);
+                document.getElementById("account_name").textContent = data.account_name;
+                document.getElementById("accountName2").textContent = data.account_id + "   " + data.account_name +" ";
+                document.getElementById("account_id").textContent = data.account_id;
+                document.getElementById("plan_name").textContent = data.plan_name;
+                document.getElementById("trial_end").textContent = data.account.trial_end_date;
+                document.getElementById("nb_users").textContent = data.logins.length + " configured users";
+                document.getElementById("support_level").textContent = data.account.support_level;
+                main_account_name = data.account_name;
+                main_account_id = data.account_id;
+            }
+        });
 
 
         var count_block = 0;
@@ -1512,47 +1521,48 @@
             datatype: 'json',
             type: 'get',
             cache: false,
-            success: function (data) {
+            success: function (data_site_settings) {
                 console.log("JSON of sites and settings");
-                console.log(data);
-                if (data == "null") {
+                console.log(data_site_settings);
+                document.getElementById("accountnbsites").textContent = "- " + data_site_settings.filter(x => x.account_id === main_account_id).length + " sites";
+                if (data_site_settings == "null") {
                     toastr.warning('some API calls failed');
                     toastr.error('Check in API Expolorer that you can run /api/prov/v1/sites/list API call', 'API Permissions Error');
-                } else if (data[0].res_message == "OK") {
+                } else if (data_site_settings[0].res_message == "OK") {
                     toastr.success('Data successfully loaded', 'Success');
                 } else {
-                    toastr.warning('Error when running running API /api/prov/v1/sites/list  ' + data[0].res_message, 'Warning');
+                    toastr.warning('Error when running running API /api/prov/v1/sites/list  ' + data_site_settings[0].res_message, 'Warning');
                 }
-                $(data).each(function (index, value) {
-                    if (value.security.waf.rules[0].action_text === 'Alert Only' | value.security.waf.rules[0].action_text === 'Ignore') {
+                $(data_site_settings).each(function (index, value_site_settings) {
+                    if (value_site_settings.security.waf.rules[0].action_text === 'Alert Only' | value_site_settings.security.waf.rules[0].action_text === 'Ignore') {
                         count_alert++;
                     } else {
                         count_block++;
                     }
-                    if (value.security.waf.rules[1].action_text === 'Alert Only' | value.security.waf.rules[1].action_text === 'Ignore') {
+                    if (value_site_settings.security.waf.rules[1].action_text === 'Alert Only' | value_site_settings.security.waf.rules[1].action_text === 'Ignore') {
                         count_alert++;
                     } else {
                         count_block++;
                     }
-                    if (value.security.waf.rules[2].action_text === 'Alert Only' | value.security.waf.rules[2].action_text === 'Ignore') {
+                    if (value_site_settings.security.waf.rules[2].action_text === 'Alert Only' | value_site_settings.security.waf.rules[2].action_text === 'Ignore') {
                         count_alert++;
                     } else {
                         count_block++;
                     }
-                    if (value.security.waf.rules[6].action_text === 'Alert Only' | value.security.waf.rules[6].action_text === 'Ignore') {
+                    if (value_site_settings.security.waf.rules[6].action_text === 'Alert Only' | value_site_settings.security.waf.rules[6].action_text === 'Ignore') {
                         count_alert++;
                     } else {
                         count_block++;
                     }
-                    if (value.security.waf.rules[4].ddos_traffic_threshold === 1000) {
+                    if (value_site_settings.security.waf.rules[4].ddos_traffic_threshold === 1000) {
                         count_ddos++;
                     }
-                    if (value.status === 'fully-configured') {
+                    if (value_site_settings.status === 'fully-configured') {
                         count_configured++;
                     } else {
                         count_not_configured++;
                     }
-                    if (value.acceleration_level === 'advanced') {
+                    if (value_site_settings.acceleration_level === 'advanced') {
                         count_advCaching++;
                     }
                 });
@@ -1567,37 +1577,39 @@
                 document.getElementById("nb_ddos").textContent = (count_configured + count_not_configured - count_ddos) + "/" + (count_configured + count_not_configured);
 
 
-// SCRIPT TO CREATE THE ACCOUNT STRUCTURE
 
-
+                // SCRIPT TO CREATE THE ACCOUNT STRUCTURE
                 var structure_table = "";
                 $.ajax({
                     url: 'export_subaccounts.json',
                     datatype: 'json',
                     type: 'get',
                     cache: false,
-                    success: function (data2) {
+                    success: function (data_subaccounts) {
                         console.log("JSON of SUBACCOUNTS");
-                        console.log(data2);
-                        if (data2.res_message != "OK") {
-                            toastr.warning(data2.res_message, 'permission error in /accounts/kustSubbacounts', 'Warning')
+                        console.log(data_subaccounts);
+                        if (data_subaccounts.res_message != "OK") {
+                            toastr.warning(data_subaccounts.res_message, 'permission error in /accounts/listSubbacounts', 'Warning')
 
-                        } else if (data2.resultList.length == 0) {
+                        } else if (data_subaccounts.resultList.length == 0) {
                             var node = document.createElement("LI");
-                                var textnode = document.createTextNode("no subaccounts");
-                                node.appendChild(textnode);
-                                document.getElementById("account_structure").appendChild(node);
+                            var textnode = document.createTextNode("no subaccounts");
+                            node.appendChild(textnode);
+                            document.getElementById("account_structure").appendChild(node);
                         } else {
-                            var subaccount_list = [{id: main_account_id, name:  main_account_name}];
-                            
-                            $(data2.resultList).each(function (index, value) {
+                            var subaccount_list = [{ id: main_account_id, name: main_account_name }];
+
+                            $(data_subaccounts.resultList).each(function (index, value_sub) {
                                 var node = document.createElement("LI");
-                                var textnode = document.createTextNode(value.sub_account_id + "   " + value.sub_account_name);
+                                var textnode = document.createTextNode(value_sub.sub_account_id + "   " + value_sub.sub_account_name + " - " +data_site_settings.filter(x => x.account_id === value_sub.sub_account_id).length + " sites");
                                 node.appendChild(textnode);
                                 document.getElementById("account_structure").appendChild(node);
-                                subaccount_list.push({id: value.sub_account_id, name : value.sub_account_name});
+                                subaccount_list.push({ id: value_sub.sub_account_id, name: value_sub.sub_account_name });
+                            //    document.getElementById("accountnbsites") = data_site_settings.filter(x => x.account_id === value_sub.sub_account_id).length;
+
+                                alert(yoplala);
                             });
-                           // sub = JSON.parse(subaccount_list);
+                            // sub = JSON.parse(subaccount_list);
                             console.log("SUBACCOUNTS ARRAY");
                             sessionStorage.setItem("subaccount_list", JSON.stringify(subaccount_list));
                             console.log(subaccount_list);
@@ -1608,8 +1620,8 @@
 
             },
             error: function (data) {
-                toastr.warning('error seems related to setup, not to API permissions', 'Warning')
-                toastr.error('error can be in Xampp or write permissions in folder. Check Readme.md for troubleshooting', 'API calls could not be generated')
+                toastr.warning('error seems related to setup, or to wrong API keys', 'Warning')
+                toastr.error('error can be in Xampp, write permissions in folder or wrong API key match. Check Readme.md for troubleshooting', 'API calls could not be generated')
             }
         });
     });

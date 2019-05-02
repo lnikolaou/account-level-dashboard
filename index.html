@@ -149,7 +149,7 @@
                         sessionStorage.setItem("var_api_id", document.getElementById("api_id").value);
                         sessionStorage.setItem("var_api_key", document.getElementById("api_key").value);
                         sessionStorage.setItem("var_account_id", document.getElementById("account_id").value);
-                        
+
                         var post_data = {
                             "account_id": document.getElementById("account_id").value,
                             "api_key": document.getElementById("api_key").value,
@@ -209,7 +209,7 @@
                     $.when(localVersion, remoteVersion).done(function () {
                         document.getElementById("versionNb").innerHTML = localVersion.version;
                         if (localVersion.version != remoteVersion.version){
-                            toastr.success("<a href=\"https://github.com/imperva/account-level-dashboard\">a newer version is available in Github; click to download</a>", {closeButton: true});
+                            toastr.warning("<a href=\"https://github.com/imperva/account-level-dashboard\">a newer version is available in Github; click to download</a>", {closeButton: true});
                         }else{
                             toastr.success('version is up to date', {closeButton: true});
                         }

@@ -51,7 +51,7 @@
                     <!-- toggle and nav items -->
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
-                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  "
+                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted"
                                 href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
                     </ul>
                 </div>
@@ -271,65 +271,76 @@
                             <div class="tab-pane p-20" id="auditing_settings" role="tabpanel">
 
                                 <form action="#" method="post" style="width: 90%" id="audit_form">
-                                    <div class="row p-t-20">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <select class="form-control" id="period">
-                                                    <option value="last_7_days">last 7 days</option>
-                                                    <option value="last_30_days">last 30 days</option>
-                                                    <option value="last_90_days">last 90 days</option>
-                                                </select>
-                                            </div>
+                              <!--       <div class="row p-t-20">   ADD THE OPTION TO sELECT ACCOUNT IN THE FUTURE
+                                        <div class="col-sm-2">
+                                            <label style="display: inline-block;"> Account ID</label>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <button id="fetch_audit" class="btn btn-info"
-                                                name="Fetch Audit Activity">Fetch Audit Activity</button>
+                                       <div class="col-sm-2">
+                                            <input type="text" id="account_id_fetch" placeholder="account ID"
+                                                class="form-control" style="display:inline-block;">
+                                        </div> -->
+
+                                    <div class="col-md-4">
+
+                                        <div class="form-group">
+                                            <select class="form-control" id="period">
+                                                <option value="last_7_days">last 7 days</option>
+                                                <option value="last_30_days">last 30 days</option>
+                                                <option value="last_90_days">last 90 days</option>
+                                            </select>
                                         </div>
                                     </div>
-                                </form>
 
-                                <table id="activity_table"
-                                    class="display nowrap table table-hover table-striped table-bordered"
-                                    data-page-length='25'>
-                                    <thead>
-                                        <tr>
-                                            <th>Timestamp</th>
-                                            <th>Account ID</th>
-                                            <th>Account Name</th>
-                                            <th>User</th>
-                                            <th>Action Title</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Timestamp</th>
-                                            <th>Account ID</th>
-                                            <th>Account Name</th>
-                                            <th>User</th>
-                                            <th>Action Title</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody></tbody>
-                                </table>
+                                    <div class="col-sm-4">
+                                        <button id="fetch_audit" class="btn btn-info" name="Fetch Audit Activity">Fetch
+                                            Audit Activity</button>
+                                    </div>
+                                </div>
                             </div>
+                            </form>
+
+                            <table id="activity_table"
+                                class="display nowrap table table-hover table-striped table-bordered"
+                                data-page-length='25'>
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Account ID</th>
+                                        <th>Account Name</th>
+                                        <th>User</th>
+                                        <th>Action Title</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Account ID</th>
+                                        <th>Account Name</th>
+                                        <th>User</th>
+                                        <th>Action Title</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody></tbody>
+                            </table>
                         </div>
-
-
                     </div>
-                    <br />
+
 
                 </div>
+                <br />
+
             </div>
-            <!-- END ROW for security Settings table summary -->
+        </div>
+        <!-- END ROW for security Settings table summary -->
 
 
-            <hr />
+        <hr />
 
 
 
-        </div> <!-- end page wrapper-->
+    </div> <!-- end page wrapper-->
 </body>
 
 
@@ -374,6 +385,8 @@
         send_fetch_audit(post_values, this);
     });
 
+    document.getElementById("account_id_fetch").value = sessionStorage.getItem("var_account_id");
+
 
     //CHECK IF THERE ARE KEYS IN BROWSER MEMORY
     function check_keys() {
@@ -390,17 +403,17 @@
 
     // GET THE ACTIVITY TABLE READY IN DATATABLE FORMAT
     var activity_datatable = $('#activity_table').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [{
-                        extend: 'excelHtml5',
-                        title: 'Activity log'
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        title: 'Activity log',
-                        orientation: 'landscape'
-                    }]
-                });
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'excelHtml5',
+            title: 'Activity log'
+        },
+        {
+            extend: 'pdfHtml5',
+            title: 'Activity log',
+            orientation: 'landscape'
+        }]
+    });
 
     function fill_audit_table() {
         var subaccount_list = JSON.parse(sessionStorage.getItem("subaccount_list"));
@@ -416,11 +429,12 @@
                 console.log("ACTIVITY AUDIT");
                 console.log(data);
                 $(data.audit_events).each(function (index, value) {
-                    if (value.hasOwnProperty("user_id") == true){
+                    if (value.hasOwnProperty("user_id") == true) {
                         var temp_account_id = value.account_id;
-                audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, subaccount_list.find(x => x.id == value.account_id).name, value.user_id, value.type_key, value.type_description];      
-            }else{
-                        audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, subaccount_list.find(x => x.id == value.account_id).name,value.account_id, "Imperva", value.type_key, value.type_description];
+                        // subaccount_list.find(x => x.id == value.account_id).name   is to replace the account name
+                        audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", value.user_id, value.type_key, value.type_description];
+                    } else {
+                        audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", "Imperva", value.type_key, value.type_description];
                     }
                 });
                 $('#activity_table').dataTable().fnClearTable();
@@ -431,8 +445,6 @@
             }
         });
     }
-
-
 
 
     function send_fetch_audit(post_data, clicked_obj) {

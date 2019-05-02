@@ -10,7 +10,6 @@ $post = [
 ];
 
 
-
 /* Curl to FETCH ACCOUNT AUDIT  */
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, "https://my.incapsula.com/api/prov/v1/accounts/audit");

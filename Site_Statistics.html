@@ -221,7 +221,7 @@ $(document).ready(function() {
                         stats_array[2] = (Math.round(stats_array[2]/stats_array[1] * 100) || 0) +" %";
                         stats_array[3] = (Math.round(stats_array[3]/stats_array[1] * 100) || 0) + " %";
                         stats_array[5] = (Math.round(value.stats.caching.saved_bytes / value.stats.caching.total_bytes * 100) || 0) +"%";
-                        stats_array[6] = Intl.NumberFormat().format((Math.round(value.stats.caching.total_bytes / 10000000)/100) || 0) +" Gbytes";
+                        stats_array[6] = Intl.NumberFormat().format((Math.round(value.stats.caching.total_bytes / 10000000)/100) || 0);
                         }
                         
                     list_sites += '<tr>';
