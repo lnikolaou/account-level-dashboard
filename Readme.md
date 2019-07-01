@@ -5,6 +5,7 @@ Instant view of settings of all sites and account level statistics
 The Account level dashboard includes:  
 - table with all main settings assessment (Security and Performance)  
 - Convenient dashboard showing in a clear way the settings status  
+- Bulk actions to perform security settings changes to several sites at once
 
 
 # HOW TO: INSTALL LOCALLY ON A PC  
@@ -51,6 +52,8 @@ Main Dashboard Page
   
 Security Settings table, per site, exportable in pdf and excel  
 ![alt text](https://github.com/imperva/account-level-dashboard/raw/master/images/screenshots/security%20assessment%20table.png)  
+
+Bulk Actions Changes to multiple sites at once
 
 ERRORS
 If you are getting an error that says "Issue with the API Key or Account Permission", make sure that:

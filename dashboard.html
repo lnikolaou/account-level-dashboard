@@ -406,7 +406,7 @@
                 <!--            <div class="col-md-4" ">
                 <div class="card" style="max-height: 500px"> 
                     <div class="card-title">
-                        <h4>List of domains: more details</h4> <a style="color:blue" href="raw tables.html">here</a>
+                        <h4>List of domains: more details</h4> <a style="color:blue" href="raw_tables.html">here</a>
                         </div>
                          <table class="table nowrap table-hover table-bordered table-striped table-responsive" id="api_list_sites">           
                         <tr>
@@ -841,7 +841,7 @@
 
         $(document).ready(function () {
             $.ajax({
-                url: 'export_stats_7_days.json',
+                url: 'export_account_stats.json',
                 datatype: 'json',
                 type: 'get',
                 cache: false,
@@ -910,7 +910,7 @@
 
         $(document).ready(function () {
             $.ajax({
-                url: 'export_stats_7_days.json',
+                url: 'export_account_stats.json',
                 datatype: 'json',
                 type: 'get',
                 cache: false,
@@ -991,7 +991,7 @@
 
         $(document).ready(function () {
             $.ajax({
-                url: 'export_stats_7_days.json',
+                url: 'export_account_stats.json',
                 datatype: 'json',
                 type: 'get',
                 cache: false,
@@ -1060,7 +1060,7 @@
 
         $(document).ready(function () {
             $.ajax({
-                url: 'export_stats_7_days.json',
+                url: 'export_account_stats.json',
                 datatype: 'json',
                 type: 'get',
                 cache: false,
@@ -1142,7 +1142,7 @@
 
         $(document).ready(function () {
             $.ajax({
-                url: 'export_stats_7_days.json',
+                url: 'export_account_stats.json',
                 datatype: 'json',
                 type: 'get',
                 cache: false,
@@ -1357,7 +1357,7 @@
 
         $(document).ready(function () {
             $.ajax({
-                url: 'export_stats_7_days.json',
+                url: 'export_account_stats.json',
                 datatype: 'json',
                 type: 'get',
                 cache: false,
@@ -1446,7 +1446,7 @@
 
         $(document).ready(function () {
             $.ajax({
-                url: 'export_stats_7_days.json',
+                url: 'export_account_stats.json',
                 datatype: 'json',
                 type: 'get',
                 cache: false,
@@ -1589,7 +1589,7 @@
                         console.log("JSON of SUBACCOUNTS");
                         console.log(data_subaccounts);
                         if (data_subaccounts.res_message != "OK") {
-                            toastr.warning(data_subaccounts.res_message, 'permission error in /accounts/listSubbacounts', 'Warning')
+                         //   toastr.warning(data_subaccounts.res_message, 'permission error in /accounts/listSubbacounts', 'Warning')
 
                         } else if (data_subaccounts.resultList.length == 0) {
                             var node = document.createElement("LI");
@@ -1607,7 +1607,6 @@
                                 subaccount_list.push({ id: value_sub.sub_account_id, name: value_sub.sub_account_name });
                             //    document.getElementById("accountnbsites") = data_site_settings.filter(x => x.account_id === value_sub.sub_account_id).length;
 
-                                alert(yoplala);
                             });
                             // sub = JSON.parse(subaccount_list);
                             console.log("SUBACCOUNTS ARRAY");
@@ -1690,7 +1689,7 @@
         var varCached_Bw = 0;
         var varTotal_Bw = 0;
         $.ajax({
-            url: 'export_stats_7_days.json',
+            url: 'export_account_stats.json',
             datatype: 'json',
             type: 'get',
             cache: false,
@@ -1762,7 +1761,7 @@
 
     $(document).ready(function () {
         $.ajax({
-            url: 'export_stats_7_days.json',
+            url: 'export_account_stats.json',
             datatype: 'json',
             type: 'get',
             cache: false,

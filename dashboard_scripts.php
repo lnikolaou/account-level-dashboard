@@ -1,12 +1,18 @@
 <?php  
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 if($_SERVER['REQUEST_METHOD'] == 'POST')  {
-    
+
 $post = [
     'api_id' => $_POST['api_id'],
     'api_key' => $_POST['api_key'],
     'account_id'   => $_POST['account_id'],
-    'page_size' => 100,    
+    'page_size' => 100,
 ];
+
 
 $post_stats = [
     'api_id' => $_POST['api_id'],
@@ -24,20 +30,21 @@ $post_stats = [
 	curl_setopt($ch, CURLOPT_HEADER, 0);
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post));   // post data
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $json = curl_exec($ch);
-    curl_close($ch);
-    
-    $json_decoded = json_decode($json);
-    $json_status = ($json_decoded -> res_message);
+	$json = curl_exec($ch);
+	curl_close($ch);
+		
+	$json_decoded = json_decode($json);
+	if (json_last_error() === JSON_ERROR_NONE) {
+	$json_status = ($json_decoded -> res_message);
 
     if ( $json_status != "OK" ){
-        // AUTHENTICATION ERROR
-        $return_arr[] = array("status" => $json_status);
+		// AUTHENTICATION ERROR
+		file_put_contents("export_sites.json",$json);
+//		$return_arr[] = array("status" => $json_status);
     }else{
 	$json_object = json_decode($json);
 	$json_object_2 = json_decode($json,true);
     $array_sites = [];
-    
 	$array_sites = $json_object_2['sites'];
 
 
@@ -89,7 +96,7 @@ function requestList($pageNb) {
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post_stats));   // post data
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$json = curl_exec($ch);
-	file_put_contents("export_stats_7_days.json",$json);
+	file_put_contents("export_account_stats.json",$json);
 	curl_close($ch);
 	
 
@@ -160,6 +167,8 @@ function requestSitesStats($site_id) {
 	curl_close($ch);
 }
 
+/*
+THIS PART IS TO RETRIEVE ALL THE PER-SITE STATISTICS
 
 if (isset($_POST['sites_checkbox'])  )
 	{
@@ -183,12 +192,22 @@ if (isset($_POST['sites_checkbox'])  )
 } else
 {
 }
+*/
  
  $return_arr[] = array("status" => "OK");
  // Encoding array in JSON format
  echo json_encode($return_arr);
 
 } 
+}else{
+	$return_arr[] = array("status" => "NOK");
+	// Encoding array in JSON format
+	echo json_encode($return_arr);	
+}
+}else{
+	$return_arr[] = array("status" => "NOK");
+	// Encoding array in JSON format
+	echo json_encode($return_arr);
 }
 
  ?>

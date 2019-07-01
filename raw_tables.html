@@ -380,7 +380,7 @@
         send_fetch_audit(post_values, this);
     });
 
-    document.getElementById("account_id_fetch").value = sessionStorage.getItem("var_account_id");
+ //   document.getElementById("account_id_fetch").value = sessionStorage.getItem("var_account_id");
 
 
     //CHECK IF THERE ARE KEYS IN BROWSER MEMORY
@@ -587,7 +587,7 @@
 <script>
     $(document).ready(function () {
         $.ajax({
-            url: 'export_stats_7_days.json',
+            url: 'export_account_stats.json',
             datatype: 'json',
             type: 'get',
             cache: false,
@@ -608,7 +608,7 @@
         var count_XSS_events = 0;
         var count_ddos_events = 0;
         $.ajax({
-            url: 'export_stats_7_days.json',
+            url: 'export_account_stats.json',
             datatype: 'json',
             type: 'get',
             cache: false,

@@ -19,7 +19,7 @@
     <!-- Custom CSS -->
     <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-  
+    <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 
 
       <body class="fix-header fix-sidebar"> 
@@ -80,7 +80,10 @@
 			<div class="row">
                         <div class="card">
                             <div class="card-title">
-							<h4>Site Statistics Report</h4> 
+                            <h4>Site Statistics Report</h4> 
+                            <button style="float: right; min-width: 130px;" onclick="return"
+                            name="Fetch Sites Statistics" type="submit" class="btn btn-info"
+                            id="fetch_stats">Fetch Sites Statistics</button>
 							</div>
 				<br />
 				<div id="site_stats_div" style="overflow-x:auto;">
@@ -175,6 +178,9 @@
 <script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part --> 
 <script src="js/scripts.js"></script>  
 <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+
+<script src="js/lib/sweetalert/sweetalert.min.js"></script>
+
 <script>
     $(function () {
         $("#sidebar").load("sidebar.html");
@@ -184,6 +190,18 @@
 
 
     <script>
+
+$('#fetch_stats').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "", "security_rule_action": "" };
+            swal({
+                                title: "Warning",
+                                text: "I am working hard to restore the sites statistics features soon (took it down because was taking too long); follow the project updates on Github",
+                                type: "warning"
+                            });
+           // send_command(post_values, this);
+        });
+
+
 $(document).ready(function() {
     var list_sites = '';
     $.ajax({
@@ -334,7 +352,7 @@ $(document).ready(function() {
 
 
 		$.ajax({
-		url: 'export_stats_7_days.json',
+		url: 'export_account_stats.json',
 		datatype: 'json',
 		type: 'get',
 		cache: false,
@@ -354,7 +372,7 @@ $(document).ready(function() {
 		var count_XSS_events = 0;
 		var count_ddos_events = 0;
 		$.ajax({
-		url: 'export_stats_7_days.json',
+		url: 'export_account_stats.json',
 		datatype: 'json',
 		type: 'get',
 		cache: false,
