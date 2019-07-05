@@ -40,7 +40,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header>
-                        <a class=" navbar-brand" href="dashboard.php">
+                        <a class=" navbar-brand" href="dashboard.html">
                     <!-- Dashboard logo icon  -->
                     <b style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage" class="dark-logo"
                             style=" height:auto;margin-right: 2.5em" />
@@ -105,8 +105,14 @@
                                         class="hidden-xs-down">Attack Statistics</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#incapRule_settings"
                                     role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
-                                        class="hidden-xs-down">Incaprule Settings</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#auditing_settings"
+                                        class="hidden-xs-down">Incaprules</span></a> </li>
+<!-- to add when php ready  <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#DeliveryRule_settings"
+                                            role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                                class="hidden-xs-down">Delivery Rules</span></a> </li>-->  
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#Users"
+                                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                                        class="hidden-xs-down">Users</span></a> </li>
+                                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#auditing_settings"
                                     role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
                                         class="hidden-xs-down">Activity Auditing</span></a> </li>
                         </ul>
@@ -160,7 +166,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane  p-20" id="attack_stats" role="tabpanel">
-                                <table class="table table-bordered table-striped table-hover table-responsive"
+                                <table class="display nowrap table table-hover table-striped table-bordered"
                                     id="api_list_stats">
                                     <thead>
                                         <tr>
@@ -265,8 +271,49 @@
                                     <tbody></tbody>
                                 </table>
                             </div>
+                            <div class="tab-pane p-20" id="Delivery_Rules_settings" role="tabpanel">
+                                <table id="DeliveryRule_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>DeliveryRule ID</th>
+                                            <th>DeliveryRule Name</th>
+                                            <th>Action</th>
+                                            <th>Rule</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>DeliveryRule ID</th>
+                                            <th>DeliveryRule Name</th>
+                                            <th>Action</th>
+                                            <th>Rule</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane p-20" id="Users" role="tabpanel">
+                                <table id="Users_table" class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>User ID</th>
+                                            <th>User email</th>
+                                            <th>User Verified</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                             <div class="tab-pane p-20" id="auditing_settings" role="tabpanel">
-
                                 <form action="#" method="post" style="width: 90%" id="audit_form">
                                     <!--       <div class="row p-t-20">   ADD THE OPTION TO sELECT ACCOUNT IN THE FUTURE
                                         <div class="col-sm-2">
@@ -397,6 +444,22 @@
     }
 
     // GET THE ACTIVITY TABLE READY IN DATATABLE FORMAT
+
+    var activity_datatable = $('#api_list_stats').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'excelHtml5',
+            title: 'Attack Statistics'
+        },
+        {
+            extend: 'pdfHtml5',
+            title: 'Attack Statistics',
+            orientation: 'landscape'
+        }]
+    });
+
+
+    // GET THE ACTIVITY TABLE READY IN DATATABLE FORMAT
     var activity_datatable = $('#activity_table').DataTable({
         dom: 'Bfrtip',
         buttons: [{
@@ -409,6 +472,7 @@
             orientation: 'landscape'
         }]
     });
+
 
     function fill_audit_table() {
         var subaccount_list = JSON.parse(sessionStorage.getItem("subaccount_list"));
@@ -448,7 +512,7 @@
         clicked_obj.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing Changes';
         console.log(post_data);
         $.ajax({
-            url: "fetch_audit.php",
+            url: "/php/fetch_audit.php",
             type: "post",
             dataType: 'json',
             data: post_data,
@@ -732,6 +796,47 @@
         });
     });
 </script>
+
+<!--Print all Users-->
+<script>
+    $(document).ready(function () {
+
+        let UserList = '';
+        $.ajax({
+            url: 'export_account_plan.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("ACCOUNT_PLAN");
+                console.log(data);
+                let User_List = '<tr>'+'<td>' + data.account.user_name + '</td>' + '<td>' + data.account.email + '</td>' + '<td>' + "Account Admin" + '</td>'+'</tr>';
+                $(data.logins).each(function (index, value) {
+                        User_List += '<tr>' + '<td>' + value.login_id + '</td>' + '<td>' + value.email + '</td>' + '<td>' + value.email_verified + '</td>'+'</tr>';
+                });
+
+                $("#Users_table tbody").append(User_List);
+
+                //Fix bad alignment with Datatable
+                $("#Users_table tbody td").css('text-align', 'left');
+
+                $('#Users_table').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'Users List'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Users List',
+                        orientation: 'landscape'
+                    }]
+                });
+            }
+        });
+    });
+</script>
+
 
 
 <!--Print all IncapRules-->

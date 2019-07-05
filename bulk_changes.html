@@ -53,7 +53,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="dashboard.php">
+                    <a class="navbar-brand" href="dashboard.html">
                         <!-- Dashboard logo icon  -->
                         <ul>
                             <li style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage"
@@ -408,7 +408,7 @@
                 post_data.site_id_input = selected_sites;
                 console.log(post_data);
                 $.ajax({
-                    url: "bulk_changes_script.php",
+                    url: "php/bulk_changes_script.php",
                     type: "post",
                     dataType: 'json',
                     data: post_data,
