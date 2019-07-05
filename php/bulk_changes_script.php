@@ -53,7 +53,7 @@ curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post_action));   // post data
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $json_security_config = curl_exec($ch);
-file_put_contents("export_security_config.json",$json_security_config);
+file_put_contents("../export_security_config.json",$json_security_config);
 curl_close($ch);
 
 $json_security_config = json_decode($json_security_config);
@@ -113,7 +113,7 @@ function requestList($pageNb) {
 	}
 
 	$json_export_sites = json_encode($array_sites);
-	file_put_contents("export_sites.json",$json_export_sites);
+	file_put_contents("../export_sites.json",$json_export_sites);
 
 
 // END CURL to list sites and settings 

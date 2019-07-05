@@ -27,7 +27,7 @@ foreach ($site_list as $site_value) {
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post_status));  
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$acl_json = curl_exec($ch);
-	file_put_contents("old_acl_config.json",$acl_json);
+	file_put_contents("../old_acl_config.json",$acl_json);
 	curl_close($ch);
 
 
@@ -69,7 +69,7 @@ $post_action = [
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post_action));   // post data
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$json = curl_exec($ch);
-	file_put_contents("export_acl_config.json",$json);
+	file_put_contents("../export_acl_config.json",$json);
 	curl_close($ch);
 }
 
@@ -128,7 +128,7 @@ if (count ($json_object-> sites) == "100") {
 }
 
 $json_export_sites = json_encode($array_sites);
-file_put_contents("export_sites.json",$json_export_sites);
+file_put_contents("../export_sites.json",$json_export_sites);
 
 // END CURL to list sites and settings 
 

@@ -18,7 +18,7 @@ curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post));   // post data
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $json_audit = curl_exec($ch);
-file_put_contents("export_audit.json",$json_audit);
+file_put_contents("../export_audit.json",$json_audit);
 curl_close($ch);
 
 $json_audit = json_decode($json_audit);

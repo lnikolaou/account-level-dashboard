@@ -39,7 +39,7 @@ $post_stats = [
 
     if ( $json_status != "OK" ){
 		// AUTHENTICATION ERROR
-		file_put_contents("export_sites.json",$json);
+		file_put_contents("../export_sites.json",$json);
 //		$return_arr[] = array("status" => $json_status);
     }else{
 	$json_object = json_decode($json);
@@ -85,7 +85,7 @@ function requestList($pageNb) {
 	}
 
 	$json_export_sites = json_encode($array_sites);
-	file_put_contents("export_sites.json",$json_export_sites);
+	file_put_contents("../export_sites.json",$json_export_sites);
 
 	
 /*  curl to get account stats*/ 
@@ -96,7 +96,7 @@ function requestList($pageNb) {
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post_stats));   // post data
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$json = curl_exec($ch);
-	file_put_contents("export_account_stats.json",$json);
+	file_put_contents("../export_account_stats.json",$json);
 	curl_close($ch);
 	
 
@@ -108,7 +108,7 @@ function requestList($pageNb) {
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post));   // post data
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$json = curl_exec($ch);
-	file_put_contents("export_account_plan.json",$json);
+	file_put_contents("../export_account_plan.json",$json);
 	curl_close($ch);
 
 
@@ -120,7 +120,7 @@ function requestList($pageNb) {
     curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post));   // post data
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $json = curl_exec($ch);
-    file_put_contents("export_account_subscriptions.json",$json);
+    file_put_contents("../export_account_subscriptions.json",$json);
     curl_close($ch);
 
 /* curl to get the list of sub accounts */
@@ -131,10 +131,10 @@ function requestList($pageNb) {
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post));   // post data
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$json = curl_exec($ch);
-	file_put_contents("export_subaccounts.json",$json);
+	file_put_contents("../export_subaccounts.json",$json);
 	curl_close($ch);
 
-
+/*
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, "https://my.incapsula.com/api/prov/v1/accounts/list");
 	curl_setopt($ch, CURLOPT_POST, 1);// set post data to true
@@ -142,9 +142,9 @@ function requestList($pageNb) {
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($post));   // post data
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$json = curl_exec($ch);
-	file_put_contents("export_account_list.json",$json);
+	file_put_contents("../export_account_list.json",$json);
 	curl_close($ch);
-
+*/
 
 function requestSitesStats($site_id) {
 	$post_stats_sites = [
@@ -173,7 +173,7 @@ THIS PART IS TO RETRIEVE ALL THE PER-SITE STATISTICS
 if (isset($_POST['sites_checkbox'])  )
 	{
 	$array_sites_stats = [];
-	$json_site_list = file_get_contents('./export_sites.json');
+	$json_site_list = file_get_contents('export_sites.json');
 	$json_site_list_data = json_decode($json_site_list,true);
 	foreach ($json_site_list_data as $key1 => $site_id) {
 	
@@ -187,7 +187,7 @@ if (isset($_POST['sites_checkbox'])  )
 		// $array_sites_stats = array_merge($array_sites_stats, $json_extra_sites_stats_2);
 	}
 		$json_export_sites_stats = json_encode($array_sites_stats);
-		file_put_contents("export_sites_stats_7_days.json",$json_export_sites_stats);
+		file_put_contents("../export_sites_stats_7_days.json",$json_export_sites_stats);
 
 } else
 {

@@ -1,0 +1,554 @@
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Jonathan Gruber Imperva">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favico.png">
+
+    <title>Account Incapsula Dashboard</title>
+    <!-- CSS LIBRARIES -->
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+
+    <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
+    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/lib/toastr/toastr.min.css" rel="stylesheet" type="text/css">
+ <!--   <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css" rel="stylesheet" type="text/css"> 
+
+    <style>
+        th {
+            font-size: 13px;
+        }
+
+        td {
+            font-size: 13px;
+        }
+
+        table.dataTable tbody td.select-checkbox:before,
+        table.dataTable tbody th.select-checkbox:before {
+            margin-top: 0px
+        }
+    </style>
+</head>
+
+
+<body class="fix-header fix-sidebar">
+    <!-- page wrapper -->
+    <div class="main-wrapper">
+
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="dashboard.html">
+                        <!-- Dashboard logo icon  -->
+                        <ul>
+                            <li style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage"
+                                    class="dark-logo" style="max-width: 190px; height:auto;margin-right: 2.5em" /> </li>
+                        </ul>
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
+                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  "
+                                href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
+                        <li>
+                            <h3 class="text-primary"> Account Level Dashboard: Bulk Changes </h3>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Left Sidebar  -->
+        <div id="sidebar" class="left-sidebar">
+        </div>
+        <!-- End Left Sidebar  -->
+
+
+        <!-- Container fluid for central page  -->
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <h2>Recommended Default Security & Performance Settings:</h2>
+                            <table class="table" style="display: inline-block;"">
+                                    <tbody>
+                                        <tr>
+                                            <td>Illegal Resource Access:</td>
+                                            <td><span class="badge badge-danger">Block
+                                Request</span></td>
+                                <td style="width: 100;"></td>
+                                <td>Backdoor:</td>
+                                <td><span class=" badge badge-danger">Auto-Quarantine</span></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Remote File Inclusion:</td>
+                                    <td><span class="badge badge-danger">Block Request</span></td>
+                                    <td></td>
+                                    <td>Bad Bots</td>
+                                    <td><span class="badge badge-danger">Block</span></td>
+                                </tr>
+                                <tr>
+                                    <td>SQL Injection:</td>
+                                    <td><span class="badge badge-danger">Block
+                                            Request</span></td>
+                                    <td></td>
+                                    <td>Challenge Suspected Bot:</td>
+                                    <td><span class="badge badge-primary">Disabled</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Cross Site Scripting:</td>
+                                    <td><span class="badge badge-danger">Block
+                                            Request</span></td>
+                                    <td></td>
+                                    <td>Advanced Caching: </td>
+                                    <td><span class="badge badge-success">Static +
+                                            Dynamic</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Input Form -->
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-title">
+                                <h2>1- Select Sites to update</h2>
+                                <button style="float: right; min-width: 130px;" onclick="return"
+                                    name="Fetch Sites Settings" type="submit" class="btn btn-info"
+                                    id="fetch_settings">Fetch Sites Settings</button>
+                            </div>
+
+                            <div id="threats_settings" style="overflow-x:auto;">
+                                <table id="security_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" class="checkAll" name="checkAll"
+                                                    style="text-align: center; vertical-align: middle;" /></th>
+                                            <th>Site Id</th>
+                                            <th>Site Name</th>
+                                            <th>Backdoor</th>
+                                            <th>SQL injection</th>
+                                            <th>Cross Site Scripting</th>
+                                            <th>Illegal Resource Access</th>
+                                            <th>Remote File Inclusion</th>
+                                            <th>Block Bad Bots</th>
+                                            <th>Challenge Suspected Bots</th>
+                                            <th>ACL IP Blacklist</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th>Site Id</th>
+                                            <th>Site Name</th>
+                                            <th>Backdoor</th>
+                                            <th>SQL injection</th>
+                                            <th>Cross Site Scripting</th>
+                                            <th>Illegal Resource Access</th>
+                                            <th>Remote File Inclusion</th>
+                                            <th>Block Bad Bots</th>
+                                            <th>Challenge Suspected Bots</th>
+                                            <th>ACL IP Blacklist</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--  SELECT ACTION TYPE -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-title">
+                                <h2>2- Select Action Type</h2> <br>
+                            </div>
+                            The settings below are the best practice to set as default settings for most sites
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <label>Backdoor: Auto-Quarantine</label>
+                                <button style="float: right; min-width: 130px;" name="Auto-Quarantine" type="submit"
+                                    class="btn btn-danger" id="run_backdoor">Auto-Quarantine</button> <br />
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <label>Remote File Inclusion: Block Request</label>
+                                <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
+                                    class="btn btn-danger" id="run_rfi">Block Request</button> <br />
+                                <div id="result" style="color:red"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <label>SQL Injection: Block Request</label>
+                                <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
+                                    class="btn btn-danger" id="run_sqli">Block Request</button> <br />
+                                <div id="result" style="color:red"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <label>Cross Site Scripting: Block Request</label>
+                                <button style="float: right; min-width: 130px;" name="Block Request" onclick="return "
+                                    type="submit" class="btn btn-danger" id="run_xss">Block Request</button> <br />
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <label>Illegal Resource Access: Block Request</label>
+                                <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
+                                    class="btn btn-danger" id="run_ira">Block Request</button> <br />
+                                <div id="result" style="color:red"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <label>Block Bad Bots</label>
+                                <button style="float: right; min-width: 130px;" name="Set to True" onclick="return "
+                                    type="submit" class="btn btn-danger" id="run_bad_bots">Set to True</button> <br />
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <label>Challenge Suspected Bot: Disable</label>
+                                <button style="float: right; min-width: 130px;" name="Set to Disable" onclick="return "
+                                    type="submit" class="btn btn-info" id="run_suspected_bots">Set to Disable</button>
+                                <br />
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <label>Add IPs in Blacklist</label>
+                            </div>
+                            A comma separated list of IPs or IP ranges, e.g: 192.168.1.1, 192.168.1.1-192.168.1.100,
+                            192.168.1.1/24 </br>
+                            <span style="color: red"> the IPs below will be added to the existing configured blocked
+                                IPs</span><br><span style="color: red"> configured blacklist exceptions will be
+                                erased </span>
+                            <br>
+                            <input type="text" id="ip_blacklist" name="ip_blacklist"
+                                placeholder="192.168.1.1, 192.168.1.1-192.168.1.100, 192.168.1.1/24"
+                                class="form-control">
+                            <br>
+                            <button style="float: right;" onclick="return" name="Add IPs to Blacklist" type="submit"
+                                class="btn btn-info" id="run_ip_blacklist">Add IPs to Blacklist</button> <br />
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- END ROW of Inputs form -->
+
+
+
+    </div>
+    </div> <!-- end page wrapper-->
+
+</body>
+
+
+<!-- JS LIBRARIES -->
+<script src="js/lib/jquery/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type='text/javascript' src='js\lib\datatables\datatables.min.js'></script>
+<script type='text/javascript' src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'></script>
+<script type='text/javascript' src='https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js'></script>
+
+<script src="js/lib/calendar-2/moment.latest.min.js"></script>
+<script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part -->
+<script src="js/scripts.js"></script>
+<script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+<script src="js/lib/sweetalert/sweetalert.min.js"></script>
+<script src="js/lib/toastr/toastr.min.js"></script>
+
+
+<!-- LOAD SIDEBAR -->
+<script>
+    $(function () {
+        $("#sidebar").load("sidebar.html");
+    });
+</script>
+
+
+<!-- print table site list and settings -->
+<script>
+
+    function fill_settings_table() {
+        var list_sites = [];
+        $.ajax({
+            url: 'export_sites.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("EXPORT SITES SETTINGS");
+                console.log(data);
+                if (data == null ){
+                    toastr.warning('no site data loaded, please login again in login page');
+                }else{
+                $(data).each(function (index, value) {
+                    var var_acl_ips = "";
+                    if (value.security.hasOwnProperty("acls") == true) {
+
+                        if (value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_ips') != undefined) {
+                            for (l = 0; l < value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_ips').ips.length; l++) {
+                                var_acl_ips += value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_ips').ips[l];
+                                if (l != value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_ips').ips.length - 1) {
+                                    var_acl_ips += ', ';
+                                }
+                            }
+                        }
+                    }
+
+                    list_sites[index] = ["", value.site_id, value.domain, value.security.waf.rules[5].action_text, value.security.waf.rules[0].action_text, value.security.waf.rules[1].action_text, value.security.waf.rules[2].action_text, value.security.waf.rules[6].action_text, value.security.waf.rules[3].block_bad_bots, value.security.waf.rules[3].challenge_suspected_bots, var_acl_ips]
+                });
+
+                //        $("#security_table tbody").append(list_sites);
+                $('#security_table').dataTable().fnClearTable();
+                $('#security_table').dataTable().fnAddData(list_sites);
+
+                // Color cells 
+                $('#security_table tr td').each(function () {
+                    if ($(this).text() == "Alert Only") $(this).css('color', 'red');
+                });
+                $('#security_table tr td').each(function () {
+                    if ($(this).text() == "Ignore") $(this).css('color', 'red');
+                });
+                $('#security_table tr td:nth-child(9)').each(function () {
+                    if ($(this).text() != "true") $(this).css('color', 'red');
+                });
+
+                $('#security_table tr td:nth-child(10)').each(function () {
+                    if ($(this).text() != "false") $(this).css('color', 'red');
+                });
+            }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        fill_settings_table();
+        var security_table_done = $('#security_table').DataTable({
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }],
+            buttons: [
+                'selectAll',
+                'selectNone'
+            ],
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+            },
+            order: [[1, 'asc']],
+            dom: 'Bfrtip'
+        });
+
+
+        // RETURN LIST OF CHECKED SITES
+        function list_checked_sites() {
+            var selected_sites = [];
+            var SelectedRows = security_table_done.rows({ selected: true }).data();
+
+            for (var i = 0; i < SelectedRows.length; i++) {
+                selected_sites.push(SelectedRows[i][1]);
+            }
+            console.log('SELECTED SITES');
+            console.log(selected_sites);
+            return selected_sites;
+        }
+
+
+
+
+        // GENERIC FUNCTION TO SEND THE PHP COMMAND
+        function send_command(post_data, clicked_obj) {
+            check_keys();
+            var selected_sites = list_checked_sites();
+            if (selected_sites.length > 0 | post_data.rule_id == "") {
+                clicked_obj.disabled = true;
+                clicked_obj.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing Changes';
+                post_data.site_id_input = selected_sites;
+                console.log(post_data);
+                $.ajax({
+                    url: "php/bulk_changes_script.php",
+                    type: "post",
+                    dataType: 'json',
+                    data: post_data,
+                    success: function (data) {
+                        console.log("PHP SUCCESS");
+                        fill_settings_table();
+                        clicked_obj.disabled = false;
+                        clicked_obj.innerHTML = clicked_obj.name;
+                        if (data.res_message == "OK"){
+                        toastr.success('Success');
+                        }else{
+                            toastr.error("<p style=\"color:white\">error code: </p>"+data.res_message,'please login with Accound Admin API keys', 'Permissions Error' ); 
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        fill_settings_table();
+                        console.log(jqXHR, textStatus, errorThrown);
+                        console.log("PHP ERROR");
+                        toastr.warning('warning: php script returned an error, reach out in Github if it didn\'t work');
+                        clicked_obj.disabled = false;
+                        clicked_obj.innerHTML = clicked_obj.name;
+                    }
+                });
+            } else {
+                swal({
+                    title: "Oups",
+                    text: "Check at least one site",
+                    type: "warning"
+                });
+            }
+        }
+
+        function send_command_acl(post_data, clicked_obj) {
+            check_keys();
+            var selected_sites = list_checked_sites();
+            if (selected_sites.length > 0) {
+                clicked_obj.disabled = true;
+                clicked_obj.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing Changes';
+                post_data.site_id_input = selected_sites;
+                console.log(post_data);
+                $.ajax({
+                    url: "bulk_changes_acl.php",
+                    type: "post",
+                    dataType: 'json',
+                    data: post_data,
+                    success: function (data2) {
+                        console.log("PHP SUCCESS ACL");
+                        console.log(data2);
+                        fill_settings_table();
+                        clicked_obj.disabled = false;
+                        clicked_obj.innerHTML = clicked_obj.name;
+                        toastr.success('Success');
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        fill_settings_table();
+                        //    window.location.reload();
+                        console.log(jqXHR, textStatus, errorThrown);
+                        console.log("PHP ERROR error_acl");
+                        toastr.warning('warning: php script returned an error, reach out in Github if it didn\'t work');
+                    }
+                });
+            } else {
+                swal({
+                    title: "Oups",
+                    text: "Please at least check one site",
+                    type: "warning"
+                });
+            }
+        }
+
+
+        $('#fetch_settings').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "", "security_rule_action": "" };
+            send_command(post_values, this);
+        });
+        $('#run_backdoor').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.backdoor", "security_rule_action": "api.threats.action.quarantine_url" };
+            send_command(post_values, this);
+        });
+        $('#run_rfi').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.remote_file_inclusion", "security_rule_action": "api.threats.action.block_request" };
+            send_command(post_values, this);
+        });
+        $('#run_sqli').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.sql_injection", "security_rule_action": "api.threats.action.block_request" };
+            send_command(post_values, this);
+        });
+        $('#run_xss').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.cross_site_scripting", "security_rule_action": "api.threats.action.block_request" };
+            button_clicked = this;
+            send_command(post_values, this);
+        });
+        $('#run_ira').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.illegal_resource_access", "security_rule_action": "api.threats.action.block_request" };
+            send_command(post_values, this);
+        });
+        $('#run_bad_bots').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.bot_access_control", "block_bad_bots": "true" };
+            send_command(post_values, this);
+        });
+        $('#run_suspected_bots').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.bot_access_control", "challenge_suspected_bots": "false" };
+            send_command(post_values, this);
+        });
+        $('#run_ip_blacklist').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.acl.blacklisted_ips", "ips_url_country": document.getElementById("ip_blacklist").value };
+            send_command_acl(post_values, this);
+        });
+
+
+        // SELECT ALL
+        $('.checkAll').on('click', function () {
+            if ($(this).is( ":checked" )) {
+                security_table_done.rows(  ).select();        
+                } else {
+                security_table_done.rows(  ).deselect(); 
+            }
+        });
+
+        //CHECK IF THERE ARE KEYS IN BROWSER MEMORY
+        function check_keys() {
+            if (sessionStorage.getItem("var_account_id") == null || sessionStorage.getItem("var_api_id") == null || sessionStorage.getItem("var_api_key") == null) {
+                swal({
+                    title: "Missing API Keys",
+                    text: "API credentials or account number are missing, please login again",
+                    type: "warning"
+                }, function () {
+                    window.location.href = "index.html";
+                });
+            }
+        }
+
+    });
+
+
+    // REVERT CHANGES TEMP FUNCTION
+    $('#show_keys').click(function () {
+        alert("account id: " + sessionStorage.getItem("var_account_id") + " API ID: " + sessionStorage.getItem("var_api_id") + " API Key: " + sessionStorage.getItem("var_api_key"));
+    });
+
+
+
+</script>
