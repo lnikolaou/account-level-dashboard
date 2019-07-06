@@ -106,13 +106,13 @@
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#incapRule_settings"
                                     role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
                                         class="hidden-xs-down">Incaprules</span></a> </li>
-<!-- to add when php ready  <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#DeliveryRule_settings"
+                            <!-- to add when php ready  <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#DeliveryRule_settings"
                                             role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
-                                                class="hidden-xs-down">Delivery Rules</span></a> </li>-->  
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#Users"
-                                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
-                                                        class="hidden-xs-down">Users</span></a> </li>
-                                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#auditing_settings"
+                                                class="hidden-xs-down">Delivery Rules</span></a> </li>-->
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#Users" role="tab"><span
+                                        class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Users</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#auditing_settings"
                                     role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
                                         class="hidden-xs-down">Activity Auditing</span></a> </li>
                         </ul>
@@ -301,10 +301,12 @@
                                 </table>
                             </div>
                             <div class="tab-pane p-20" id="Users" role="tabpanel">
-                                <table id="Users_table" class="display nowrap table table-hover table-striped table-bordered"
+                                <table id="Users_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
                                     data-page-length='25'>
                                     <thead>
                                         <tr>
+                                            <th>(sub)account Name</th>
                                             <th>User ID</th>
                                             <th>User email</th>
                                             <th>User Verified</th>
@@ -340,49 +342,50 @@
                                             Audit Activity</button>
                                     </div>
 
-                        </form>
+                                </form>
 
-                        <table id="activity_table" class="display nowrap table table-hover table-striped table-bordered"
-                            data-page-length='25'>
-                            <thead>
-                                <tr>
-                                    <th>Timestamp</th>
-                                    <th>Account ID</th>
-                                    <th>Account Name</th>
-                                    <th>User</th>
-                                    <th>Action Title</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>Timestamp</th>
-                                    <th>Account ID</th>
-                                    <th>Account Name</th>
-                                    <th>User</th>
-                                    <th>Action Title</th>
-                                    <th>Description</th>
-                                </tr>
-                            </tfoot>
-                            <tbody></tbody>
-                        </table>
+                                <table id="activity_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Account ID</th>
+                                            <th>Account Name</th>
+                                            <th>User</th>
+                                            <th>Action Title</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Account ID</th>
+                                            <th>Account Name</th>
+                                            <th>User</th>
+                                            <th>Action Title</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
                     </div>
+                    <br />
+
                 </div>
-
-
             </div>
-            <br />
-
-        </div>
-    </div>
-    <!-- END ROW for security Settings table summary -->
+            <!-- END ROW for security Settings table summary -->
 
 
-    <hr />
+            <hr />
 
 
 
-    </div> <!-- end page wrapper-->
+        </div> <!-- end page wrapper-->
 </body>
 
 
@@ -427,7 +430,7 @@
         send_fetch_audit(post_values, this);
     });
 
- //   document.getElementById("account_id_fetch").value = sessionStorage.getItem("var_account_id");
+    //   document.getElementById("account_id_fetch").value = sessionStorage.getItem("var_account_id");
 
 
     //CHECK IF THERE ARE KEYS IN BROWSER MEMORY
@@ -801,7 +804,7 @@
 <script>
     $(document).ready(function () {
 
-        let UserList = '';
+        var User_List = "";
         $.ajax({
             url: 'export_account_plan.json',
             datatype: 'json',
@@ -810,10 +813,40 @@
             success: function (data) {
                 console.log("ACCOUNT_PLAN");
                 console.log(data);
-                let User_List = '<tr>'+'<td>' + data.account.user_name + '</td>' + '<td>' + data.account.email + '</td>' + '<td>' + "Account Admin" + '</td>'+'</tr>';
                 $(data.logins).each(function (index, value) {
-                        User_List += '<tr>' + '<td>' + value.login_id + '</td>' + '<td>' + value.email + '</td>' + '<td>' + value.email_verified + '</td>'+'</tr>';
+                    if (data.account.email == value.email) {
+                        User_List += '<tr>' + '<td>' + "Main Account" + '</td>' + '<td>' + data.account.user_name + '</td>' + '<td>' + value.email + '</td>' + '<td>' + "Account Admin" + '</td>' + '</tr>';
+                        User_List += "hola";
+                    } else {
+                        User_List += '<tr>' + '<td>' + "Main Account" + '</td>' + '<td>' + value.login_id + '</td>' + '<td>' + value.email + '</td>' + '<td>' + value.email_verified + '</td>' + '</tr>';
+                        // console.log(User_List);
+                    }
                 });
+
+                console.log("User_List 1");
+                console.log(User_List);
+
+                $.ajax({
+                    url: 'export_subaccounts.json',
+                    datatype: 'json',
+                    type: 'get',
+                    cache: false,
+                    success: function (data) {
+                        console.log("Json of subaccounts");
+                        console.log(data);
+                        $(data.resultList).each(function (index, value) {
+                            $(value.logins).each(function (index1, value2) {
+                                User_List += '<tr>' + '<td>' + value.sub_account_name + '</td>' + '<td>' + value2.login_id + '</td>' + '<td>' + value2.email + '</td>' + '<td>' + value2.email_verified + '</td>' + '</tr>';
+
+                                console.log("User_List 3");
+                                console.log(User_List);
+                            });
+                        });
+                    }
+                });
+                console.log("User_List 2");
+                console.log(User_List);
+                $( document ).ajaxStop(function() {
 
                 $("#Users_table tbody").append(User_List);
 
@@ -832,6 +865,8 @@
                         orientation: 'landscape'
                     }]
                 });
+                });
+
             }
         });
     });
