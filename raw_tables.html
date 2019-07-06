@@ -819,12 +819,9 @@
                         User_List += "hola";
                     } else {
                         User_List += '<tr>' + '<td>' + "Main Account" + '</td>' + '<td>' + value.login_id + '</td>' + '<td>' + value.email + '</td>' + '<td>' + value.email_verified + '</td>' + '</tr>';
-                        // console.log(User_List);
                     }
                 });
 
-                console.log("User_List 1");
-                console.log(User_List);
 
                 $.ajax({
                     url: 'export_subaccounts.json',
@@ -837,15 +834,11 @@
                         $(data.resultList).each(function (index, value) {
                             $(value.logins).each(function (index1, value2) {
                                 User_List += '<tr>' + '<td>' + value.sub_account_name + '</td>' + '<td>' + value2.login_id + '</td>' + '<td>' + value2.email + '</td>' + '<td>' + value2.email_verified + '</td>' + '</tr>';
-
-                                console.log("User_List 3");
-                                console.log(User_List);
                             });
                         });
                     }
                 });
-                console.log("User_List 2");
-                console.log(User_List);
+
                 $( document ).ajaxStop(function() {
 
                 $("#Users_table tbody").append(User_List);
