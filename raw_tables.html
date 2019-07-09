@@ -106,9 +106,9 @@
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#incapRule_settings"
                                     role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
                                         class="hidden-xs-down">Incaprules</span></a> </li>
-                            <!-- to add when php ready  <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#DeliveryRule_settings"
-                                            role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
-                                                class="hidden-xs-down">Delivery Rules</span></a> </li>-->
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#DeliveryRule_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Delivery Rules</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#Users" role="tab"><span
                                         class="hidden-sm-up"><i class="ti-email"></i></span> <span
                                         class="hidden-xs-down">Users</span></a> </li>
@@ -271,7 +271,13 @@
                                     <tbody></tbody>
                                 </table>
                             </div>
-                            <div class="tab-pane p-20" id="Delivery_Rules_settings" role="tabpanel">
+                            <div class="tab-pane p-20" id="DeliveryRule_settings" role="tabpanel">
+                                <form action="#" method="post" style="width: 90%" id="delivery_form">
+                                    <div class="col-sm-4">
+                                        <button id="fetch_delivery_rules" class="btn btn-info"
+                                            name="Fetch Delivery Rules">Fetch Delivery Rules - IN DEVELOPPMENT (doesn't work yet)</button>
+                                    </div>
+                                </form>
                                 <table id="DeliveryRule_table"
                                     class="display nowrap table table-hover table-striped table-bordered"
                                     data-page-length='25'>
@@ -280,8 +286,8 @@
                                             <th>Account Number</th>
                                             <th>Site ID</th>
                                             <th>Site Name</th>
-                                            <th>DeliveryRule ID</th>
-                                            <th>DeliveryRule Name</th>
+                                            <th>Delivery Rule ID</th>
+                                            <th>Delivery Rule Name</th>
                                             <th>Action</th>
                                             <th>Rule</th>
                                         </tr>
@@ -291,8 +297,8 @@
                                             <th>Account Number</th>
                                             <th>Site ID</th>
                                             <th>Site Name</th>
-                                            <th>DeliveryRule ID</th>
-                                            <th>DeliveryRule Name</th>
+                                            <th>Delivery Rule ID</th>
+                                            <th>Delivery Rule Name</th>
                                             <th>Action</th>
                                             <th>Rule</th>
                                         </tr>
@@ -446,7 +452,32 @@
         }
     }
 
-    // GET THE ACTIVITY TABLE READY IN DATATABLE FORMAT
+
+
+
+    function fill_audit_table() {
+        var subaccount_list = JSON.parse(sessionStorage.getItem("subaccount_list"));
+        console.log("SUBACCOUNT LIST");
+        console.log(subaccount_list);
+        var audit_values = [];
+        $.ajax({
+            url: 'export_audit.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("ACTIVITY AUDIT");
+                console.log(data);
+                $(data.audit_events).each(function (index, value) {
+                    if (value.hasOwnProperty("user_id") == true) {
+                        var temp_account_id = value.account_id;
+                        // subaccount_list.find(x => x.id == value.account_id).name   is to replace the account name
+                        audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", value.user_id, value.type_key, value.type_description];
+                    } else {
+                        audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", "Imperva", value.type_key, value.type_description];
+                    }
+                });
+                    // GET THE ACTIVITY TABLE READY IN DATATABLE FORMAT
 
     var activity_datatable = $('#api_list_stats').DataTable({
         dom: 'Bfrtip',
@@ -476,29 +507,6 @@
         }]
     });
 
-
-    function fill_audit_table() {
-        var subaccount_list = JSON.parse(sessionStorage.getItem("subaccount_list"));
-        console.log("SUBACCOUNT LIST");
-        console.log(subaccount_list);
-        var audit_values = [];
-        $.ajax({
-            url: 'export_audit.json',
-            datatype: 'json',
-            type: 'get',
-            cache: false,
-            success: function (data) {
-                console.log("ACTIVITY AUDIT");
-                console.log(data);
-                $(data.audit_events).each(function (index, value) {
-                    if (value.hasOwnProperty("user_id") == true) {
-                        var temp_account_id = value.account_id;
-                        // subaccount_list.find(x => x.id == value.account_id).name   is to replace the account name
-                        audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", value.user_id, value.type_key, value.type_description];
-                    } else {
-                        audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", "Imperva", value.type_key, value.type_description];
-                    }
-                });
                 $('#activity_table').dataTable().fnClearTable();
                 console.log(audit_values);
                 $('#activity_table').dataTable().fnAddData(audit_values);
@@ -515,7 +523,7 @@
         clicked_obj.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing Changes';
         console.log(post_data);
         $.ajax({
-            url: "/php/fetch_audit.php",
+            url: "php/fetch_audit.php",
             type: "post",
             dataType: 'json',
             data: post_data,
@@ -540,6 +548,114 @@
     }
 
 </script>
+
+
+<!--  SCRIPT TO RUN DELIVERY RULES   -->
+<script>
+    $('#fetch_delivery_rules').click(function () {
+        let SiteList = [];
+        $.ajax({
+            url: 'export_sites.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                $(data).each(function (index, value) {
+                    SiteList.push(value.site_id);
+                });
+                console.log("SiteList");
+        console.log(SiteList);
+            }   
+        });
+
+        var post_values = { "sites": SiteList[1], "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key") };
+        send_fetch_delivery(post_values, this);
+    });
+
+
+    // GET THE DELIVERY TABLE READY IN DATATABLE FORMAT
+
+    var delivery_datatable = $('#DeliveryRule_table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'excelHtml5',
+            title: 'Delivery Rules'
+        },
+        {
+            extend: 'pdfHtml5',
+            title: 'Delivery Rules',
+            orientation: 'landscape'
+        }]
+    });
+    
+
+    function fill_delivery_table() {
+        var delivery_rules = [];
+        $.ajax({
+            url: 'export_delivery_rules.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("DELIVERY RULES");
+                console.log(data);
+                if (data.res_message != "OK"){
+                    toastr.error(data.res_message);
+                }else{
+              //  account id / site id / site name /  Rule ID / DR Name / Action
+                delivery_rules = [1,1,1,1,data.delivery_rules.Rewrite[0].id,data.delivery_rules.Rewrite[0].name,JSON.stringify(data.delivery_rules.Rewrite[0])];
+           /*     $(data.audit_events).each(function (index, value) {
+                    if (value.hasOwnProperty("user_id") == true) {
+                        var temp_account_id = value.account_id;
+                        // subaccount_list.find(x => x.id == value.account_id).name   is to replace the account name
+                        delivery_rules[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", value.user_id, value.type_key, value.type_description];
+                    } else {
+                        delivery_rules[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", "Imperva", value.type_key, value.type_description];
+                    }
+                }); */
+                $('#ReliveryRule_table').dataTable().fnClearTable();
+                console.log(" AJAX delivery_rules");
+                console.log(delivery_rules);
+                $('#DeliveryRule_table').dataTable().fnAddData(delivery_rules);
+            }
+            }
+        }); 
+    }
+
+
+    function send_fetch_delivery(post_data, clicked_obj) {
+        check_keys();
+        clicked_obj.disabled = true;
+        clicked_obj.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing Changes';
+        console.log("post data delivery rules")
+        console.log(post_data);
+        $.ajax({
+            url: "php/fetch_delivery.php",
+            type: "post",
+            dataType: 'json',
+            data: post_data,
+            success: function (data2) {
+                console.log("PHP SUCCESS FETCH DELIVERY RULES");
+                console.log(data2);
+                fill_delivery_table();
+                clicked_obj.disabled = false;
+                clicked_obj.innerHTML = clicked_obj.name;
+                toastr.success('Success');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                fill_delivery_table();
+                //    window.location.reload();
+                console.log("PHP ERROR error_delivery rules");
+                console.log(jqXHR, textStatus, errorThrown);
+                toastr.warning('warning: delivery php script returned an error, reach out in Github if it didn\'t work');
+                clicked_obj.disabled = false;
+                clicked_obj.innerHTML = clicked_obj.name;
+            }
+        });
+    }
+
+</script>
+
 
 
 <!-- print table site list and settings -->
@@ -836,29 +952,30 @@
                                 User_List += '<tr>' + '<td>' + value.sub_account_name + '</td>' + '<td>' + value2.login_id + '</td>' + '<td>' + value2.email + '</td>' + '<td>' + value2.email_verified + '</td>' + '</tr>';
                             });
                         });
+                        $("#Users_table tbody").append(User_List);
+
+//Fix bad alignment with Datatable
+$("#Users_table tbody td").css('text-align', 'left');
+
+$('#Users_table').DataTable({
+    dom: 'Bfrtip',
+    buttons: [{
+        extend: 'excelHtml5',
+        title: 'Users List'
+    },
+    {
+        extend: 'pdfHtml5',
+        title: 'Users List',
+        orientation: 'landscape'
+    }]
+});
                     }
                 });
 
-                $( document ).ajaxStop(function() {
+        //        $(document).ajaxStop(function () {
 
-                $("#Users_table tbody").append(User_List);
 
-                //Fix bad alignment with Datatable
-                $("#Users_table tbody td").css('text-align', 'left');
-
-                $('#Users_table').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [{
-                        extend: 'excelHtml5',
-                        title: 'Users List'
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        title: 'Users List',
-                        orientation: 'landscape'
-                    }]
-                });
-                });
+           //     });
 
             }
         });
