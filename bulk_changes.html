@@ -140,6 +140,11 @@
                                 <button style="float: right; min-width: 130px;" onclick="return"
                                     name="Fetch Sites Settings" type="submit" class="btn btn-info"
                                     id="fetch_settings">Fetch Sites Settings</button>
+                            </br>
+                        </br>
+                                    <button style="float: right; min-width: 130px;" onclick="return"
+                                    name="Check API Keys" type="submit" class="btn btn-info"
+                                    id="check_api_keys">Check API Keys</button>
                             </div>
 
                             <div id="threats_settings" style="overflow-x:auto;">
@@ -160,6 +165,7 @@
                                             <th>Block Bad Bots</th>
                                             <th>Challenge Suspected Bots</th>
                                             <th>ACL IP Blacklist</th>
+                                            <th>ACL IP Whitelist</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -196,37 +202,50 @@
                             <div class="card-title">
                                 <label>Backdoor: Auto-Quarantine</label>
                                 <button style="float: right; min-width: 130px;" name="Auto-Quarantine" type="submit"
-                                    class="btn btn-danger" id="run_backdoor">Auto-Quarantine</button> <br />
+                                    class="btn btn-success" id="run_backdoor">Auto-Quarantine</button> <br />
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-title">
-                                <label>Remote File Inclusion: Block Request</label>
+                                <label>Remote File Inclusion Action</label><br />
+                                <button style="float: right; min-width: 130px;" name="Alert Only" type="submit"
+                                    class="btn btn-danger" id="run_rfi_alert">Alert Only</button> 
                                 <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
-                                    class="btn btn-danger" id="run_rfi">Block Request</button> <br />
+                                    class="btn btn-success" id="run_rfi">Block Request</button> <br />
                                 <div id="result" style="color:red"></div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-title">
-                                <label>SQL Injection: Block Request</label>
+                                <label>SQL Injection Action</label>
+                                <br />
+                                <button style="float: right; min-width: 130px;" name="Alert Only" type="submit"
+                                    class="btn btn-danger" id="run_sqli_alert">Alert Only</button>
                                 <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
-                                    class="btn btn-danger" id="run_sqli">Block Request</button> <br />
+                                    class="btn btn-success" id="run_sqli">Block Request</button> <br />
                                 <div id="result" style="color:red"></div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-title">
-                                <label>Cross Site Scripting: Block Request</label>
+                                <label>Cross Site Scripting Action</label>
+                                <br />
+                                <button style="float: right; min-width: 130px;" name="Alert Only" onclick="return "
+                                type="submit" class="btn btn-danger" id="run_xss_alert">Alert Only</button> 
                                 <button style="float: right; min-width: 130px;" name="Block Request" onclick="return "
-                                    type="submit" class="btn btn-danger" id="run_xss">Block Request</button> <br />
+                                    type="submit" class="btn btn-success" id="run_xss">Block Request</button> <br />
+
+
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-title">
-                                <label>Illegal Resource Access: Block Request</label>
+                                <label>Illegal Resource Access Action</label>
+                                <br />
+                                <button style="float: right; min-width: 130px;" name="Alert Only" type="submit"
+                                    class="btn btn-danger" id="run_ira_alert">Alert Only</button>
                                 <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
-                                    class="btn btn-danger" id="run_ira">Block Request</button> <br />
+                                    class="btn btn-success" id="run_ira">Block Request</button> <br />
                                 <div id="result" style="color:red"></div>
                             </div>
                         </div>
@@ -234,7 +253,7 @@
                             <div class="card-title">
                                 <label>Block Bad Bots</label>
                                 <button style="float: right; min-width: 130px;" name="Set to True" onclick="return "
-                                    type="submit" class="btn btn-danger" id="run_bad_bots">Set to True</button> <br />
+                                    type="submit" class="btn btn-success" id="run_bad_bots">Set to True</button> <br />
                             </div>
                         </div>
                         <div class="card">
@@ -252,8 +271,7 @@
                             A comma separated list of IPs or IP ranges, e.g: 192.168.1.1, 192.168.1.1-192.168.1.100,
                             192.168.1.1/24 </br>
                             <span style="color: red"> the IPs below will be added to the existing configured blocked
-                                IPs</span><br><span style="color: red"> configured blacklist exceptions will be
-                                erased </span>
+                                IPs</span>
                             <br>
                             <input type="text" id="ip_blacklist" name="ip_blacklist"
                                 placeholder="192.168.1.1, 192.168.1.1-192.168.1.100, 192.168.1.1/24"
@@ -261,6 +279,23 @@
                             <br>
                             <button style="float: right;" onclick="return" name="Add IPs to Blacklist" type="submit"
                                 class="btn btn-info" id="run_ip_blacklist">Add IPs to Blacklist</button> <br />
+                        </div>
+
+                        <div class="card">
+                            <div class="card-title">
+                                <label>Add IPs in Whitelist </br> (NOT recommended: bypasses all WAF checks)</label>
+                            </div>
+                            A comma separated list of IPs or IP ranges, e.g: 192.168.1.1, 192.168.1.1-192.168.1.100,
+                            192.168.1.1/24 </br>
+                            <span style="color: red"> the IPs below will be added to the existing configured whitelisted
+                                IPs</span>
+                            <br>
+                            <input type="text" id="ip_whitelist" name="ip_whitelist"
+                                placeholder="192.168.1.1, 192.168.1.1-192.168.1.100, 192.168.1.1/24"
+                                class="form-control">
+                            <br>
+                            <button style="float: right;" onclick="return" name="Add IPs to Whitelist" type="submit"
+                                class="btn btn-danger" id="run_ip_whitelist">Add IPs to Whitelist</button> <br />
                         </div>
                     </div>
 
@@ -335,7 +370,20 @@
                         }
                     }
 
-                    list_sites[index] = ["", value.site_id, value.domain, value.security.waf.rules[5].action_text, value.security.waf.rules[0].action_text, value.security.waf.rules[1].action_text, value.security.waf.rules[2].action_text, value.security.waf.rules[6].action_text, value.security.waf.rules[3].block_bad_bots, value.security.waf.rules[3].challenge_suspected_bots, var_acl_ips]
+                    var var_acl_whitelisted_ips = "";
+                    if (value.security.hasOwnProperty("acls") == true) {
+
+                        if (value.security.acls.rules.find(x => x.id === 'api.acl.whitelisted_ips') != undefined) {
+                            for (l = 0; l < value.security.acls.rules.find(x => x.id === 'api.acl.whitelisted_ips').ips.length; l++) {
+                                var_acl_whitelisted_ips += value.security.acls.rules.find(x => x.id === 'api.acl.whitelisted_ips').ips[l];
+                                if (l != value.security.acls.rules.find(x => x.id === 'api.acl.whitelisted_ips').ips.length - 1) {
+                                    var_acl_whitelisted_ips += ', ';
+                                }
+                            }
+                        }
+                    }
+
+                    list_sites[index] = ["", value.site_id, value.domain, value.security.waf.rules[5].action_text, value.security.waf.rules[0].action_text, value.security.waf.rules[1].action_text, value.security.waf.rules[2].action_text, value.security.waf.rules[6].action_text, value.security.waf.rules[3].block_bad_bots, value.security.waf.rules[3].challenge_suspected_bots, var_acl_ips, var_acl_whitelisted_ips]
                 });
 
                 //        $("#security_table tbody").append(list_sites);
@@ -480,6 +528,9 @@
         }
 
 
+        $('#check_api_keys').click(function () {
+            check_keys_ok();
+        });
         $('#fetch_settings').click(function () {
             var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "", "security_rule_action": "" };
             send_command(post_values, this);
@@ -492,8 +543,16 @@
             var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.remote_file_inclusion", "security_rule_action": "api.threats.action.block_request" };
             send_command(post_values, this);
         });
+        $('#run_rfi_alert').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.remote_file_inclusion", "security_rule_action": "api.threats.action.alert" };
+            send_command(post_values, this);
+        });
         $('#run_sqli').click(function () {
             var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.sql_injection", "security_rule_action": "api.threats.action.block_request" };
+            send_command(post_values, this);
+        });
+        $('#run_sqli_alert').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.sql_injection", "security_rule_action": "api.threats.action.alert" };
             send_command(post_values, this);
         });
         $('#run_xss').click(function () {
@@ -501,8 +560,17 @@
             button_clicked = this;
             send_command(post_values, this);
         });
+        $('#run_xss_alert').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.cross_site_scripting", "security_rule_action": "api.threats.action.alert" };
+            button_clicked = this;
+            send_command(post_values, this);
+        });
         $('#run_ira').click(function () {
             var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.illegal_resource_access", "security_rule_action": "api.threats.action.block_request" };
+            send_command(post_values, this);
+        });
+        $('#run_ira_alert').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.threats.illegal_resource_access", "security_rule_action": "api.threats.action.alert" };
             send_command(post_values, this);
         });
         $('#run_bad_bots').click(function () {
@@ -517,7 +585,10 @@
             var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.acl.blacklisted_ips", "ips_url_country": document.getElementById("ip_blacklist").value };
             send_command_acl(post_values, this);
         });
-
+        $('#run_ip_whitelist').click(function () {
+            var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "rule_id": "api.acl.whitelisted_ips", "ips_url_country": document.getElementById("ip_whitelist").value };
+            send_command_acl(post_values, this);
+        });
 
         // SELECT ALL
         $('.checkAll').on('click', function () {
@@ -540,6 +611,26 @@
                 });
             }
         }
+
+        //CHECK IF THERE ARE KEYS IN BROWSER MEMORY
+        function check_keys_ok() {
+            if (sessionStorage.getItem("var_account_id") == null || sessionStorage.getItem("var_api_id") == null || sessionStorage.getItem("var_api_key") == null) {
+                swal({
+                    title: "Missing API Keys",
+                    text: "API credentials or account number are missing, please login again",
+                    type: "warning"
+                }, function () {
+                    window.location.href = "index.html";
+                });
+            }else{
+                swal({
+                    title: "API Keys",
+                    text: "API ID: "+ sessionStorage.getItem("var_api_id") + "     API Key  " + sessionStorage.getItem("var_api_key"),
+                    type: "success"
+                });
+            }
+        }
+
 
     });
 
