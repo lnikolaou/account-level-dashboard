@@ -1,0 +1,152 @@
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Jonathan Gruber Imperva">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favico.png">
+
+    <title>Account Incapsula Dashboard</title>
+    <!-- CSS LIBRARIES -->
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <script src="js/lib/jquery/jquery.min.js"></script>
+    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part -->
+    <script src="js/scripts.js"></script>
+    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link href="css/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- LOAD SIDEBAR -->
+    <script>
+        $(function () {
+            $("#sidebar").load("sidebar.html");
+        });
+    </script>
+
+    <style>
+        th {
+            font-size: 13px;
+        }
+
+        td {
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+
+<body class="fix-header fix-sidebar">
+    <!-- page wrapper -->
+    <div class="main-wrapper">
+
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="dashboard.php">
+                        <!-- Dashboard logo icon  -->
+                        <ul>
+                            <li style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage"
+                                    class="dark-logo" style="max-width: 190px; height:auto;margin-right: 2.5em" /> </li>
+                        </ul>
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
+                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  "
+                                href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
+                        <li>
+                            <h3 class="text-primary"> Account Level Dashboard: Version Control </h3>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Left Sidebar  -->
+        <div id="sidebar" class="left-sidebar">
+        </div>
+        <!-- End Left Sidebar  -->
+
+
+        <!-- Container fluid for central page  -->
+        <div class="page-wrapper">
+            <div class="container-fluid">
+
+                <div class="card col-lg-12">
+                    <div class="card-title">
+                        <h2>version info</h2> <br>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Update Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                            <td>28th July 2019:</td>
+                                            <td class="color-primary">v2.17 Added Whitelist IPs bulk actions and Alert Only options</td>
+                                        </tr>  
+                                <tr>
+                                    <td>1st July 2019:</td>
+                                    <td class="color-primary">v2.15 Added diagnosis and troubleshooting tab</td>
+                                </tr>                                <tr>
+                                    <td>12th April 2019:</td>
+                                    <td class="color-primary">v2.13 New audit report calculation</td>
+                                </tr>
+                                <tr>
+                                    <td>1st April 2019:</td>
+                                    <td class="color-primary">v2.1 More explicit error messages in case of success and
+                                        error</td>
+                                </tr>
+                                <tr>
+                                    <td>29 March 2019:</td>
+                                    <td>v2.0 new Bulk action options: change security settings,
+                                        add IP to blacklist</td>
+                                </tr>
+                                <tr>
+                                    <td>7th January 2019:</td>
+                                    <td>v1.6 improved UI with features, subscription. New
+                                        reporting & export to pdf</td>
+                                </tr>
+                                <tr>
+                                    <td>15th December 2018:</td>
+                                    <td>v1.5 Support of pagination for accounts with >100 sites </td>
+                                </tr>
+                                <tr>
+                                    <td>25 October 2018:</td>
+                                    <td>25 October 2018: v1.2 exportable tables </td>
+                                </tr>
+                                <tr>
+                                    <td>1st July 2018:</td>
+                                    <td>1st July 2018: v1.0 First upload to Github </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+            {{>footer}}  
+
+</body>

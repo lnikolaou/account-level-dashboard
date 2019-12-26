@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Jonathan Gruber Imperva">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favico.png">
+    <title>Site Configuration Assessment</title>
+
+    <!-- CSS LIBRARIES -->
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/calendar2/semantic.ui.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="css/toastr/toastr.min.css" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body class="fix-header fix-sidebar">
+
+    <!-- page wrapper -->
+
+
+
+    <div class="main-wrapper">
+
+        <!-- HEADER BAR  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header>
+                        <a class=" navbar-brand" href="dashboard.html">
+                    <!-- Dashboard logo icon  -->
+                    <b style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage" class="dark-logo"
+                            style=" height:auto;margin-right: 2.5em" />
+                    </b>
+                    </a>
+                </div>
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
+                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted"
+                                href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
+                    </ul>
+                </div>
+
+                <!-- End Logo -->
+            </nav>
+        </div>
+        <!-- End header header -->
+        <!-- Left Sidebar  -->
+        <div id="sidebar" class="left-sidebar">
+        </div>
+        <!-- End Left Sidebar  -->
+
+
+
+        <!-- Container fluid pour page centrale  -->
+        <div class="page-wrapper">
+
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">Sites Settings Tables</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+
+            <div class="container-fluid">
+
+
+                <!-- ROW for Security Settings table summary <div class="col-lg-4" >-->
+                <div class="row">
+                    <div class="card">
+                        <!--        <div class="card-title"> -->
+
+                        <h4 class="card-title"></h4>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#security_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span
+                                        class="hidden-xs-down">Security Settings</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#caching_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span
+                                        class="hidden-xs-down">Caching & DNS</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#acl_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Access Control Settings</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#attack_stats"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Attack Statistics</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#incapRule_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Incaprules</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#DeliveryRule_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Delivery Rules</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#Users" role="tab"><span
+                                        class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Users</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#auditing_settings"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span
+                                        class="hidden-xs-down">Activity Auditing</span></a> </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content tabcontent-border">
+                            <div class="tab-pane active" id="security_settings" role="tabpanel">
+                                <div class="p-20">
+                                    <div id="threats_settings" style="overflow-x:auto;">
+                                        <table id="security_table"
+                                            class="display nowrap table table-hover table-striped table-bordered"
+                                            data-page-length='25'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Account Number</th>
+                                                    <th>Site ID</th>
+                                                    <th>Site Name</th>
+                                                    <th>Site Status</th>
+                                                    <th>Backdoor</th>
+                                                    <th>SQL injection</th>
+                                                    <th>Cross Site Scripting</th>
+                                                    <th>Illegal Resource Access</th>
+                                                    <th>Remote File Inclusion</th>
+                                                    <th>DDoS mode</th>
+                                                    <th>DDoS Threshold</th>
+                                                    <th>Block Bad Bots</th>
+                                                    <th>Challenge Suspected Bots</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Account Number</th>
+                                                    <th>Site ID</th>
+                                                    <th>Site Name</th>
+                                                    <th>Site Status</th>
+                                                    <th>Backdoor</th>
+                                                    <th>SQL injection</th>
+                                                    <th>Cross Site Scripting</th>
+                                                    <th>Illegal Resource Access</th>
+                                                    <th>Remote File Inclusion</th>
+                                                    <th>DDoS mode</th>
+                                                    <th>DDoS Threshold</th>
+                                                    <th>Block Bad Bots</th>
+                                                    <th>Challenge Suspected Bots</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane  p-20" id="attack_stats" role="tabpanel">
+                                <table class="display nowrap table table-hover table-striped table-bordered"
+                                    id="api_list_stats">
+                                    <thead>
+                                        <tr>
+                                            <th>Total Events</th>
+                                            <th>Bad Bots Events</th>
+                                            <th>XSS Incidents</th>
+                                            <th>SQLi Incidents</th>
+                                            <th>Illegal Resource Access</th>
+                                            <th>RFI Events</th>
+                                            <th>DDoS L7 Events</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="tab-pane p-20" id="acl_settings" role="tabpanel">
+                                <table id="acl_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>ACL IP Blaklist</th>
+                                            <th>ACL Country Blacklist</th>
+                                            <th>Blacklist URL Pattern & Value</th>
+                                            <th>Whitelist Rules</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>ACL IP Blaklist</th>
+                                            <th>ACL Country Blacklist</th>
+                                            <th>Blacklist URL Pattern & Value</th>
+                                            <th>Whitelist Rules</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane p-20" id="caching_settings" role="tabpanel">
+                                <table class="table table-bordered table-striped table-hover table-responsive"
+                                    id="performance_table" data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>Site Creation Date</th>
+                                            <th>Site Status</th>
+                                            <th>Caching Settings</th>
+                                            <th>Incapsula A Record</th>
+                                            <th>CNAME Record</th>
+                                            <th>SSL Validation Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>Site Creation Date</th>
+                                            <th>Site Status</th>
+                                            <th>Caching Settings</th>
+                                            <th>Incapsula A Record</th>
+                                            <th>CNAME Record</th>
+                                            <th>SSL Validation Status</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane p-20" id="incapRule_settings" role="tabpanel">
+                                <table id="incapRule_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>IncapRule ID</th>
+                                            <th>IncapRule Name</th>
+                                            <th>Action</th>
+                                            <th>Rule</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>IncapRule ID</th>
+                                            <th>IncapRule Name</th>
+                                            <th>Action</th>
+                                            <th>Rule</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane p-20" id="DeliveryRule_settings" role="tabpanel">
+                                <form action="#" method="post" style="width: 90%" id="delivery_form">
+                                    <div class="col-sm-4">
+                                        <button id="fetch_delivery_rules" class="btn btn-info"
+                                            name="Fetch Delivery Rules">Fetch Delivery Rules - IN DEVELOPPMENT (doesn't
+                                            work yet)</button>
+                                    </div>
+                                </form>
+                                <table id="DeliveryRule_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>Delivery Rule ID</th>
+                                            <th>Delivery Rule Name</th>
+                                            <th>Action</th>
+                                            <th>Rule</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Site ID</th>
+                                            <th>Site Name</th>
+                                            <th>Delivery Rule ID</th>
+                                            <th>Delivery Rule Name</th>
+                                            <th>Action</th>
+                                            <th>Rule</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane p-20" id="Users" role="tabpanel">
+                                <table id="Users_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>(sub)account Name</th>
+                                            <th>User ID</th>
+                                            <th>User email</th>
+                                            <th>User Verified</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane p-20" id="auditing_settings" role="tabpanel">
+                                <form action="#" method="post" style="width: 90%" id="audit_form">
+                                    <!--       <div class="row p-t-20">   ADD THE OPTION TO sELECT ACCOUNT IN THE FUTURE
+                                        <div class="col-sm-2">
+                                            <label style="display: inline-block;"> Account ID</label>
+                                        </div>
+                                       <div class="col-sm-2">
+                                            <input type="text" id="account_id_fetch" placeholder="account ID"
+                                                class="form-control" style="display:inline-block;">
+                                        </div> -->
+
+                                    <div class="col-md-4">
+
+                                        <div class="form-group">
+                                            <select class="form-control" id="period">
+                                                <option value="last_7_days">last 7 days</option>
+                                                <option value="last_30_days">last 30 days</option>
+                                                <option value="last_90_days">last 90 days</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <button id="fetch_audit" class="btn btn-info" name="Fetch Audit Activity">Fetch
+                                            Audit Activity</button>
+                                    </div>
+
+                                </form>
+
+                                <table id="activity_table"
+                                    class="display nowrap table table-hover table-striped table-bordered"
+                                    data-page-length='25'>
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Account ID</th>
+                                            <th>Account Name</th>
+                                            <th>User</th>
+                                            <th>Action Title</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Account ID</th>
+                                            <th>Account Name</th>
+                                            <th>User</th>
+                                            <th>Action Title</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <br />
+
+                </div>
+            </div>
+            <!-- END ROW for security Settings table summary -->
+
+
+            <hr />
+
+        {{>footer}}  
+
+        </div> <!-- end page wrapper-->
+</body>
+
+
+
+
+
+
+
+
+
+
+
+<!-- JS LIBRARIES -->
+<script src="js/lib/jquery/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+
+<script type='text/javascript' src='js\lib\datatables\datatables.min.js'></script>
+<script type='text/javascript'
+    src='js\lib\datatables\cdn.datatables.net\buttons\1.2.2\js\datatables.buttons.min.js'></script>
+<script type="text/javascript"
+    src="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.js"></script>
+
+<script src="js/lib/calendar-2/moment.latest.min.js"></script>
+<script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part -->
+<script src="js/scripts.js"></script>
+<script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+<script src="js/lib/sweetalert/sweetalert.min.js"></script>
+<script src="js/lib/toastr/toastr.min.js"></script>
+<script>
+    $(function () {
+        $("#sidebar").load("sidebar.html");
+    });
+</script>
+
+
+
+<!--  SCRIPT TO RUN AUDIT  -->
+<script>
+    $('#fetch_audit').click(function () {
+        var post_values = { "account_id": sessionStorage.getItem("var_account_id"), "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key"), "period": document.getElementById("period").value };
+        send_fetch_audit(post_values, this);
+    });
+
+    //   document.getElementById("account_id_fetch").value = sessionStorage.getItem("var_account_id");
+
+
+    //CHECK IF THERE ARE KEYS IN BROWSER MEMORY
+    function check_keys() {
+        if (sessionStorage.getItem("var_account_id") == null || sessionStorage.getItem("var_api_id") == null || sessionStorage.getItem("var_api_key") == null) {
+            swal({
+                title: "Missing API Keys",
+                text: "API credentials or account number are missing, please login again",
+                type: "warning"
+            }, function () {
+                window.location.href = "index.html";
+            });
+        }
+    }
+
+
+
+
+    function fill_audit_table() {
+        var subaccount_list = JSON.parse(sessionStorage.getItem("subaccount_list"));
+        console.log("SUBACCOUNT LIST");
+        console.log(subaccount_list);
+        var audit_values = [];
+        $.ajax({
+            url: 'export_audit.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("ACTIVITY AUDIT");
+                console.log(data);
+                $(data.audit_events).each(function (index, value) {
+                    if (value.hasOwnProperty("user_id") == true) {
+                        var temp_account_id = value.account_id;
+                        // subaccount_list.find(x => x.id == value.account_id).name   is to replace the account name
+                        audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", value.user_id, value.type_key, value.type_description];
+                    } else {
+                        audit_values[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", "Imperva", value.type_key, value.type_description];
+                    }
+                });
+                // GET THE ACTIVITY TABLE READY IN DATATABLE FORMAT
+
+                var activity_datatable = $('#api_list_stats').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'Attack Statistics'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Attack Statistics',
+                        orientation: 'landscape'
+                    }]
+                });
+
+
+                // GET THE ACTIVITY TABLE READY IN DATATABLE FORMAT
+                var activity_datatable = $('#activity_table').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'Activity log'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Activity log',
+                        orientation: 'landscape'
+                    }]
+                });
+
+                $('#activity_table').dataTable().fnClearTable();
+                console.log(audit_values);
+                $('#activity_table').dataTable().fnAddData(audit_values);
+
+
+            }
+        });
+    }
+
+
+    function send_fetch_audit(post_data, clicked_obj) {
+        check_keys();
+        clicked_obj.disabled = true;
+        clicked_obj.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing Changes';
+        console.log(post_data);
+        $.ajax({
+            url: "php/fetch_audit.php",
+            type: "post",
+            dataType: 'json',
+            data: post_data,
+            success: function (data2) {
+                console.log("PHP SUCCESS FETCH AUDIT");
+                console.log(data2);
+                fill_audit_table();
+                clicked_obj.disabled = false;
+                clicked_obj.innerHTML = clicked_obj.name;
+                toastr.success('Success');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                fill_audit_table();
+                //    window.location.reload();
+                console.log("PHP ERROR error_audit");
+                console.log(jqXHR, textStatus, errorThrown);
+                toastr.warning('warning: php script returned an error, reach out in Github if it didn\'t work');
+                clicked_obj.disabled = false;
+                clicked_obj.innerHTML = clicked_obj.name;
+            }
+        });
+    }
+
+</script>
+
+
+<!--  SCRIPT TO RUN DELIVERY RULES   -->
+<script>
+    $('#fetch_delivery_rules').click(function () {
+        let SiteList = [];
+        $.ajax({
+            url: 'export_sites.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                $(data).each(function (index, value) {
+                    SiteList.push(value.site_id);
+                });
+                console.log("SiteList");
+                console.log(SiteList);
+                var post_values = { "sites": SiteList, "api_id": sessionStorage.getItem("var_api_id"), "api_key": sessionStorage.getItem("var_api_key") };
+                console.log("POST JUST BEFORE SENDING PHP");
+                console.log(post_values);
+                send_fetch_delivery(post_values, this);
+            }
+        });
+
+
+    });
+
+
+    // GET THE DELIVERY TABLE READY IN DATATABLE FORMAT
+
+    var delivery_datatable = $('#DeliveryRule_table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'excelHtml5',
+            title: 'Delivery Rules'
+        },
+        {
+            extend: 'pdfHtml5',
+            title: 'Delivery Rules',
+            orientation: 'landscape'
+        }]
+    });
+
+
+    function fill_delivery_table() {
+        var delivery_rules = [];
+        $.ajax({
+            url: 'export_delivery_rules.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("DELIVERY RULES");
+                console.log(data);
+                if (data.res_message != "OK") {
+                    toastr.error(data.res_message);
+                } else {
+                    //  account id / site id / site name /  Rule ID / DR Name / Action
+                    delivery_rules = [1, 1, 1, 1, data.delivery_rules.Rewrite[0].id, data.delivery_rules.Rewrite[0].name, JSON.stringify(data.delivery_rules.Rewrite[0])];
+                    /*     $(data.audit_events).each(function (index, value) {
+                             if (value.hasOwnProperty("user_id") == true) {
+                                 var temp_account_id = value.account_id;
+                                 // subaccount_list.find(x => x.id == value.account_id).name   is to replace the account name
+                                 delivery_rules[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", value.user_id, value.type_key, value.type_description];
+                             } else {
+                                 delivery_rules[index] = [moment(value.createdAt).format('DD MMM, , h:mm'), value.account_id, "account name", "Imperva", value.type_key, value.type_description];
+                             }
+                         }); */
+                    $('#ReliveryRule_table').dataTable().fnClearTable();
+                    console.log(" AJAX delivery_rules");
+                    console.log(delivery_rules);
+                    $('#DeliveryRule_table').dataTable().fnAddData(delivery_rules);
+                }
+            }
+        });
+    }
+
+
+    function send_fetch_delivery(post_data, clicked_obj) {
+        check_keys();
+        clicked_obj.disabled = true;
+        clicked_obj.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing Changes';
+        console.log("post data delivery rules")
+        console.log(post_data);
+        $.ajax({
+            url: "php/fetch_delivery.php",
+            type: "post",
+            dataType: 'json',
+            data: post_data,
+            success: function (data2) {
+                console.log("PHP SUCCESS FETCH DELIVERY RULES");
+                console.log(data2);
+                fill_delivery_table();
+                clicked_obj.disabled = false;
+                clicked_obj.innerHTML = clicked_obj.name;
+                toastr.success('Success');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                fill_delivery_table();
+                //    window.location.reload();
+                console.log("PHP ERROR error_delivery rules");
+                console.log(jqXHR, textStatus, errorThrown);
+                toastr.warning('warning: delivery php script returned an error, reach out in Github if it didn\'t work');
+                clicked_obj.disabled = false;
+                clicked_obj.innerHTML = clicked_obj.name;
+            }
+        });
+    }
+
+</script>
+
+
+
+<!-- print table site list and settings -->
+<script>
+    $(document).ready(function () {
+
+        var list_sites = '';
+        var sites_performance = '';
+        $.ajax({
+            url: 'export_sites.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("EXPORT SITES SETTINGS");
+                console.log(data);
+
+                $(data).each(function (index, value) {
+                    list_sites += '<tr>';
+                    list_sites += '<td >' + value.account_id + '</td>';
+                    list_sites += '<td>' + value.site_id + '</td>';
+                    list_sites += '<td>' + value.domain + '</td>';
+                    list_sites += '<td>' + value.status + '</td>';
+                    list_sites += '<td>' + value.security.waf.rules[5].action_text + '</td>';
+                    list_sites += '<td>' + value.security.waf.rules[0].action_text + '</td>';
+                    list_sites += '<td>' + value.security.waf.rules[1].action_text + '</td>';
+                    list_sites += '<td>' + value.security.waf.rules[2].action_text + '</td>';
+                    list_sites += '<td>' + value.security.waf.rules[6].action_text + '</td>';
+                    list_sites += '<td>' + value.security.waf.rules[4].activation_mode_text + '</td>';
+                    list_sites += '<td>' + value.security.waf.rules[4].ddos_traffic_threshold + '</td>';
+                    list_sites += '<td>' + value.security.waf.rules[3].block_bad_bots + '</td>';
+                    list_sites += '<td>' + value.security.waf.rules[3].challenge_suspected_bots + '</td>';
+                    list_sites += '</tr>';
+
+
+                    sites_performance += '<tr>';
+                    sites_performance += '<td>' + value.site_id + '</td>';
+                    sites_performance += '<td>' + value.domain + '</td>';
+                    sites_performance += '<td>' + moment(value.site_creation_date).format('DD MMM YY') + '</td>';
+                    sites_performance += '<td>' + value.status + '</td>';
+                    sites_performance += '<td>' + value.performance_configuration.acceleration_level + '</td>';
+                    if (typeof value.dns[1] === 'undefined') {
+                        sites_performance += '<td>' + "no A records" + '</td>';
+                    } else {
+                        sites_performance += '<td>' + value.dns[1].set_data_to[0] + ", " + value.dns[1].set_data_to[0] + '</td>';
+                    }
+                    if (value.dns.length === 0) {
+                        sites_performance += '<td>' + "NA" + '</td>';
+                    } else {
+                        sites_performance += '<td>' + value.dns[0].set_data_to + '</td>';
+                    }
+                    sites_performance += '<td>' + value.ssl.generated_certificate.validation_status + '</td>';
+
+                    sites_performance += '</tr>';
+
+
+                });
+
+                $("#security_table tbody").append(list_sites);
+                $('#performance_table tbody').append(sites_performance);
+
+
+                $('#security_table').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'security assessment'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'security assessment',
+                        orientation: 'landscape'
+                    }]
+                });
+
+                $('#security_table tr td').each(function () {
+                    if ($(this).text() == "Alert Only") $(this).css('color', 'red');
+                    if ($(this).text() == "1000") $(this).css('color', 'orange');
+                    if ($(this).text() == "off") $(this).css('color', 'red');
+                });
+
+                $('#security_table tr td:nth-child(12)').each(function () {
+                    if ($(this).text() != "true") $(this).css('color', 'red');
+                });
+
+                $('#performance_table').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'caching assessment'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'caching assessment'
+                    }]
+                }
+                );
+
+                $('#performance_table tr td:nth-child(4)').each(function () {
+                    if ($(this).text() != "fully-configured") $(this).css('color', 'orange');
+                    if ($(this).text() == "fully-configured") $(this).css('color', 'green');
+                });
+
+            }
+        });
+    });
+</script>
+
+
+
+<!-- print table stats 7 days -->
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: 'export_account_stats.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("EXPORT SITES STATISTICS");
+                console.log(data);
+
+            }
+        });
+    });	  
+</script>
+
+
+<!-- complete the security stats table -->
+<script>
+    $(document).ready(function () {
+        var list_stats = '';
+        var count_XSS_events = 0;
+        var count_ddos_events = 0;
+        $.ajax({
+            url: 'export_account_stats.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                list_stats += '<tr>';
+                list_stats += '<td>' + (+data.threats[9].incidents + +data.threats[10].incidents + +data.threats[0].incidents + +data.threats[3].incidents + +data.threats[5].incidents + +data.threats[8].incidents) + '</td>';
+                list_stats += '<td>' + data.threats[10].incidents + '</td>';
+                list_stats += '<td>' + data.threats[0].incidents + '</td>';
+                list_stats += '<td>' + data.threats[3].incidents + '</td>';
+                list_stats += '<td>' + data.threats[5].incidents + '</td>';
+                list_stats += '<td>' + data.threats[9].incidents + '</td>';
+                list_stats += '<td>' + data.threats[8].incidents + '</td>';
+                list_stats += '</tr>';
+
+                $('#api_list_stats').append(list_stats);
+
+            }
+        });
+    });
+</script>
+
+
+<!-- print ACL settings -->
+<script>
+    $(document).ready(function () {
+
+        var list_acl = '';
+        $.ajax({
+            url: 'export_sites.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                $(data).each(function (index, value) {
+                    list_acl += '<tr>';
+                    list_acl += '<td>' + value.account_id + '</td>';
+                    list_acl += '<td>' + value.site_id + '</td>';
+                    list_acl += '<td>' + value.domain + '</td>';
+
+                    if (value.security.hasOwnProperty("acls") == true) {
+
+                        if (value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_ips') != undefined) {
+                            list_acl += '<td>';
+                            for (l = 0; l < value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_ips').ips.length; l++) {
+                                list_acl += value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_ips').ips[l];
+                                if (l != value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_ips').ips.length - 1) {
+                                    list_acl += ', ';
+                                }
+                            }
+                            list_acl += '</td>';
+                        } else {
+                            list_acl += '<td>' + "" + '</td>';
+                        }
+
+                        if (value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_countries') != undefined) {
+                            if (value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_countries').geo.hasOwnProperty('continents')) {
+                                if (value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_countries').geo.hasOwnProperty('countries')) {
+                                    list_acl += '<td>' + value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_countries').geo.countries + ", " + value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_countries').geo.continents + '</td>';
+                                } else {
+                                    list_acl += '<td>' + value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_countries').geo.continents + '</td>';
+                                }
+                            } else {
+                                list_acl += '<td>' + value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_countries').geo.countries + '</td>';
+                            }
+                        } else {
+                            list_acl += '<td>' + "" + '</td>';
+                        }
+
+                        // ADD A LOOP ON THE URLS TO SCAN THEM ALL
+                        if (value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_urls') != undefined) {
+                            list_acl += '<td>';
+                            for (k = 0; k < value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_urls').urls.length; k++) {
+
+                                list_acl += value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_urls').urls[k].pattern + " " + value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_urls').urls[k].value;
+                                if (k != value.security.acls.rules.find(x => x.id === 'api.acl.blacklisted_urls').urls.length - 1) {
+                                    list_acl += ", ";
+                                }
+                            }
+                            list_acl += '</td>';
+
+                        } else {
+                            list_acl += '<td>' + "" + '</td>';
+                        }
+                        if (value.security.acls.rules.find(x => x.id === 'api.acl.whitelisted_ips') != undefined) {
+                            list_acl += '<td>';
+                            for (l = 0; l < value.security.acls.rules.find(x => x.id === 'api.acl.whitelisted_ips').ips.length; l++) {
+                                list_acl += value.security.acls.rules.find(x => x.id === 'api.acl.whitelisted_ips').ips[l];
+                                if (l != value.security.acls.rules.find(x => x.id === 'api.acl.whitelisted_ips').ips.length - 1) {
+                                    list_acl += ', ';
+                                }
+                            }
+                            list_acl += '</td>';
+                        } else {
+                            list_acl += '<td>' + "" + '</td>';
+                        }
+
+                    } else {
+                        list_acl += '<td>' + '</td>';
+                        list_acl += '<td>' + '</td>';
+                        list_acl += '<td>' + '</td>';
+                        list_acl += '<td>' + '</td>';
+                    }
+
+                    list_acl += '</tr>';
+                });
+                $("#acl_table tbody").append(list_acl);
+
+
+                $('#acl_table').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'ACL Settings'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'ACL Settings'
+                    }]
+                });
+            }
+        });
+    });
+</script>
+
+<!--Print all Users-->
+<script>
+    $(document).ready(function () {
+
+        var User_List = "";
+        $.ajax({
+            url: 'export_account_plan.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log("ACCOUNT_PLAN");
+                console.log(data);
+                $(data.logins).each(function (index, value) {
+                    if (data.account.email == value.email) {
+                        User_List += '<tr>' + '<td>' + "Main Account" + '</td>' + '<td>' + data.account.user_name + '</td>' + '<td>' + value.email + '</td>' + '<td>' + "Account Admin" + '</td>' + '</tr>';
+                        User_List += "hola";
+                    } else {
+                        User_List += '<tr>' + '<td>' + "Main Account" + '</td>' + '<td>' + value.login_id + '</td>' + '<td>' + value.email + '</td>' + '<td>' + value.email_verified + '</td>' + '</tr>';
+                    }
+                });
+
+
+                $.ajax({
+                    url: 'export_subaccounts.json',
+                    datatype: 'json',
+                    type: 'get',
+                    cache: false,
+                    success: function (data) {
+                        console.log("Json of subaccounts");
+                        console.log(data);
+                        $(data.resultList).each(function (index, value) {
+                            $(value.logins).each(function (index1, value2) {
+                                User_List += '<tr>' + '<td>' + value.sub_account_name + '</td>' + '<td>' + value2.login_id + '</td>' + '<td>' + value2.email + '</td>' + '<td>' + value2.email_verified + '</td>' + '</tr>';
+                            });
+                        });
+                        $("#Users_table tbody").append(User_List);
+
+                        //Fix bad alignment with Datatable
+                        $("#Users_table tbody td").css('text-align', 'left');
+
+                        $('#Users_table').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [{
+                                extend: 'excelHtml5',
+                                title: 'Users List'
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                title: 'Users List',
+                                orientation: 'landscape'
+                            }]
+                        });
+                    }
+                });
+
+                //        $(document).ajaxStop(function () {
+
+
+                //     });
+
+            }
+        });
+    });
+</script>
+
+
+
+<!--Print all IncapRules-->
+<script>
+    $(document).ready(function () {
+
+        let incapRulesList = '';
+        $.ajax({
+            url: 'export_sites.json',
+            datatype: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                $(data).each(function (index, value) {
+
+                    if (value.hasOwnProperty('incap_rules') == true) {
+
+                        let prefixRow = '<td>' + value.account_id + '</td>' + '<td>' + value.site_id + '</td>' + '<td>' + value.domain + '</td>';
+                        for (let rule in value.incap_rules) {
+                            incapRulesList += '<tr>';
+                            incapRulesList += prefixRow + '<td>' + value.incap_rules[rule].id + '</td>' + '<td>' + value.incap_rules[rule].name + '</td>' + '<td>' + value.incap_rules[rule].action + '</td>' + '<td>' + value.incap_rules[rule].rule + '</td>';
+                            incapRulesList += '</tr>';
+                        }
+                    }
+
+                });
+
+                $("#incapRule_table tbody").append(incapRulesList);
+
+                //Fix bad alignment with Datatable
+                $("#incapRule_table tbody td").css('text-align', 'left');
+
+                $('#incapRule_table').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'IncapRule List'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'IncapRule List',
+                        orientation: 'landscape'
+                    }]
+                });
+            }
+        });
+    });
+</script>
+
+
+
+</html>

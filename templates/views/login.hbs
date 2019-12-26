@@ -1,0 +1,108 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Jonathan Gruber Imperva">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favico.png">
+    <title>login</title>
+
+    <!-- CSS LIBRARIES -->
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+
+    <link href="css/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="css/toastr/toastr.min.css" rel="stylesheet" type="text/css">
+
+    <!--JS LIBRARIES -->
+    <!-- All Jquery -->
+    <script src="js/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!--Charts and scripts JavaScript -->
+    <script src="js/calendar-2/moment.latest.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/sweetalert/sweetalert.min.js"></script>
+    <script src="js/toastr/toastr.min.js"></script>
+</head>
+
+
+<body >
+
+    <!-- page wrapper -->
+    <div class="main-wrapper">
+
+        {{>header}}  
+    </div>
+        <!-- Container fluid for central page  -->
+        <div class="page-wrapper">
+<p></p>
+                <!-- Input Form -->
+                <div clas="row">
+                    <h4 >dashboard v <span id="versionNb">2.0</span></h4>
+
+                    <div class="card" style="max-width: 600px; background-color:#D6EAF8">
+                        <div class="card-title">
+                            <h4>Enter Account Credentials </h4> <br>
+                        </div>
+                        <form action="#" method="post" style="width: 90%" id="login_form">
+
+                            <div class="row p-t-20">
+                                <div class="col-sm-4">
+                                    <label>Account ID</label>
+                                    <input type="text" id="account_id" placeholder="Account Number"
+                                        class="form-control" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Select Period</label>
+                                        <select class="form-control" id="period">
+                                            <option value="last_7_days">last 7 days</option>
+                                            <option value="last_30_days">last 30 days</option>
+                                            <option value="last_90_days">last 90 days</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+ <!--                               <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Add per-site Statistics</label>
+                                        <input class="ui large checkbox" type="checkbox" id="sites_checkbox" value="no"
+                                            onclick="return alert_api(this);">
+                                    </div>
+                                </div>-->
+                            </div>
+
+                            <div class="row p-t-20">
+                                <div class="col-md-4">
+                                    <label class="control-label">API ID</label>
+                                    <input type="text" id="api_id" placeholder="API ID" class="form-control">
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="control-label">API Keys</label>
+                                    <input type="password" id="api_key" placeholder="API Key" class="form-control" />
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" id="submit_button" class="btn btn-info">Submit</button> <br />
+                            <br>
+                        </form>
+                    </div>
+                </div>
+                <!-- END ROW of Inputs form -->
+            </div>
+            <div class="main-wrapper">
+            {{>footer}}  
+</div>
+
+
+</body>
+    <script src="js/login.js"></script>
+</html>
+
+
+
+
+
