@@ -37,8 +37,6 @@
 
 <body >
     <div class="main-wrapper">
-
-
         <!-- HEADER BAR  -->
         {{>header}}
     </div>
@@ -573,7 +571,6 @@
     <script src="js/calendar-2/moment.latest.min.js"></script>
     <script src="js/Chart.js"></script>
     <script src="js/chartjs-plugin-datalabels.js"></script>
-    <script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part -->
     <script src="js/scripts.js"></script>
     <script src="js/toastr/toastr.min.js"></script>
 
@@ -1422,25 +1419,6 @@
     $(document).ready(function () {
         var main_account_name = "";
         var main_account_id = "";
-        $.ajax({
-            url: 'export_account_plan.json',
-            datatype: 'json',
-            type: 'get',
-            cache: false,
-            success: function (data) {
-                console.log("JSON of account plan");
-                console.log(data);
-                document.getElementById("account_name").textContent = data.account_name;
-                document.getElementById("accountName2").textContent = data.account_id + "   " + data.account_name + " ";
-                document.getElementById("account_id").textContent = data.account_id;
-                document.getElementById("plan_name").textContent = data.plan_name;
-                document.getElementById("trial_end").textContent = data.account.trial_end_date;
-                document.getElementById("nb_users").textContent = data.logins.length + " configured users";
-                document.getElementById("support_level").textContent = data.account.support_level;
-                main_account_name = data.account_name;
-                main_account_id = data.account_id;
-            }
-        });
 
 
         var count_block = 0;
@@ -1574,6 +1552,13 @@
             success: function (data) {
                 console.log("JSON of Account Subscription");
                 console.log(data);
+
+                document.getElementById("accountName2").textContent = data.planStatus.accountId + "   " + data.planStatus.accountName + " ";
+                document.getElementById("plan_name").textContent = data.planStatus.websiteProtection.name;
+             //   document.getElementById("trial_end").textContent = data.account.trial_end_date;
+            //    document.getElementById("nb_users").textContent = data.logins.length + " configured users";
+                document.getElementById("support_level").textContent = data.planStatus.additionalServices.planSectionRows[3].name;
+
                 // Load Balancing add on
                 if (data.planStatus.websiteProtection.planSectionRows.find(x => x.name === 'Load Balancing').purchased != 0) {
                     document.getElementById("add_on_lb").checked = true;

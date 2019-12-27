@@ -15,13 +15,13 @@
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
 
     <link href="css/style.css" rel="stylesheet" type="text/css">
 
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
     <!-- Custom CSS -->
     <link href="css/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/toastr/toastr.min.css" rel="stylesheet" type="text/css">
     <!--   <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"> -->
     <link href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css" rel="stylesheet" type="text/css">
@@ -43,46 +43,15 @@
 </head>
 
 
-<body class="fix-header fix-sidebar">
-    <!-- page wrapper -->
+<body>
     <div class="main-wrapper">
-
-        <!-- header header  -->
-        <div class="header">
-            <nav class="navbar top-navbar navbar-expand-md navbar-light">
-                <!-- Logo -->
-                <div class="navbar-header">
-                    <!-- Dashboard logo icon  -->
-                    <ul>
-                        <li style="font-size:30;color:#37347F"><img src="incapse.png" alt="homepage" class="dark-logo"
-                                style="max-width: 190px; height:auto;margin-right: 2.5em" /> </li>
-                    </ul>
-                    </a>
-                </div>
-                <!-- End Logo -->
-                <div class="navbar-collapse">
-                    <!-- toggle and nav items -->
-                    <ul class="navbar-nav mr-auto mt-md-0">
-                        <!-- 3 LINES WHEN BROWSER COMPRESSED  -->
-                        <li class="nav-item m-l-4"> <a class="nav-link sidebartoggler text-muted  "
-                                href="javascript:void(0)"><i class="fa fa-th-large"></i></a> </li>
-                        <li>
-                            <h3 class="text-primary"> {{title}} </h3>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-
-        <!-- Left Sidebar  -->
-        <div id="sidebar" class="left-sidebar">
-        </div>
-        <!-- End Left Sidebar  -->
+        <!-- HEADER BAR  -->
+        {{>header}}
+    </div>
 
 
         <!-- Container fluid for central page  -->
         <div class="page-wrapper">
-            <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -300,14 +269,11 @@
                 </div>
 
             </div>
-        </div>
 
-    </div>
     <!-- END ROW of Inputs form -->
 
 
 
-    </div>
     </div> <!-- end page wrapper-->
 
     {{>footer}}
@@ -316,30 +282,21 @@
 
 
 <!-- JS LIBRARIES -->
-<script src="js/lib/jquery/jquery.min.js"></script>
+<script src="js/jquery/jquery.min.js"></script>
 <!-- Bootstrap tether Core JavaScript -->
-<script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
-<script type='text/javascript' src='js\lib\datatables\datatables.min.js'></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<script type='text/javascript' src='js/datatables/datatables.min.js'></script>
 <script type='text/javascript' src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'></script>
 <script type='text/javascript' src='https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js'></script>
 
-<script src="js/lib/calendar-2/moment.latest.min.js"></script>
+<script src="js/calendar-2/moment.latest.min.js"></script>
 <script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part -->
 <script src="js/scripts.js"></script>
-<script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
-<script src="js/lib/sweetalert/sweetalert.min.js"></script>
-<script src="js/lib/toastr/toastr.min.js"></script>
+<script src="js/sweetalert/sweetalert.min.js"></script>
+<script src="js/toastr/toastr.min.js"></script>
 
 
-<!-- LOAD SIDEBAR -->
-<script>
-    $(function () {
-        $("#sidebar").load("sidebar.html");
-    });
-</script>
 
-
-<!-- print table site list and settings -->
 <script>
 
     function fill_settings_table() {

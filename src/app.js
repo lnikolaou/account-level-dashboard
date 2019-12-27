@@ -48,7 +48,7 @@ app.get('/bulk_changes', (req, res) => {
 })
 app.get('/raw_tables', (req, res) => {
     res.render('raw_tables', {
-        title: 'Account Level Dashboard: Settings Tables'
+        title: 'Account Level Dashboard: Site Settings Tables'
     })
 })
 app.get('/version_info', (req, res) => {

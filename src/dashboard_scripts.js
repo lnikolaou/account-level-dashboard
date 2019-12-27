@@ -7,7 +7,7 @@ const sites_list = ({ api_id, api_key, account_id } = {}, callback) => {
     console.log({ api_id, api_key, account_id })
 
 
-
+/*
     // FUNCTION TO FETCH MORE PAGES IF MORE THAN 100 SITES 
     function requestExtra(pageNb) {
         console.log("SOMEONE IS REQUESTING EXTRA")
@@ -28,7 +28,6 @@ const sites_list = ({ api_id, api_key, account_id } = {}, callback) => {
         request(post_extra, (err, res) => {
             if (err) {
                 console.log("error " + err)
-                callback(error)
                 // NEED TO ADD SMTHG heRE TO HANDLE WHEN UNDEFINED
             } else {
 
@@ -52,7 +51,7 @@ const sites_list = ({ api_id, api_key, account_id } = {}, callback) => {
         })
     }
 
-
+*/
 
     const post_data = {
         api_id: api_id,
@@ -71,7 +70,6 @@ const sites_list = ({ api_id, api_key, account_id } = {}, callback) => {
     request(post_list, (error, response) => {
         if (error) {
             console.log("error " + error)
-            callback(error)
             // NEED TO ADD SMTHG heRE TO HANDLE WHEN UNDEFINED
         } else {
             const response_a = JSON.parse(response.body)
@@ -144,7 +142,6 @@ const sites_list = ({ api_id, api_key, account_id } = {}, callback) => {
     request(post_subaccount, (error, response) => {
         if (error) {
             console.log("error " + error)
-            callback(error)
         } else {
             console.log("post data")
             console.log(post_subaccount)
@@ -172,7 +169,6 @@ const sites_list = ({ api_id, api_key, account_id } = {}, callback) => {
     request(post_data_stats, (error, response) => {
         if (error) {
             console.log("error " + error)
-            callback(error)
         } else {
             console.log("post data_stats")
             console.log(post_subaccount)
@@ -183,7 +179,7 @@ const sites_list = ({ api_id, api_key, account_id } = {}, callback) => {
         }
     })
 
-    callback(undefined, { response: "all good" })
+    callback({ res_message: "OK" })
 
 }
 

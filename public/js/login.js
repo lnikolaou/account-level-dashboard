@@ -22,11 +22,9 @@ document.getElementById("submit_button").addEventListener('click', (e) => {
         dataType: 'json',
         data: post_data,
         success: function (data) {
-            console.log("ajax logged input")
-            console.log(post_data)
             console.log("NODEJS SCRIPT SUCCESS CHANGE SCRIPT");
             console.log(data);
-            if (data.res_message != "OK") {
+            if (data.error.res_message != "OK") {
                 swal({
                     title: "API Authentication Error",
                     text: ("Make sure you are using Admin Keys\n Test on API explorer: /api/prov/v1/sites/list\n error code: " + data.res_message),
