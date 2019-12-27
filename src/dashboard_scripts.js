@@ -15,14 +15,19 @@ request.post(
 
 
 const sites_list = ({ api_id, api_key, account_id } = {}, callback) => {
+    console.log("received JSON")
+    console.log({ api_id, api_key, account_id })
+
 
     const post_data = {
         api_id: api_id,
         api_key: api_key,
         account_id: account_id,
-        page_size: 100,
-        page_num: 0
+     //   page_size: 100,
+     //   page_num: 0
     }
+
+
     const post_data_stats = {
         api_id: api_id,
         api_key: api_key,
@@ -41,7 +46,7 @@ const sites_list = ({ api_id, api_key, account_id } = {}, callback) => {
             'cache-control': 'no-cache'
         }
     }
-
+/*
     request(post_list, (error, response) => {
         if (error) {
             console.log("error " + error)
@@ -57,33 +62,32 @@ const sites_list = ({ api_id, api_key, account_id } = {}, callback) => {
             fs.writeFileSync('public/export_sites.json', sites_list_array)
             callback(undefined, response.body)
         }
-    })
+    })  */
 
-    const post_account = {
+    const post_subs = {
         method: 'POST',
-        url: 'https://my.incapsula.com/api/prov/v1/account',
-        post_data,
-        headers: {
-            'cache-control': 'no-cache'
-        }
+        url: 'https://my.imperva.com/api/prov/v1/accounts/subscription',
+        formData: post_data
     }
 
-    request(post_account, (error, response) => {
+
+    request(post_subs, (error, response) => {
         if (error) {
             console.log("error " + error)
             callback(error)
             // NEED TO ADD SMTHG heRE TO HANDLE WHEN UNDEFINED
             // WON't WORK IF TOO MANY CALLS IN A ROW
         } else {
-            let sites_list_array = []
-            console.log(sites_list_array)
-            sites_list_array.push(response.body)
-            console.log(sites_list_array)
-            fs.writeFileSync('public/export_account_plan.json', sites_list_array)
+            console.log("post data")
+            console.log(post_subs)
+            console.log("subscription call")
+            console.log(response.body)
+            fs.writeFileSync('public/export_account_subscriptions.json', response.body)
             callback(undefined, response.body)
         }
     })
 }
+
 
 module.exports = {
     sites_list
@@ -103,17 +107,7 @@ curl_close($ch);
 */
 
 
-/* Curl to get the account subscription 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "https://my.incapsula.com/api/prov/v1/accounts/subscription");
-curl_setopt($ch, CURLOPT_POST, 1);// set post data to true
-curl_setopt($ch, CURLOPT_HEADER, 0);
-curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));   // post data
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$json = curl_exec($ch);
-file_put_contents("../export_account_subscriptions.json", $json);
-curl_close($ch);
-*/
+
 /* curl to get the list of sub accounts 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, "https://my.incapsula.com/api/prov/v1/accounts/listSubAccounts");

@@ -67,8 +67,6 @@ app.get('/debugging', (req, res) => {
 app.post('/dashboard_scripts', (req, res) => {
     // ADD CONDITION TO CHECK IF MISSING INPUTS CHECK
     //   sites_list.test((error, response) => {
-    console.log('req.api_id')
-    console.log(req.body.api_id)
     // sites_list.sites_list({api_id:req.api_id, api_key:req.api_key, account_id: req.account_id}, (error, response) => {
 
     sites_list.sites_list(req.body, (error, response) => {
