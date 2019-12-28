@@ -11,22 +11,22 @@ The Account level dashboard includes:
 
 
 # Installation & Usage
-## First time installation
-1- Install NodeJS from https://nodejs.org/en/download
-2- Download the project files of this Github directory in a local directory of your choice
-3- from the project directory, run the command: 'mpn install'
-4- run the following command: 'node --http-parser=legacy src/app.js '
-5- browse to localhost:3000 
+## First time installation: new NodeJS version  
+1- Install NodeJS from https://nodejs.org/en/download  
+2- Download the project files of this Github directory in a local directory of your choice  
+3- from the project directory, run the command: 'mpn install'  
+4- run the following command: 'node --http-parser=legacy src/app.js '  
+5- browse to localhost:3000  
 
 ## Usage
-After the first time installation, you only need to run the following command from the project directory: 
-1- run 'node src/app.js'
-2- browse to localhost:3000 
+After the first time installation, you only need to run the following command from the project directory:  
+1- run 'node src/app.js'  
+2- browse to localhost:3000   
 
 it is recommended to login with the API keys of the account admin to benefit from all the account information
 
-## PHP version
-The previous PHP version is still available from the PHP subfolder. 
+## legacy PHP version
+The previous PHP version is still available from the PHP subfolder.  
 It can be deployed with the Dockerfile or directly on a web server.
 
 # Screenshots
@@ -44,11 +44,11 @@ Bulk Actions Changes to multiple sites at once
 ![alt text](https://github.com/imperva/account-level-dashboard/blob/master/images/screenshots/bulk%20actions.png) 
 
 ## Errors
-If you are getting an error that says "Issue with the API Key or Account Permission", make sure that:
-1- The API is properly running on Incapsula API explorer page to confirm it is not a permissions issue
+If you are getting an error that says "Issue with the API Key or Account Permission", make sure that:  
+1- The API is properly running on Incapsula API explorer page to confirm it is not a permissions issue  
 
 ## Reporting Bugs
-please reports bugs, issues or suggestions for improvement in the following page:
+please reports bugs, issues or suggestions for improvement in the following page:  
 https://github.com/imperva/account-level-dashboard/issues
 
 ## Contributions  
