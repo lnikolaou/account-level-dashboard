@@ -51,8 +51,6 @@ const sites_list = ({ api_id, api_key, account_id, period } = {}, callback) => {
             fs.writeFileSync('public/export_account_subscriptions.json', JSON.stringify(r_sub.data))
 
             console.log("POST LIST SITES")
-
-            fs.writeFileSync('public/export_sites.json', JSON.stringify(sites_array))
             if (r_sites.data.res_message != "OK") {
                 callback({ res_message: "NOK", title: "Error", message: "Make sure you are using Admin Keys\n Test on API explorer: /api/prov/v1/sites/list\n error code: " + r_sites.data.res_message })
                 //ADD ERROR IN CASE OF API AUTH ERROR
@@ -65,6 +63,8 @@ const sites_list = ({ api_id, api_key, account_id, period } = {}, callback) => {
                 console.log(sites_array)
                 console.log(sites_array.length)
                 callback({ res_message: "OK" })
+                fs.writeFileSync('public/export_sites.json', JSON.stringify(sites_array))
+
             }
         }))
         .catch((err) => {

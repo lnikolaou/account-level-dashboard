@@ -1530,8 +1530,8 @@
 
             },
             error: function (data) {
-                toastr.warning('error seems related to setup, or to wrong API keys', 'Warning')
-                toastr.error('error can be in Xampp, write permissions in folder or wrong API key match. Check Readme.md for troubleshooting', 'API calls could not be generated')
+                toastr.warning('error', 'Warning')
+                toastr.error('Couldn\'t find the API response. Try to run the login again. Check Readme.md for troubleshooting')
             }
         });
     });
