@@ -24,88 +24,63 @@ const sites_list = ({ api_id, api_key, account_id, period } = {}, callback) => {
     }
 
 
-// PROMISE FOR ALL CALLS
-axios.all([
-
     // SITE LIST JSON
-    axios.post('https://my.imperva.com/api/prov/v1/sites/list', querystring.stringify(post_data)),
-    /*
-    .then((response) => {
-        console.log("RETRIEVE THE FIRST SITE LIST")
-        console.log(response.data)
-        if (response.data.res_message != "OK") {
-            fs.writeFileSync('public/export_sites.json', response.data)
-        } else {
-            //  var sites_array_a = JSON.parse(response.body)
-            var sites_array = response.data.sites
-            console.log("export ARRAY")
-            console.log(sites_array)
-            console.log(sites_array.length)
+
+
+
+    // PROMISE FOR ALL CALLS
+    axios.all([
+        axios.post('https://my.imperva.com/api/prov/v1/accounts/listSubAccounts', querystring.stringify(post_data)),
+        axios.post('https://my.imperva.com/api/stats/v1', querystring.stringify(post_stats)),
+        axios.post('https://my.imperva.com/api/prov/v1/accounts/subscription', querystring.stringify(post_data)),
+        axios.post('https://my.imperva.com/api/prov/v1/sites/list', querystring.stringify(post_data))
+    ])
+
+        .then(axios.spread((r_subaccounts, r_stats, r_sub, r_sites) => {
+
+            console.log("POST SUBACCOUNT OK")
+            //console.log(r_sub.data)
+            fs.writeFileSync('public/export_subaccounts.json', JSON.stringify(r_subaccounts.data))
+
+            console.log("POST STATS OK")
+            //console.log(r_stats.data)
+            fs.writeFileSync('public/export_account_stats.json', JSON.stringify(r_stats.data))
+
+            console.log("POST SUBSCRIPTION OK")
+            //console.log(r_sub.data)
+            fs.writeFileSync('public/export_account_subscriptions.json', JSON.stringify(r_sub.data))
+
+            console.log("POST LIST SITES")
+
             fs.writeFileSync('public/export_sites.json', JSON.stringify(sites_array))
-        }
-    }, (error) => {
-        console.log(error);
-    }),
-*/
-    // POST SUBACCOUNTS
-    axios.post('https://my.imperva.com/api/prov/v1/accounts/subscription', querystring.stringify(post_data)),
-/*        .then((response) => {
-            console.log("POST SUBSCRIPTION")
-            console.log(response.data)
-            if (response.data.res_message != "OK") {
-                fs.writeFileSync('public/export_account_subscriptions.json', JSON.stringify(response.data))
+            if (r_sites.data.res_message != "OK") {
+                callback({ res_message: "NOK", title: "Error", message: "Make sure you are using Admin Keys\n Test on API explorer: /api/prov/v1/sites/list\n error code: " + r_sites.data.res_message })
+                //ADD ERROR IN CASE OF API AUTH ERROR
+                //                    text: ("Make sure you are using Admin Keys\n Test on API explorer: /api/prov/v1/sites/list\n error code: " + data.res_message),
 
             } else {
-                console.log("WEEENNTT OKKK")
-                fs.writeFileSync('public/export_account_subscriptions.json', JSON.stringify(response.data))
+                console.log(r_sites.data)
+                var sites_array = r_sites.data.sites
+                console.log("export ARRAY")
+                console.log(sites_array)
+                console.log(sites_array.length)
+                callback({ res_message: "OK" })
             }
-        }, (error) => {
-            console.log(error);
-        }),
-*/
+        }))
+        .catch((err) => {
+            console.log('FAIL', err)
+            callback({ res_message: "NOK", title: "error when running the API", message: "Connectivity error or NodeJS parser error.\n Try the command: node --http-parser=legacy src/app.js " })
+        })
+
+
+
+
     // POST SUBACCOUNTS
-    axios.post('https://my.imperva.com/api/prov/v1/accounts/listSubAccounts', querystring.stringify(post_data)),
-    /*    .then((response) => {
-            console.log("POST SUBACCOUNT")
-            console.log(response.data)
-            fs.writeFileSync('public/export_subaccounts.json', JSON.stringify(response.data))
-        }, (error) => {
-            console.log(error);
-        }),
-*/
 
 
-    // POST STATS
-    axios.post('https://my.imperva.com/api/stats/v1', querystring.stringify(post_stats))
-     /*   .then((response) => {
-            console.log("POST STATS")
-            console.log(response.data)
-            fs.writeFileSync('public/export_account_stats.json', JSON.stringify(response.data))
-        }, (error) => {
-            console.log(error);
-        })   
-    */
-    ])
-.then(axios.spread((response_sites, response_sub1, r3, r4) => {
 
-    console.log("PROMISE #1")
-    console.log(r4)
-
-   // fs.writeFileSync('public/export_sites.json', JSON.stringify(r4.data))
-
-  //this will be executed only when all requests are complete
-  callback({ res_message: "OK" })
-
-}))  
-.catch((error) => {
-    console.log("THIS IS AN AXIOS ERROR")
-    console.log(error);
-   });
-
-
+    // callback({ res_message: "OK" })
 }
-
-
 
 
 module.exports = {
@@ -186,9 +161,9 @@ module.exports = {
                 }
                 */
 
-                /*
+/*
 fs.writeFileSync('public/export_sites.json', JSON.stringify(sites_array))
 }
 }
-}) 
+})
 */

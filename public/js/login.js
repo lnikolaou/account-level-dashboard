@@ -26,8 +26,8 @@ document.getElementById("submit_button").addEventListener('click', (e) => {
             console.log(data);
             if (data.error.res_message != "OK") {
                 swal({
-                    title: "API Authentication Error",
-                    text: ("Make sure you are using Admin Keys\n Test on API explorer: /api/prov/v1/sites/list\n error code: " + data.res_message),
+                    title: data.error.title,
+                    text: data.error.message,
                     type: "error"
                 });
                 document.getElementById("submit_button").disabled = false;
