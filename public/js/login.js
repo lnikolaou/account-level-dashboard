@@ -16,6 +16,9 @@ document.getElementById("submit_button").addEventListener('click', (e) => {
     console.log("POST_DATA");
     console.log(post_data);
 
+
+    // REPLACE IT BY FETCH
+
     $.ajax({
         url: "http://localhost:3000/dashboard_scripts",
         type: "post",
@@ -42,24 +45,25 @@ document.getElementById("submit_button").addEventListener('click', (e) => {
             console.log(jqXHR, textStatus, errorThrown);
             window.location.href = "dashboard";
         }
-    });   
+    });
 
 })
 
 // CHECK VERSION
 fetch('js/version.json').then((response) => {
-    response.json().then((data) => {
-        fetch('https://raw.githubusercontent.com/imperva/account-level-dashboard/master/public/js/version.json').then((response_remote) => {
-            response_remote.json().then((data_remote) => {
-                document.getElementById("versionNb").innerHTML = data.version;
-                if (response.version != response_remote.version) {
-                    toastr.warning("<a href=\"https://github.com/imperva/account-level-dashboard\">a newer version is available in Github; click to download</a>", { closeButton: true });
-                } else {
-               //     toastr.success('version is up to date', { closeButton: true });
-               //     toastr.success('remote version'+JSON.parse(data).version, { closeButton: true });
-               //     toastr.success('local version'+response.version, { closeButton: true });
-                }
-                })
+    response.json().then((data_local) => {
+        fetch('https://raw.githubusercontent.com/imperva/account-level-dashboard/master/public/js/version.json')
+            .then((response_remote) => {
+                return response_remote.json()
+                    .then(function (data_remote) {
+                        document.getElementById("versionNb").innerHTML = data_local.version;
+                        if (data_local.version != data_remote.version) {
+                            toastr.warning("<a href=\"https://github.com/imperva/account-level-dashboard\">a newer version is available in Github; click to download</a>", { closeButton: true });
+                        } else {
+                            toastr.success('version is up to date', { closeButton: true });
+                        }
+                        //    })
+                    })
+            })
     })
-})
 })

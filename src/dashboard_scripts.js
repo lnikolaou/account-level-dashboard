@@ -72,19 +72,14 @@ const sites_list = ({ api_id, api_key, account_id, period } = {}, callback) => {
             callback({ res_message: "NOK", title: "error when running the API", message: "Connectivity error or NodeJS parser error.\n Try the command: node --http-parser=legacy src/app.js " })
         })
 
-
-
-
-    // POST SUBACCOUNTS
-
-
-
-    // callback({ res_message: "OK" })
 }
 
+const version_check = ({ api_id, api_key, account_id, period } = {}, callback) => {
+}
 
 module.exports = {
-    sites_list
+    sites_list,
+    version_check
 }
 
 
