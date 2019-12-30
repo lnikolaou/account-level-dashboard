@@ -1,7 +1,8 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
-let sites_list = require('./dashboard_scripts.js')
+let dashboard_scripts = require('./dashboard_scripts.js')
+let bulk_scripts = require('./bulk_changes.js')
 const fs = require('fs')
 const request = require('request')
 const app = express()
@@ -65,11 +66,7 @@ app.get('/debugging', (req, res) => {
 
 // ENDPOINTS FOR APIs
 app.post('/dashboard_scripts', (req, res) => {
-    // ADD CONDITION TO CHECK IF MISSING INPUTS CHECK
-    //   sites_list.test((error, response) => {
-    // sites_list.sites_list({api_id:req.api_id, api_key:req.api_key, account_id: req.account_id}, (error, response) => {
-
-    sites_list.sites_list(req.body, (error, response) => {
+    dashboard_scripts.sites_list(req.body, (error, response) => {
         if (error) {
             return res.send({ error })
         }
@@ -77,14 +74,21 @@ app.post('/dashboard_scripts', (req, res) => {
     })
 })
 
-app.get('/weather', (req, res) => {
-    if (!req.query.address) {
-        return res.send({
-            error: ' there is no address'
-        })
-    }
-    return res.send({
-        address: req.query.address
+app.get('/bulk_scripts', (req, res) => {
+    bulk_scripts.bulk_changes(req.body, (error, response) => {
+        if (error) {
+            return res.send({ error })
+        }
+        res.send(response)
+    })
+})
+
+app.get('/bulk_scripts_acl', (req, res) => {
+    bulk_scripts.bulk_changes_acl(req.body, (error, response) => {
+        if (error) {
+            return res.send({ error })
+        }
+        res.send(response)
     })
 })
 

@@ -13,15 +13,14 @@
     <title>Bulk Changes</title>
     <!-- CSS LIBRARIES -->
     <!-- Bootstrap Core CSS -->
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+   
         <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
-
     <link href="css/style.css" rel="stylesheet" type="text/css">
-
     <link href="css/lib/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
     <!-- Custom CSS -->
-    <link href="css/calendar2/semantic.ui.min.css" rel="stylesheet" type="text/css">
     <link href="css/toastr/toastr.min.css" rel="stylesheet" type="text/css">
     <!--   <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"> -->
     <link href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css" rel="stylesheet" type="text/css">
@@ -50,225 +49,221 @@
     </div>
 
 
-        <!-- Container fluid for central page  -->
-        <div class="page-wrapper">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <h2>Recommended Default Security & Performance Settings:</h2>
-                            <table class="table" style="display: inline-block;"">
+    <!-- Container fluid for central page  -->
+    <div class="page-wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <h2>Recommended Default Security & Performance Settings:</h2>
+                    <table class="table" style="display: inline-block;"">
                                     <tbody>
                                         <tr>
                                             <td>Illegal Resource Access:</td>
                                             <td><span class=" badge badge-danger">Block
-                                Request</span></td>
-                                <td style="width: 100;"></td>
-                                <td>Backdoor:</td>
-                                <td><span class=" badge badge-danger">Auto-Quarantine</span></td>
+                        Request</span></td>
+                        <td style="width: 100;"></td>
+                        <td>Backdoor:</td>
+                        <td><span class=" badge badge-danger">Auto-Quarantine</span></td>
 
-                                </tr>
-                                <tr>
-                                    <td>Remote File Inclusion:</td>
-                                    <td><span class="badge badge-danger">Block Request</span></td>
-                                    <td></td>
-                                    <td>Bad Bots</td>
-                                    <td><span class="badge badge-danger">Block</span></td>
-                                </tr>
-                                <tr>
-                                    <td>SQL Injection:</td>
-                                    <td><span class="badge badge-danger">Block
-                                            Request</span></td>
-                                    <td></td>
-                                    <td>Challenge Suspected Bot:</td>
-                                    <td><span class="badge badge-primary">Disabled</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Cross Site Scripting:</td>
-                                    <td><span class="badge badge-danger">Block
-                                            Request</span></td>
-                                    <td></td>
-                                    <td>Advanced Caching: </td>
-                                    <td><span class="badge badge-success">Static +
-                                            Dynamic</span></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        </tr>
+                        <tr>
+                            <td>Remote File Inclusion:</td>
+                            <td><span class="badge badge-danger">Block Request</span></td>
+                            <td></td>
+                            <td>Bad Bots</td>
+                            <td><span class="badge badge-danger">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td>SQL Injection:</td>
+                            <td><span class="badge badge-danger">Block
+                                    Request</span></td>
+                            <td></td>
+                            <td>Challenge Suspected Bot:</td>
+                            <td><span class="badge badge-primary">Disabled</span></td>
+                        </tr>
+                        <tr>
+                            <td>Cross Site Scripting:</td>
+                            <td><span class="badge badge-danger">Block
+                                    Request</span></td>
+                            <td></td>
+                            <td>Advanced Caching: </td>
+                            <td><span class="badge badge-success">Static +
+                                    Dynamic</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-
-                <!-- Input Form -->
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-title">
-                                <h2>1- Select Sites to update</h2>
-                                <button style="float: right; min-width: 130px;" onclick="return"
-                                    name="Fetch Sites Settings" type="submit" class="btn btn-info"
-                                    id="fetch_settings">Fetch Sites Settings</button>
-                                </br>
-                                </br>
-                                <button style="float: right; min-width: 130px;" onclick="return" name="Check API Keys"
-                                    type="submit" class="btn btn-info" id="check_api_keys">Check API Keys</button>
-                            </div>
-
-                            <div id="threats_settings" style="overflow-x:auto;">
-                                <table id="security_table"
-                                    class="display nowrap table table-hover table-striped table-bordered"
-                                    data-page-length='25'>
-                                    <thead>
-                                        <tr>
-                                            <th><input type="checkbox" class="checkAll" name="checkAll"
-                                                    style="text-align: center; vertical-align: middle;" /></th>
-                                            <th>Site Id</th>
-                                            <th>Site Name</th>
-                                            <th>Backdoor</th>
-                                            <th>SQL injection</th>
-                                            <th>Cross Site Scripting</th>
-                                            <th>Illegal Resource Access</th>
-                                            <th>Remote File Inclusion</th>
-                                            <th>Block Bad Bots</th>
-                                            <th>Challenge Suspected Bots</th>
-                                            <th>ACL IP Blacklist</th>
-                                            <th>ACL IP Whitelist</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th></th>
-                                            <th>Site Id</th>
-                                            <th>Site Name</th>
-                                            <th>Backdoor</th>
-                                            <th>SQL injection</th>
-                                            <th>Cross Site Scripting</th>
-                                            <th>Illegal Resource Access</th>
-                                            <th>Remote File Inclusion</th>
-                                            <th>Block Bad Bots</th>
-                                            <th>Challenge Suspected Bots</th>
-                                            <th>ACL IP Blacklist</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--  SELECT ACTION TYPE -->
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-title">
-                                <h2>2- Select Action Type</h2> <br>
-                            </div>
-                            The settings below are the best practice to set as default settings for most sites
-                        </div>
-                        <div class="card">
-                            <div class="card-title">
-                                <label>Backdoor: Auto-Quarantine</label>
-                                <button style="float: right; min-width: 130px;" name="Auto-Quarantine" type="submit"
-                                    class="btn btn-success" id="run_backdoor">Auto-Quarantine</button> <br />
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-title">
-                                <label>Remote File Inclusion Action</label><br />
-                                <button style="float: right; min-width: 130px;" name="Alert Only" type="submit"
-                                    class="btn btn-danger" id="run_rfi_alert">Alert Only</button>
-                                <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
-                                    class="btn btn-success" id="run_rfi">Block Request</button> <br />
-                                <div id="result" style="color:red"></div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-title">
-                                <label>SQL Injection Action</label>
-                                <br />
-                                <button style="float: right; min-width: 130px;" name="Alert Only" type="submit"
-                                    class="btn btn-danger" id="run_sqli_alert">Alert Only</button>
-                                <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
-                                    class="btn btn-success" id="run_sqli">Block Request</button> <br />
-                                <div id="result" style="color:red"></div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-title">
-                                <label>Cross Site Scripting Action</label>
-                                <br />
-                                <button style="float: right; min-width: 130px;" name="Alert Only" onclick="return "
-                                    type="submit" class="btn btn-danger" id="run_xss_alert">Alert Only</button>
-                                <button style="float: right; min-width: 130px;" name="Block Request" onclick="return "
-                                    type="submit" class="btn btn-success" id="run_xss">Block Request</button> <br />
-
-
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-title">
-                                <label>Illegal Resource Access Action</label>
-                                <br />
-                                <button style="float: right; min-width: 130px;" name="Alert Only" type="submit"
-                                    class="btn btn-danger" id="run_ira_alert">Alert Only</button>
-                                <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
-                                    class="btn btn-success" id="run_ira">Block Request</button> <br />
-                                <div id="result" style="color:red"></div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-title">
-                                <label>Block Bad Bots</label>
-                                <button style="float: right; min-width: 130px;" name="Set to True" onclick="return "
-                                    type="submit" class="btn btn-success" id="run_bad_bots">Set to True</button> <br />
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-title">
-                                <label>Challenge Suspected Bot: Disable</label>
-                                <button style="float: right; min-width: 130px;" name="Set to Disable" onclick="return "
-                                    type="submit" class="btn btn-info" id="run_suspected_bots">Set to Disable</button>
-                                <br />
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-title">
-                                <label>Add IPs in Blacklist</label>
-                            </div>
-                            A comma separated list of IPs or IP ranges, e.g: 192.168.1.1, 192.168.1.1-192.168.1.100,
-                            192.168.1.1/24 </br>
-                            <span style="color: red"> the IPs below will be added to the existing configured blocked
-                                IPs</span>
-                            <br>
-                            <input type="text" id="ip_blacklist" name="ip_blacklist"
-                                placeholder="192.168.1.1, 192.168.1.1-192.168.1.100, 192.168.1.1/24"
-                                class="form-control">
-                            <br>
-                            <button style="float: right;" onclick="return" name="Add IPs to Blacklist" type="submit"
-                                class="btn btn-info" id="run_ip_blacklist">Add IPs to Blacklist</button> <br />
-                        </div>
-
-                        <div class="card">
-                            <div class="card-title">
-                                <label>Add IPs in Whitelist </br> (NOT recommended: bypasses all WAF checks)</label>
-                            </div>
-                            A comma separated list of IPs or IP ranges, e.g: 192.168.1.1, 192.168.1.1-192.168.1.100,
-                            192.168.1.1/24 </br>
-                            <span style="color: red"> the IPs below will be added to the existing configured whitelisted
-                                IPs</span>
-                            <br>
-                            <input type="text" id="ip_whitelist" name="ip_whitelist"
-                                placeholder="192.168.1.1, 192.168.1.1-192.168.1.100, 192.168.1.1/24"
-                                class="form-control">
-                            <br>
-                            <button style="float: right;" onclick="return" name="Add IPs to Whitelist" type="submit"
-                                class="btn btn-danger" id="run_ip_whitelist">Add IPs to Whitelist</button> <br />
-                        </div>
-                    </div>
-
-
-                </div>
-
             </div>
+        </div>
+
+
+        <!-- Input Form -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-title">
+                        <h2>1- Select Sites to update</h2>
+                        <button style="float: right; min-width: 130px;" onclick="return" name="Fetch Sites Settings"
+                            type="submit" class="btn btn-info" id="fetch_settings">Fetch Sites Settings</button>
+                        </br>
+                        </br>
+                        <button style="float: right; min-width: 130px;" onclick="return" name="Check API Keys"
+                            type="submit" class="btn btn-info" id="check_api_keys">Check API Keys</button>
+                    </div>
+
+                    <div id="threats_settings" style="overflow-x:auto;">
+                        <table id="security_table" class="display nowrap table table-hover table-striped table-bordered"
+                            data-page-length='25'>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" class="checkAll" name="checkAll"
+                                            style="text-align: center; vertical-align: middle;" /></th>
+                                    <th>Site Id</th>
+                                    <th>Site Name</th>
+                                    <th>Backdoor</th>
+                                    <th>SQL injection</th>
+                                    <th>Cross Site Scripting</th>
+                                    <th>Illegal Resource Access</th>
+                                    <th>Remote File Inclusion</th>
+                                    <th>Block Bad Bots</th>
+                                    <th>Challenge Suspected Bots</th>
+                                    <th>ACL IP Blacklist</th>
+                                    <th>ACL IP Whitelist</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th>Site Id</th>
+                                    <th>Site Name</th>
+                                    <th>Backdoor</th>
+                                    <th>SQL injection</th>
+                                    <th>Cross Site Scripting</th>
+                                    <th>Illegal Resource Access</th>
+                                    <th>Remote File Inclusion</th>
+                                    <th>Block Bad Bots</th>
+                                    <th>Challenge Suspected Bots</th>
+                                    <th>ACL IP Blacklist</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!--  SELECT ACTION TYPE -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-title">
+                        <h2>2- Select Action Type</h2> <br>
+                    </div>
+                    The settings below are the best practice to set as default settings for most sites
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <label>Backdoor: Auto-Quarantine</label>
+                        <button style="float: right; min-width: 130px;" name="Auto-Quarantine" type="submit"
+                            class="btn btn-success" id="run_backdoor">Auto-Quarantine</button> <br />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <label>Remote File Inclusion Action</label><br />
+                        <button style="float: right; min-width: 130px;" name="Alert Only" type="submit"
+                            class="btn btn-danger" id="run_rfi_alert">Alert Only</button>
+                        <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
+                            class="btn btn-success" id="run_rfi">Block Request</button> <br />
+                        <div id="result" style="color:red"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <label>SQL Injection Action</label>
+                        <br />
+                        <button style="float: right; min-width: 130px;" name="Alert Only" type="submit"
+                            class="btn btn-danger" id="run_sqli_alert">Alert Only</button>
+                        <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
+                            class="btn btn-success" id="run_sqli">Block Request</button> <br />
+                        <div id="result" style="color:red"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <label>Cross Site Scripting Action</label>
+                        <br />
+                        <button style="float: right; min-width: 130px;" name="Alert Only" onclick="return "
+                            type="submit" class="btn btn-danger" id="run_xss_alert">Alert Only</button>
+                        <button style="float: right; min-width: 130px;" name="Block Request" onclick="return "
+                            type="submit" class="btn btn-success" id="run_xss">Block Request</button> <br />
+
+
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <label>Illegal Resource Access Action</label>
+                        <br />
+                        <button style="float: right; min-width: 130px;" name="Alert Only" type="submit"
+                            class="btn btn-danger" id="run_ira_alert">Alert Only</button>
+                        <button style="float: right; min-width: 130px;" name="Block Request" type="submit"
+                            class="btn btn-success" id="run_ira">Block Request</button> <br />
+                        <div id="result" style="color:red"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <label>Block Bad Bots</label>
+                        <button style="float: right; min-width: 130px;" name="Set to True" onclick="return "
+                            type="submit" class="btn btn-success" id="run_bad_bots">Set to True</button> <br />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <label>Challenge Suspected Bot: Disable</label>
+                        <button style="float: right; min-width: 130px;" name="Set to Disable" onclick="return "
+                            type="submit" class="btn btn-info" id="run_suspected_bots">Set to Disable</button>
+                        <br />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <label>Add IPs in Blacklist</label>
+                    </div>
+                    A comma separated list of IPs or IP ranges, e.g: 192.168.1.1, 192.168.1.1-192.168.1.100,
+                    192.168.1.1/24 </br>
+                    <span style="color: red"> the IPs below will be added to the existing configured blocked
+                        IPs</span>
+                    <br>
+                    <input type="text" id="ip_blacklist" name="ip_blacklist"
+                        placeholder="192.168.1.1, 192.168.1.1-192.168.1.100, 192.168.1.1/24" class="form-control">
+                    <br>
+                    <button style="float: right;" onclick="return" name="Add IPs to Blacklist" type="submit"
+                        class="btn btn-info" id="run_ip_blacklist">Add IPs to Blacklist</button> <br />
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <label>Add IPs in Whitelist </br> (NOT recommended: bypasses all WAF checks)</label>
+                    </div>
+                    A comma separated list of IPs or IP ranges, e.g: 192.168.1.1, 192.168.1.1-192.168.1.100,
+                    192.168.1.1/24 </br>
+                    <span style="color: red"> the IPs below will be added to the existing configured whitelisted
+                        IPs</span>
+                    <br>
+                    <input type="text" id="ip_whitelist" name="ip_whitelist"
+                        placeholder="192.168.1.1, 192.168.1.1-192.168.1.100, 192.168.1.1/24" class="form-control">
+                    <br>
+                    <button style="float: right;" onclick="return" name="Add IPs to Whitelist" type="submit"
+                        class="btn btn-danger" id="run_ip_whitelist">Add IPs to Whitelist</button> <br />
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
 
     <!-- END ROW of Inputs form -->
 
@@ -290,7 +285,6 @@
 <script type='text/javascript' src='https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js'></script>
 
 <script src="js/calendar-2/moment.latest.min.js"></script>
-<script src="js/jquery.slimscroll.js"></script> <!-- to have scroll within a div part -->
 <script src="js/scripts.js"></script>
 <script src="js/sweetalert/sweetalert.min.js"></script>
 <script src="js/toastr/toastr.min.js"></script>
@@ -298,7 +292,7 @@
 
 
 <script>
-toastr.warning('Bulk changes is not yet implemented in this new version, stay tuned in Github' , 'Warning');
+    toastr.warning('Bulk changes is not yet implemented in this new version, stay tuned in Github', 'Warning');
 
     function fill_settings_table() {
         var list_sites = [];
