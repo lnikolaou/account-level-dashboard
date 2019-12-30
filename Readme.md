@@ -11,23 +11,34 @@ The Account level dashboard includes:
 
 
 # Installation & Usage
-## First time installation: new NodeJS version  
-1- Install NodeJS from https://nodejs.org/en/download  
-2- Download the project files of this Github directory in a local directory of your choice  
-3- from the project directory, run the command: 'mpn install'  
-4- run the following command: 'node --http-parser=legacy src/app.js '  
-5- browse to localhost:3000  
+## Versions 
+There are 2 versions of this project under 2 different branches
+This is the project that relies on php, and not maintained anymore. 
 
-## Usage
-After the first time installation, you only need to run the following command from the project directory:  
-1- run 'node src/app.js'  
-2- browse to localhost:3000   
+## HOW TO: Install using Xampp (local virtual web server)
+1- download Xampp tool and check that Apache is started on it  
+2- copy this code in C:\xampp\htdocs folder on another htdocs subfolder  
+3- Browse to localhost\subdomainNameYouGave  
+You should see the dashboard !  
+
+
+## HOW TO DEPLOY: Install using Docker
+0- Download Docker on your mac (or PC)  
+1- Build it:  
+•	Create a new directory and place the Dockerfile inside the directory that you just created  
+•	Run the following command from the directory that hold the Dockerfile  
+•	you can replace dashboard:latest to another tag and value(version)  
+#docker build –t dashboard:latest .  
+2- Run it:  
+- In order to run and use the dashboard you need to perform port mapping between your external available port to the expose port inside the dockerfile (which is 80 in our dockerfile case)  
+#docker run –dti -p 8080:80 dashboard:latest  
+3- Use it:  
+Browse to 127.0.0.1:8080  
 
 it is recommended to login with the API keys of the account admin to benefit from all the account information
 
-## legacy PHP version
-The previous PHP version is still available from the PHP subfolder.  
-It can be deployed with the Dockerfile or directly on a web server.
+## HOW TO DEPLOY: Deploy as a web server
+deploy as any html web server under Apache or Ngninx
 
 # Screenshots
   
